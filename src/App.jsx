@@ -1,34 +1,17 @@
 import { useState } from 'react';
 import Intro from './Intro.jsx';
-
+import Count from './Count.jsx';
 
 function App() {
 
-  const [count, setCount] = useState(0);
-
-  const incrementNum = () => {
-    setCount((c) => c + 1);
-  };
-
-  const [person, setPerson] = useState({
-    firstName: 'Joe',
-    lastName: 'Jo',
-    age: 18
-    }
-  );
-
-  const incrementAge = () => {
-    setPerson({...person, age: person.age + 1});
-  }
-
+  const [firstname, setFristname] = useState('John doe')
 
   return <>
     {/* <Intro /> */}
-    <p>Compteur {count}</p>
-    <button onClick={incrementNum}>Incrémenter</button>
-    <p>Donnez un an de plus à {person.firstName}</p>
-    <button onClick={incrementAge}>ajouter</button>
-    <p>{person.firstName} à {person.age} ans</p>
+    {/* <Count /> */}
+    <form>
+      <input type='text' name='firstname'/>
+    </form>
   </>
 }
 
