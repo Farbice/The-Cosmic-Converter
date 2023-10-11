@@ -4,13 +4,17 @@ import Count from './Count.jsx';
 
 function App() {
 
-  const [firstname, setFristname] = useState('John doe')
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(new FormData(e.target));
+  }
 
   return <>
     {/* <Intro /> */}
     {/* <Count /> */}
-    <form>
+    <form onSubmit={handleSubmit}>
       <input type='text' name='firstname'/>
+      <button>Envoyer</button>
     </form>
   </>
 }
