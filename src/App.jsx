@@ -9,11 +9,19 @@ function App() {
     console.log(new FormData(e.target));
   }
 
+  const [value, setValue] = useState("")
+  const handleChange = (e) => {
+    setValue(e.target.value)
+  }
+
+  console.log('render');
+
   return <>
     {/* <Intro /> */}
     {/* <Count /> */}
     <form onSubmit={handleSubmit}>
-      <input type='text' name='firstname'/>
+      <input type='text' name='firstname' value={value} onChange={handleChange}/>
+      {value}
       <button>Envoyer</button>
     </form>
   </>
