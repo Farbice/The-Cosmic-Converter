@@ -20,8 +20,8 @@ function App() {
     {/* <Intro /> */}
     {/* <Count /> */}
     <form onSubmit={handleSubmit}>
-      <h3>Entrez votre montant à convertir</h3>
-      <input type='text' name='firstname' value={value} onChange={handleChange}/> €
+      <h3>Entrez le montant à convertir</h3>
+      <input type='number' name='amount' value={value} onChange={handleChange}/> €
       <button>Convertir en US Dollar</button>
       {value * 1.05}
     </form>
