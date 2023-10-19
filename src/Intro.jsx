@@ -51,6 +51,3 @@ function SecondaryTitle({ color, hidden, ...props }) {
 }
 
 export default Intro
-
-
-// '...props' => spread operator
