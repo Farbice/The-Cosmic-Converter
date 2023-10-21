@@ -39,8 +39,8 @@ function App() {
 
 
   return <>
-    {/* <Intro /> */}
-    {/* <Count /> */}
+    <Intro />
+    <Count />
     
     <form onSubmit={handleSubmit}>
       <h3>Entrez le montant à convertir</h3>
