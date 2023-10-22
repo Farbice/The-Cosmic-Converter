@@ -55,15 +55,24 @@ function Converter() {
         }
     };
 
+    const [selectCurrency, setSelectCurrency] = useState({
+        
+    });
+
     return (
-        <div>
+        <form>
             <h3>Conversion en dollar (avec useEffect)</h3>
             <input type="number" defaultValue={currencyValue.euroAmount} onChange={(e) => handleChange(e, 'euroAmount')} /> €
             <p>{currencyValue.dollarAmount} $</p>
             <h3>Conversion en euros (avec useEffect)</h3>
             <input type="number" defaultValue={currencyValue.dollarAmount} onChange={(e) => handleChange(e, 'dollarAmount')} /> $
             <p>{currencyValue.euroAmount} €</p>
-        </div>
+            <select name="selectCurrency" id="selectCurrency">
+                <option value="euros">{selectCurrency}</option>
+                <option value="dollars">{selectCurrency}</option>
+            </select>
+        </form>
+
     );
 }
 
