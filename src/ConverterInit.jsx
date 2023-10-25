@@ -1,11 +1,6 @@
 import { useState} from 'react';
-import Intro from './Intro.jsx';
-import Count from './Count.jsx';
-import ConverterLegacy from './ConverterLegacy.jsx';
-import ConverterInit from './ConverterInit.jsx';
-import Converter from './Converter.jsx';
 
-function App() {
+function ConverterInit() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,8 +10,6 @@ function App() {
     euroAmount: '',
     dollarAmount: ''
   });
-
-
 
   const [dollarValue, setDollarValue] = useState('');
   const [euroValue, setEuroValue] = useState('');
@@ -41,12 +34,20 @@ function App() {
 
 
   return <>
-    {/* <Intro /> */}
-    {/* <Count /> */}
-    {/* <ConverterLegacy /> */}
-    {/* <ConverterInit /> */}
-    <Converter />
+
+    <form onSubmit={handleSubmit}>
+      <h3>Entrez le montant à convertir</h3>
+      <input type='number' name='euroAmount' defaultValue={dollarValue} onInput={(e) => { handleChange(e, 'dollars')} } /> €
+      <br></br>
+      {dollarValue}
+      <br></br>
+      <input type='number' name='dollarAmount' defaultValue={euroValue} onInput={(e) => { handleChange(e, 'euros')} } /> $
+      <br></br>
+      {euroValue}
+      <br></br>
+    </form>
+
   </>
 }
 
-export default App
+export default ConverterInit

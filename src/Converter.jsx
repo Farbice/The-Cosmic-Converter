@@ -10,23 +10,18 @@ function showCurrency (ratesTable) {
 
 
 function Converter() {
-    const [currencyValue, setCurrencyValues] = useState({
-        euroAmount: '',
-        dollarAmount: ''
-    });
-
-    const [rates, setRate] = useState({
-        eurToDollarRate: '',
-        dollarToEurRate: ''
-    });
 
     const [selectedCurrency, setSelectedCurrency] = useState([]);
     const [rateSelectOption, setRateSelectOption] = useState([]);
-    const [defaultCurrencyKey, setDefaultCurrencyKey] = useState({});
+    const [defaultCurrencyKeyA, setDefaultCurrencyKeyA] = useState({});
+    console.log(defaultCurrencyKeyA);
+    const [defaultCurrencyKeyB, setDefaultCurrencyKeyB] = useState({});
+
     const [selectedOptionsA, setSelectedOptionsA] = useState({ label:'hello', value:'jk'});
+    const [selectedOptionsB, setSelectedOptionsB] = useState({ label:'hello', value:'jk'});
 
 
-    const customizeRates = (ratesTable, targetRate) => {
+    const customizeRates = (ratesTable, targetRate, targetInput) => {
         const rateEntries = Object.entries(ratesTable);
         const rateArray = rateEntries.map(([currency, rate]) => {
             return {
@@ -36,10 +31,18 @@ function Converter() {
                 rate: parseFloat(rate / ratesTable[targetRate]).toFixed(4),
             }
         });
-    
-        const defaultRate = rateArray.filter((e) => e.currency == targetRate);
-        setDefaultCurrencyKey(defaultRate);
-        setSelectedOptionsA(defaultRate.label);
+        
+        if(targetInput === 'currencyA') {
+            const defaultRateA = rateArray.filter((e) => e.currency == targetRate);
+            setDefaultCurrencyKeyA(defaultRateA);
+            setSelectedOptionsA(defaultRateA.label);
+        } else if(targetInput === 'currencyB') {
+            const defaultRateB = rateArray.filter((e) => e.currency == targetRate);
+            setDefaultCurrencyKeyB(defaultRateB);
+            setSelectedOptionsB(defaultRateB.label);
+        }
+
+        
     
         return rateArray;
     }
@@ -49,10 +52,12 @@ function Converter() {
             try {
                 const response = await fetch('https://cdn.taux.live/api/latest.json');
                 const data = await response.json();
-                const selectData = customizeRates(data.rates, 'EUR');
+                const selectDataA = customizeRates(data.rates, 'EUR', 'currencyA');
+                const selectDataB = customizeRates(data.rates, 'USD', 'currencyB');
                 const currKeys = showCurrency(data.rates);
                 setSelectedCurrency(currKeys); 
-                setRateSelectOption(selectData);
+                setRateSelectOption(selectDataA);
+                setRateSelectOption(selectDataB);
     
             } catch (error) {
                 console.error('Erreur lors de la récupération des taux de change :', error);
@@ -63,54 +68,40 @@ function Converter() {
 
     useEffect(() => console.log('selectA value : ' + selectedOptionsA), [selectedOptionsA]);
 
-    const handleChange = (e, currency) => {
-        let updatedValue;
-        switch (currency) {
-            case 'euroAmount':
-                updatedValue = (parseFloat(e.target.value) * rates.eurToDollarRate).toFixed(2);
-                setCurrencyValues({ ...currencyValue, euroAmount: updatedValue });
-                break;
-            case 'dollarAmount':
-                updatedValue = (parseFloat(e.target.value) * 1/rates.eurToDollarRate).toFixed(2);
-                setCurrencyValues({ ...currencyValue, dollarAmount: updatedValue });
-                break;
-            default:
-                break;
-        }
-    };
-
-    function handleSelect(data) {
+    function handleSelectA(data) {
         console.log(data);
         setSelectedOptionsA(data);
-      }
+    }
+
+    function handleSelectB(data) {
+        console.log(data);
+        setSelectedOptionsB(data);
+    }
 
     return (
         <form>
-            <h3>Conversion en dollar (avec useEffect)</h3>
-            <input type="number" defaultValue={currencyValue.euroAmount} onChange={(e) => handleChange(e, 'euroAmount')} /> €
-            <p>{currencyValue.dollarAmount} $</p>
-            <h3>Conversion en euros (avec useEffect)</h3>
-            <input type="number" defaultValue={currencyValue.dollarAmount} onChange={(e) => handleChange(e, 'dollarAmount')} /> $
-            <p>{currencyValue.euroAmount} €</p>
-            {/* <select name="selectCurrency" id="selectCurrency" value={selectedCurrency} onChange={e => setSelectedCurrency(e.target.value)}>
+            <div style={{ width: '120px'}}>
+
                 {
-                    selectedCurrency.map((key, index) => <option key={index} value={key}>{key}</option>)
-                }
-            </select> */}
+                                (rateSelectOption.length > 0) &&  <Select
+                                    options={rateSelectOption}
+                                    defaultValue={defaultCurrencyKeyA}
+                                    value={selectedOptionsA}
+                                    onChange={handleSelectA}
+                                />
+                        }
+            </div>
+            <div style={{ width: '120px'}}>
 
-
-<div style={{ width: '120px'}}>
-
-       {
-                    (rateSelectOption.length > 0) &&  <Select
-                        options={rateSelectOption}
-                        defaultValue={defaultCurrencyKey}
-                        value={selectedOptionsA}
-                        onChange={handleSelect}
-                    />
-            }
-</div>
-         
+                {
+                                (rateSelectOption.length > 0) &&  <Select
+                                    options={rateSelectOption}
+                                    defaultValue={defaultCurrencyKeyB}
+                                    value={selectedOptionsB}
+                                    onChange={handleSelectB}
+                                />
+                        }
+            </div>
         </form>
     );
 }
