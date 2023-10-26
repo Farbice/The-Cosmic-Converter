@@ -14,11 +14,9 @@ function Converter() {
     const [selectedCurrency, setSelectedCurrency] = useState([]);
     const [rateSelectOption, setRateSelectOption] = useState([]);
     const [defaultCurrencyKeyA, setDefaultCurrencyKeyA] = useState({});
-    console.log(defaultCurrencyKeyA);
     const [defaultCurrencyKeyB, setDefaultCurrencyKeyB] = useState({});
-
-    const [selectedOptionsA, setSelectedOptionsA] = useState({ label:'hello', value:'jk'});
-    const [selectedOptionsB, setSelectedOptionsB] = useState({ label:'hello', value:'jk'});
+    const [selectedOptionsA, setSelectedOptionsA] = useState({});
+    const [selectedOptionsB, setSelectedOptionsB] = useState({});
 
 
     const customizeRates = (ratesTable, targetRate, targetInput) => {
