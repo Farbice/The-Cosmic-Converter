@@ -44,8 +44,8 @@ function App() {
     {/* <Intro /> */}
     {/* <Count /> */}
     {/* <ConverterLegacy /> */}
-    {/* <ConverterInit /> */}
-    <Converter />
+    <ConverterInit />
+    {/* <Converter /> */}
   </>
 }
 

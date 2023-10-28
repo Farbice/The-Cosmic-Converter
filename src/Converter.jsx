@@ -26,7 +26,7 @@ function Converter() {
                 currency: currency,
                 value: currency,
                 label: currency,
-                rate: parseFloat(rate / ratesTable[targetRate]).toFixed(4),
+                rate: parseFloat(rate / ratesTable[targetRate]).toFixed(4)
             }
         });
         
@@ -81,24 +81,24 @@ function Converter() {
             <div style={{ width: '120px'}}>
 
                 {
-                                (rateSelectOption.length > 0) &&  <Select
-                                    options={rateSelectOption}
-                                    defaultValue={defaultCurrencyKeyA}
-                                    value={selectedOptionsA}
-                                    onChange={handleSelectA}
-                                />
-                        }
+                    (rateSelectOption.length > 0) &&  <Select
+                        options={rateSelectOption}
+                        defaultValue={defaultCurrencyKeyA}
+                        value={selectedOptionsA}
+                        onChange={handleSelectA}
+                    />
+                }
             </div>
             <div style={{ width: '120px'}}>
 
                 {
-                                (rateSelectOption.length > 0) &&  <Select
-                                    options={rateSelectOption}
-                                    defaultValue={defaultCurrencyKeyB}
-                                    value={selectedOptionsB}
-                                    onChange={handleSelectB}
-                                />
-                        }
+                    (rateSelectOption.length > 0) &&  <Select
+                        options={rateSelectOption}
+                        defaultValue={defaultCurrencyKeyB}
+                        value={selectedOptionsB}
+                        onChange={handleSelectB}
+                    />
+                }
             </div>
         </form>
     );
