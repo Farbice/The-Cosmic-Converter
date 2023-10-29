@@ -78,6 +78,7 @@ function Converter() {
 
     return (
         <form>
+            <input type="number" defaultValue={''}/>
             <div style={{ width: '120px'}}>
 
                 {
@@ -89,6 +90,7 @@ function Converter() {
                     />
                 }
             </div>
+            <input type="number" defaultValue={''}/>
             <div style={{ width: '120px'}}>
 
                 {
