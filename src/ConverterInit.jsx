@@ -26,7 +26,7 @@ function ConverterInit() {
           setEuroValue('');
         }
           
-        break;
+      break;
       case 'euros':
         console.log(e.target);
         if(e.target.value.length > 0.5) {
@@ -37,7 +37,7 @@ function ConverterInit() {
           //console.log('else if dollvalue here');
           setDollarValue('');
         }
-        break;
+      break;
       default:
         break;
     }
@@ -48,13 +48,13 @@ function ConverterInit() {
 
     <form>
       <h3>Entrez le montant à convertir</h3>
-      <input type='number' name='dollarAmount' defaultValue={euroValue} onInput={(e) => { handleChange(e, 'euros')} } /> $
-      <br></br>
-      {euroValue}
-      <br></br>
-      <input type='number' name='euroAmount' defaultValue={dollarValue} onInput={(e) => { handleChange(e, 'dollars')} } /> €
+      <input type='number' name='euroAmount' defaultValue={dollarValue} onChange={(e) => { handleChange(e, 'dollars')} } /> €
       <br></br>
       {dollarValue}
+      <br></br>
+      <input type='number' name='dollarAmount' defaultValue={euroValue} onChange={(e) => { handleChange(e, 'euros')} } /> $
+      <br></br>
+      {euroValue}
       <br></br>
       
     </form>

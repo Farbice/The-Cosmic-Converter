@@ -18,6 +18,7 @@ function Converter() {
     const [selectedOptionsA, setSelectedOptionsA] = useState({});
     const [selectedOptionsB, setSelectedOptionsB] = useState({});
 
+    const [showConvert, setShowConvert] = useState ('');
 
     const customizeRates = (ratesTable, targetRate, targetInput) => {
         const rateEntries = Object.entries(ratesTable);
@@ -64,8 +65,6 @@ function Converter() {
         fetchExchangeRate();
     }, []);
 
-    useEffect(() => console.log('selectA value : ' + selectedOptionsA), [selectedOptionsA]);
-
     function handleSelectA(data) {
         console.log(data);
         setSelectedOptionsA(data);
@@ -76,31 +75,56 @@ function Converter() {
         setSelectedOptionsB(data);
     }
 
+
+    const convertValue = (initValue, targetValues) => {
+        console.log(selectedOptionsA);
+        const result = initValue * targetValues.value
+        console.log(result);
+        setShowConvert(`<p> la valeur convertie est ${result}</p> `);
+        return result
+    }
+
+
+
+    function handleSubmit(e) {
+        e.preventDefault();
+    };
+
     return (
-        <form>
-            <input type="number" defaultValue={''}/>
+        <form onSubmit={handleSubmit}>
+            <input type="number" defaultValue={''} placeholder="Montant à convertir" style={{width: 'fit-content', border: '1px solid lightGray', padding: '0.5rem', borderRadius: '4px'}}/>
+            <h3>Devise de départ</h3>
             <div style={{ width: '120px'}}>
 
                 {
-                    (rateSelectOption.length > 0) &&  <Select
+                    (rateSelectOption.length > 0) && <Select
                         options={rateSelectOption}
                         defaultValue={defaultCurrencyKeyA}
                         value={selectedOptionsA}
                         onChange={handleSelectA}
+                        autoFocus={true}
                     />
                 }
             </div>
-            <input type="number" defaultValue={''}/>
-            <div style={{ width: '120px'}}>
+            <h3>Choisissez vos devises d'arrivée</h3>
+            <div style={{ width: 'fit-content'}}>
 
                 {
-                    (rateSelectOption.length > 0) &&  <Select
+                    (rateSelectOption.length > 0) && <Select
+                        isMulti
                         options={rateSelectOption}
                         defaultValue={defaultCurrencyKeyB}
                         value={selectedOptionsB}
                         onChange={handleSelectB}
+                        autoFocus={true}
                     />
                 }
+            </div>
+            <div>
+                <button onClick={() => convertValue(12, {label: 'USD', value: 1.05})}>Convertir</button>
+            </div>
+            <div dangerouslySetInnerHTML={{__html: showConvert}}>
+                
             </div>
         </form>
     );
