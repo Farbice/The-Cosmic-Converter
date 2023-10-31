@@ -90,9 +90,17 @@ function Converter() {
         e.preventDefault();
     };
 
+    const [inputValue, setInputValue] = useState({
+    
+    })
+
+    function handleChange(e) {
+        setInputValue(e.target.value);
+    }
+
     return (
         <form onSubmit={handleSubmit}>
-            <input type="number" defaultValue={''} placeholder="Montant à convertir" style={{width: 'fit-content', border: '1px solid lightGray', padding: '0.5rem', borderRadius: '4px'}}/>
+            <input type="number" defaultValue={''} placeholder="Montant à convertir" onChange={handleChange} style={{width: 'fit-content', border: '1px solid lightGray', padding: '0.5rem', borderRadius: '4px'}}/>
             <h3>Devise de départ</h3>
             <div style={{ width: '120px'}}>
 
