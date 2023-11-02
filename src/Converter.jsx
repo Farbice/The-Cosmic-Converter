@@ -15,10 +15,21 @@ function Converter() {
     const [rateSelectOption, setRateSelectOption] = useState([]);
     const [defaultCurrencyKeyA, setDefaultCurrencyKeyA] = useState({});
     const [defaultCurrencyKeyB, setDefaultCurrencyKeyB] = useState({});
-    const [selectedOptionsA, setSelectedOptionsA] = useState({});
-    const [selectedOptionsB, setSelectedOptionsB] = useState({});
+    const [selectedOptionsA, setSelectedOptionsA] = useState({
+        currency: 'EUR',
+        value: 'EUR',
+        label: 'EUR',
+        rate: 1
+    });
+    const [selectedOptionsB, setSelectedOptionsB] = useState({
+        currency: 'USD',
+        value: 'USD',
+        label: 'USD',
+        rate: 1.05
+    });
 
     const [showConvert, setShowConvert] = useState ('');
+    const [inputValue, setInputValue] = useState('')
 
     const customizeRates = (ratesTable, targetRate, targetInput) => {
         const rateEntries = Object.entries(ratesTable);
@@ -66,37 +77,37 @@ function Converter() {
     }, []);
 
     function handleSelectA(data) {
-        console.log(data);
+        //console.log(data);
         setSelectedOptionsA(data);
     }
 
+
     function handleSelectB(data) {
-        console.log(data);
+        //console.log(data);
         setSelectedOptionsB(data);
     }
 
 
     const convertValue = (initValue, targetValues) => {
         console.log(selectedOptionsA);
-        const result = initValue * targetValues.value
+        console.log(selectedOptionsB);
+        const result = initValue.rate * targetValues.rate
         console.log(result);
         setShowConvert(`<p> la valeur convertie est ${result}</p> `);
         return result
     }
 
 
-
     function handleSubmit(e) {
         e.preventDefault();
     };
 
-    const [inputValue, setInputValue] = useState({
-    
-    })
-
     function handleChange(e) {
         setInputValue(e.target.value);
+        console.log(inputValue);
     }
+
+    //console.log(inputValue);
 
     return (
         <form onSubmit={handleSubmit}>
@@ -113,6 +124,7 @@ function Converter() {
                         autoFocus={true}
                     />
                 }
+
             </div>
             <h3>Choisissez vos devises d'arrivée</h3>
             <div style={{ width: 'fit-content'}}>
@@ -127,9 +139,10 @@ function Converter() {
                         autoFocus={true}
                     />
                 }
+
             </div>
             <div>
-                <button onClick={() => convertValue(12, {label: 'USD', value: 1.05})}>Convertir</button>
+                <button onClick={() => convertValue(inputValue, selectedOptionsA, selectedOptionsB)}>Convertir</button>
             </div>
             <div dangerouslySetInnerHTML={{__html: showConvert}}>
                 
