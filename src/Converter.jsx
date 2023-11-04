@@ -28,8 +28,12 @@ function Converter() {
         rate: 1.05
     });
 
+    
+
+
     const [showConvert, setShowConvert] = useState ('');
     const [inputValue, setInputValue] = useState('')
+
 
     const customizeRates = (ratesTable, targetRate, targetInput) => {
         const rateEntries = Object.entries(ratesTable);
@@ -53,7 +57,6 @@ function Converter() {
         }
 
         
-    
         return rateArray;
     }
 
@@ -76,6 +79,9 @@ function Converter() {
         fetchExchangeRate();
     }, []);
 
+    console.log(selectedOptionsA);
+    console.log(selectedOptionsB);
+
     function handleSelectA(data) {
         //console.log(data);
         setSelectedOptionsA(data);
@@ -88,11 +94,8 @@ function Converter() {
     }
 
 
-    const convertValue = (initValue, targetValues) => {
-        console.log(selectedOptionsA);
-        console.log(selectedOptionsB);
-        const result = initValue.rate * targetValues.rate
-        console.log(result);
+    const convertValue = (value) => {
+        const result = value * 5.9898
         setShowConvert(`<p> la valeur convertie est ${result}</p> `);
         return result
     }
@@ -104,7 +107,6 @@ function Converter() {
 
     function handleChange(e) {
         setInputValue(e.target.value);
-        console.log(inputValue);
     }
 
     //console.log(inputValue);
@@ -142,13 +144,13 @@ function Converter() {
 
             </div>
             <div>
-                <button onClick={() => convertValue(inputValue, selectedOptionsA, selectedOptionsB)}>Convertir</button>
+                <button onClick={() => convertValue(inputValue)}>Convertir</button>
             </div>
             <div dangerouslySetInnerHTML={{__html: showConvert}}>
                 
             </div>
         </form>
-    );
+    )
 }
 
 export default Converter;
