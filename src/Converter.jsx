@@ -35,6 +35,13 @@ function Converter() {
     const [inputValue, setInputValue] = useState('')
 
 
+    /** 
+     *  This function updates rates according to a chosen currency label
+     * @param ratesTable - The rates tables from the fetch api
+     * @param targetRate - currency to set by default
+     * @param targetInput - A string to choose between input or output currency
+     * @return {array} - array of all rates values with target rate set to 1
+    */
     const customizeRates = (ratesTable, targetRate, targetInput) => {
         const rateEntries = Object.entries(ratesTable);
         const rateArray = rateEntries.map(([currency, rate]) => {
@@ -61,14 +68,20 @@ function Converter() {
     }
 
     useEffect(() => {
+
         async function fetchExchangeRate() {
+
+            
             try {
                 const response = await fetch('https://cdn.taux.live/api/latest.json');
                 const data = await response.json();
+
+                console.log('MACO');
                 const selectDataA = customizeRates(data.rates, 'EUR', 'currencyA');
                 const selectDataB = customizeRates(data.rates, 'USD', 'currencyB');
                 const currKeys = showCurrency(data.rates);
-                setSelectedCurrency(currKeys); 
+                setSelectedCurrency(currKeys);
+                console.log('currKeys', currKeys);
                 setRateSelectOption(selectDataA);
                 setRateSelectOption(selectDataB);
     
@@ -76,11 +89,14 @@ function Converter() {
                 console.error('Erreur lors de la récupération des taux de change :', error);
             }
         }
-        fetchExchangeRate();
+        console.log('selectedCurrency ', selectedCurrency);
+        if(selectedCurrency.length < 1) fetchExchangeRate();
     }, []);
 
-    console.log(selectedOptionsA);
-    console.log(selectedOptionsB);
+    setTimeout(() => {
+        console.log(selectedOptionsA);
+        console.log(selectedOptionsB);
+    }, 5000);
 
     function handleSelectA(data) {
         //console.log(data);
