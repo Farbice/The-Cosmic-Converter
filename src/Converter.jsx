@@ -44,9 +44,9 @@ function Converter() {
                 rate: parseFloat(rate / ratesTable[targetRate]).toFixed(4)
             }
         });
-            const defaultRates = rateArray.filter((e) => e.currency == targetRate);
-            setFirstCurrency(defaultRates);
-            setTargetCurrencies(defaultRates);
+        const defaultRates = rateArray.filter((currency) => currency.label === targetRate);
+        setFirstCurrency(defaultRates);
+        setTargetCurrencies(defaultRates);
         
         return rateArray;
     }
