@@ -1,35 +1,26 @@
 import { useState, useEffect } from "react";
-import { render } from "react-dom";
 import Select from 'react-select';
 
 
-
-function showCurrency (ratesTable) {
-    const currencyKeys = Object.keys(ratesTable);
-    return currencyKeys;
-}
-
-
 function Converter() {
-
-    const [selectedCurrency, setSelectedCurrency] = useState([]);
     const [rateSelectOption, setRateSelectOption] = useState([]);
 
-    const [defaultCurrencyKeyA, setDefaultCurrencyKeyA] = useState({});
-    const [defaultCurrencyKeyB, setDefaultCurrencyKeyB] = useState({});
-
-    const [selectedOptionsA, setSelectedOptionsA] = useState({
+    const defaultFirstCurrency = {
         currency: 'EUR',
         value: 'EUR',
         label: 'EUR',
-        rate: 1
-    });
-    const [selectedOptionsB, setSelectedOptionsB] = useState({
+        rate: '1'
+    };
+    const defaultTargetCurrenciesKey = {
         currency: 'USD',
         value: 'USD',
         label: 'USD',
-        rate: 1.05
-    });
+        rate:'1.05'
+    };
+
+    const [firstCurrency, setFirstCurrency] = useState(defaultFirstCurrency);
+
+    const [targetCurrencies, setTargetCurrencies] = useState(defaultTargetCurrenciesKey);
 
 
     const [showConvert, setShowConvert] = useState ('');
@@ -43,9 +34,7 @@ function Converter() {
      * @param targetInput - A string to choose between input or output currency
      * @return {array} - array of all rates values with target rate set to 1
     */
-
-
-    const customizeRates = (ratesTable, targetRate, targetInput) => {
+    const customizeRates = (ratesTable, targetRate) => {
         const rateEntries = Object.entries(ratesTable);
         const rateArray = rateEntries.map(([currency, rate]) => {
             return {
@@ -55,19 +44,9 @@ function Converter() {
                 rate: parseFloat(rate / ratesTable[targetRate]).toFixed(4)
             }
         });
-        
-        if(targetInput === 'currencyA') {
-            const defaultRateA = rateArray.filter((e) => e.currency == targetRate);
-            console.log('defaultRateA : ', defaultRateA);
-            setDefaultCurrencyKeyA(defaultRateA);
-            setSelectedOptionsA(defaultRateA.label);
-        } else if(targetInput === 'currencyB') {
-            const defaultRateB = rateArray.filter((e) => e.currency == targetRate);
-            console.log('defaultRateB : ', defaultRateB);
-            setDefaultCurrencyKeyB(defaultRateB);
-            setSelectedOptionsB(defaultRateB.label);
-        }
-
+            const defaultRates = rateArray.filter((e) => e.currency == targetRate);
+            setFirstCurrency(defaultRates);
+            setTargetCurrencies(defaultRates);
         
         return rateArray;
     }
@@ -80,62 +59,52 @@ function Converter() {
             try {
                 const response = await fetch('https://cdn.taux.live/api/latest.json');
                 const data = await response.json();
-                const selectDataA = customizeRates(data.rates, 'EUR', 'currencyA');
-                const selectDataB = customizeRates(data.rates, 'USD', 'currencyB');
-                const currKeys = showCurrency(data.rates);
-                //setSelectedCurrency(currKeys);
-                setRateSelectOption(selectDataA);
-                setRateSelectOption(selectDataB);
+                const selectData = customizeRates(data.rates, 'EUR');
+                setRateSelectOption(selectData);
             } catch (error) {
                 console.error('Erreur lors de la récupération des taux de change :', error);
             }
         }
 
-        if(selectedCurrency.length < 1) fetchExchangeRate();
+        fetchExchangeRate();
     }, []);
 
 
-    function handleSelectA(data) {
-        console.log(data);
-        setSelectedOptionsA(data);
+    function handleFirstCurrency(data) {
+        setFirstCurrency(data);
     }
 
-    function handleSelectB(data) {
-        console.log(data);
-        setSelectedOptionsB(data);
+    function handleTargetCurrencies(data) {
+        setTargetCurrencies(data);
     }
 
 
 
-    const convertValue = (value) => {
-        const result = value * 5.9898;
+    const convertValue = () => {
+        console.log('firstCurrency : ', firstCurrency);
+        console.log('targetCurrencies : ', targetCurrencies);
+        console.log('defaultFirstCurrency : ', defaultFirstCurrency);
+        console.log('defaultTargetCurrenciesKey : ', defaultTargetCurrenciesKey);
 
-        console.log('selectedOptionsA : ', selectedOptionsA);
-        console.log('selectedOptionsB : ', selectedOptionsB);
-        console.log('defaultCurrencyKeyA : ', defaultCurrencyKeyA);
-        console.log('defaultCurrencyKeyB : ', defaultCurrencyKeyB);
-
-        setShowConvert(`<p> la valeur convertie est ${result}</p> `);
-        return result
+        let resultText = '';
+            targetCurrencies.forEach(currency => {
+            resultText += `<p> la valeur convertie en <strong> ${currency.label }</strong> est ${(inputValue * currency.rate).toFixed(2) }</p> <br/> `
+        } );
+        setShowConvert(resultText);
     }
 
 
     function handleSubmit(e) {
         e.preventDefault();
-    };
-
+    }
 
     /**
      * This function gets the input value and set the state of const inputValue
-     * @param e - type event
+     * @param inputValue - input value.
      */
-
-
-    function handleChange(e) {
+    function handleInputChange(e) {
         setInputValue(e.target.value);
     }
-
-    //console.log(inputValue);
 
     return (
         <>
@@ -143,39 +112,35 @@ function Converter() {
                 <h3>Devise initiale :</h3>
                 <div style={{ width: '120px'}}>
 
-                    {
-                        (rateSelectOption.length > 0) && <Select
-                            options={rateSelectOption}
-                            defaultValue={defaultCurrencyKeyA.label}
-                            value={selectedOptionsA}
-                            onChange={handleSelectA}
-                            autoFocus={true}
-                        />
-                    }
+                    <Select
+                        options={rateSelectOption}
+                        defaultValue={defaultFirstCurrency}
+                        value={firstCurrency}
+                        onChange={handleFirstCurrency}
+                        autoFocus={true}
+                    />
 
                 </div>
                 <span style={{display: 'block', height: '1rem'}}></span>
                 
-                <input type="number" defaultValue={''} placeholder="Entrez le montant à convertir" onChange={handleChange} style={{width: '12rem', border: '1px solid lightGray', padding: '0.5rem', borderRadius: '4px'}}/>
+                <input type="number" defaultValue={''} placeholder="Entrez le montant à convertir" onChange={handleInputChange} style={{width: '12rem', border: '1px solid lightGray', padding: '0.5rem', borderRadius: '4px'}}/>
 
                 <h3>À convertir en :</h3>
                 <div style={{ width: 'fit-content'}}>
 
-                    {
-                        (rateSelectOption.length > 0) && <Select
+                        <Select
                             isMulti
                             options={rateSelectOption}
-                            defaultValue={defaultCurrencyKeyB.label}
-                            value={selectedOptionsB}
-                            onChange={handleSelectB}
+                            defaultValue={defaultTargetCurrenciesKey}
+                            value={targetCurrencies}
+                            onChange={handleTargetCurrencies}
                             autoFocus={true}
                         />
-                    }
 
                 </div>
                 <span style={{display: 'block', height: '1rem'}}></span>
                 <div>
-                    <button onClick={() => convertValue(inputValue)}>Convertir</button>
+                    <button onClick={() => convertValue()}>Convertir</button>
                 </div>
                 <div dangerouslySetInnerHTML={{__html: showConvert}}>
 
