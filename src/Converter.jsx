@@ -19,37 +19,44 @@ function Converter() {
     };
 
     const [firstCurrency, setFirstCurrency] = useState(defaultFirstCurrency);
-
-    const [targetCurrencies, setTargetCurrencies] = useState(defaultTargetCurrenciesKey);
+    const [defaultTargetCurrency, setDefaultTargetCurrency] = useState(defaultTargetCurrenciesKey);
+    //console.log('defaultTargetCurrency', defaultTargetCurrency);
+    const [targetCurrencies, setTargetCurrencies] = useState('');
 
 
     const [showConvert, setShowConvert] = useState ('');
     const [inputValue, setInputValue] = useState('')
 
+    const [dataTable, setDataTable] = useState('');
+
 
     /** 
      *  This function updates rates according to a chosen currency label
      * @param ratesTable - The rates tables from the fetch api
-     * @param targetRate - currency to set by default
-     * @param targetInput - A string to choose between input or output currency
-     * @return {array} - array of all rates values with target rate set to 1
+     * @param targetCurrency - currency to set by default
+     * @return {array} - array of all rates values with target currency rate set to 1
     */
-    const customizeRates = (ratesTable, targetRate) => {
+    const customizeRates = (ratesTable, targetCurrency) => {
         const rateEntries = Object.entries(ratesTable);
         const rateArray = rateEntries.map(([currency, rate]) => {
             return {
                 currency: currency,
                 value: currency,
                 label: currency,
-                rate: parseFloat(rate / ratesTable[targetRate]).toFixed(4)
+                rate: parseFloat(rate / ratesTable[targetCurrency]).toFixed(4)
             }
         });
-        const defaultRates = rateArray.filter((currency) => currency.label === targetRate);
-        setFirstCurrency(defaultRates);
-        setTargetCurrencies(defaultRates);
+        const defaultInputCurrency = rateArray.filter((currency) => currency.label === targetCurrency);
+        const defaultTargetCurrency = rateArray.filter((currency) => currency.label === 'USD');
+        console.log('defaultInputCurrency : ', defaultInputCurrency);
+        console.log('defaultTargetCurrency', defaultTargetCurrency);
+        setFirstCurrency(defaultInputCurrency);
+        setDefaultTargetCurrency(defaultTargetCurrency)
+        setTargetCurrencies(defaultTargetCurrency);
         
         return rateArray;
     }
+
 
     useEffect(() => {
 
@@ -59,7 +66,8 @@ function Converter() {
             try {
                 const response = await fetch('https://cdn.taux.live/api/latest.json');
                 const data = await response.json();
-                const selectData = customizeRates(data.rates, 'EUR');
+                setDataTable(data.rates);
+                const selectData = customizeRates(data.rates, firstCurrency.currency);
                 setRateSelectOption(selectData);
             } catch (error) {
                 console.error('Erreur lors de la récupération des taux de change :', error);
@@ -71,13 +79,15 @@ function Converter() {
 
 
     function handleFirstCurrency(data) {
-        setFirstCurrency(data);
+        console.log('handleFirstCurrency', data);
+        customizeRates(dataTable, data.label);
     }
 
     function handleTargetCurrencies(data) {
+        console.log(data);
         setTargetCurrencies(data);
+        console.log('targetCurrencies ', targetCurrencies);
     }
-
 
 
     const convertValue = () => {
@@ -89,9 +99,10 @@ function Converter() {
         let resultText = '';
             targetCurrencies.forEach(currency => {
             resultText += `<p> la valeur convertie en <strong> ${currency.label }</strong> est ${(inputValue * currency.rate).toFixed(2) }</p> <br/> `
-        } );
+        });
         setShowConvert(resultText);
     }
+
 
 
     function handleSubmit(e) {
@@ -131,8 +142,8 @@ function Converter() {
                         <Select
                             isMulti
                             options={rateSelectOption}
-                            defaultValue={defaultTargetCurrenciesKey}
-                            value={targetCurrencies}
+                            defaultValue={defaultTargetCurrency}
+                            //value={targetCurrencies}
                             onChange={handleTargetCurrencies}
                             autoFocus={true}
                         />
