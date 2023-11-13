@@ -20,15 +20,17 @@ function Converter() {
 
     const [firstCurrency, setFirstCurrency] = useState(defaultFirstCurrency);
     const [defaultTargetCurrency, setDefaultTargetCurrency] = useState(defaultTargetCurrenciesKey);
-    //console.log('defaultTargetCurrency', defaultTargetCurrency);
-    const [targetCurrencies, setTargetCurrencies] = useState('');
+
+    const [targetCurrencies, setTargetCurrencies] = useState([]);
 
 
     const [showConvert, setShowConvert] = useState ('');
     const [inputValue, setInputValue] = useState('')
 
-    const [dataTable, setDataTable] = useState('');
+    const [dataTable, setDataTable] = useState(rateSelectOption);
+    const [inputCurrencyCustomRateTable, setInputCurrencyCustomRateTable] = useState('');
 
+    //console.log('rateSelectOption', rateSelectOption);
 
     /** 
      *  This function updates rates according to a chosen currency label
@@ -36,7 +38,7 @@ function Converter() {
      * @param targetCurrency - currency to set by default
      * @return {array} - array of all rates values with target currency rate set to 1
     */
-    const customizeRates = (ratesTable, targetCurrency) => {
+    const getRatesSetToInputCurrency = (ratesTable, targetCurrency) => {
         const rateEntries = Object.entries(ratesTable);
         const rateArray = rateEntries.map(([currency, rate]) => {
             return {
@@ -47,16 +49,18 @@ function Converter() {
             }
         });
         const defaultInputCurrency = rateArray.filter((currency) => currency.label === targetCurrency);
-        const defaultTargetCurrency = rateArray.filter((currency) => currency.label === 'USD');
-        console.log('defaultInputCurrency : ', defaultInputCurrency);
-        console.log('defaultTargetCurrency', defaultTargetCurrency);
+        //const defaultTargetCurrency = rateArray.filter((currency) => currency.label === 'USD');
         setFirstCurrency(defaultInputCurrency);
-        setDefaultTargetCurrency(defaultTargetCurrency)
-        setTargetCurrencies(defaultTargetCurrency);
+        //setDefaultTargetCurrency(defaultTargetCurrency);
         
         return rateArray;
     }
 
+    const getOutputCurrencyRates = (table, currencyLabel) => {
+        const outputCurrencyRate = table.filter((currency) => currency.label === currencyLabel);
+        console.log('outputCurrencyRate', outputCurrencyRate);
+        return outputCurrencyRate;
+    }
 
     useEffect(() => {
 
@@ -67,8 +71,15 @@ function Converter() {
                 const response = await fetch('https://cdn.taux.live/api/latest.json');
                 const data = await response.json();
                 setDataTable(data.rates);
-                const selectData = customizeRates(data.rates, firstCurrency.currency);
+                const selectData = getRatesSetToInputCurrency(data.rates, firstCurrency.currency);
+                //console.log('selectData ', selectData);
                 setRateSelectOption(selectData);
+                setInputCurrencyCustomRateTable(selectData);
+                const selectOutputData = getOutputCurrencyRates(selectData, defaultTargetCurrency.label);
+                setDefaultTargetCurrency(selectOutputData);
+                //setTargetCurrencies(selectOutputData);
+                console.log('selectOutputData', selectOutputData);
+
             } catch (error) {
                 console.error('Erreur lors de la récupération des taux de change :', error);
             }
@@ -77,27 +88,55 @@ function Converter() {
         fetchExchangeRate();
     }, []);
 
-
     function handleFirstCurrency(data) {
-        console.log('handleFirstCurrency', data);
-        customizeRates(dataTable, data.label);
+        //console.log('handleFirstCurrency', data);
+        console.log('getRatesSetToInputCurrency', getRatesSetToInputCurrency(dataTable, data.label));
+        const activeSelectData = getRatesSetToInputCurrency(dataTable, data.label);
+        setInputCurrencyCustomRateTable(activeSelectData);
     }
+
+    useEffect (() => {
+
+
+    }, [inputCurrencyCustomRateTable]);
+
 
     function handleTargetCurrencies(data) {
-        console.log(data);
-        setTargetCurrencies(data);
-        console.log('targetCurrencies ', targetCurrencies);
+        console.log('data ', data);
+        console.log('inputCurrencyCustomRateTable', inputCurrencyCustomRateTable);
+
+        const updatedTargetCurrencies = data.map(currencyInfo => {
+            console.log('currencyInfo.label ', currencyInfo.label );
+            const targetCurrenciesTable = getOutputCurrencyRates(inputCurrencyCustomRateTable, currencyInfo.label)
+            return targetCurrenciesTable[0];
+        });
+        console.log('updatedTargetCurrencies ', updatedTargetCurrencies);
+
+        setTargetCurrencies(updatedTargetCurrencies);
+
+
+        // data.forEach(currencyInfo => {
+        //     console.log('currencyInfo.label ', currencyInfo.label );
+        //     const activeOutputSelectData = getOutputCurrencyRates(inputCurrencyCustomRateTable, currencyInfo.label);
+        //     setTargetCurrencies(activeOutputSelectData);
+        //     console.log('activeOutputSelectData', activeOutputSelectData);
+        // })
+
     }
+
+    console.log('targetCurrencies', targetCurrencies);
 
 
     const convertValue = () => {
-        console.log('firstCurrency : ', firstCurrency);
-        console.log('targetCurrencies : ', targetCurrencies);
-        console.log('defaultFirstCurrency : ', defaultFirstCurrency);
-        console.log('defaultTargetCurrenciesKey : ', defaultTargetCurrenciesKey);
+        // console.log('firstCurrency : ', firstCurrency);
+        // console.log('targetCurrencies : ', targetCurrencies);
+        // console.log('defaultFirstCurrency : ', defaultFirstCurrency);
+        // console.log('defaultTargetCurrenciesKey : ', defaultTargetCurrenciesKey);
 
         let resultText = '';
-            targetCurrencies.forEach(currency => {
+        console.log(defaultTargetCurrency);
+
+        targetCurrencies.forEach(currency => {
             resultText += `<p> la valeur convertie en <strong> ${currency.label }</strong> est ${(inputValue * currency.rate).toFixed(2) }</p> <br/> `
         });
         setShowConvert(resultText);
