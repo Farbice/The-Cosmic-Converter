@@ -1,72 +1,35 @@
 import { useState, useEffect, useRef } from "react";
 import Select from 'react-select';
+import formatRatesTable from "./Utilities/formatRatesTable";
+import convertValue from './Utilities/convertValue';
+import getOneCurrency from "./Utilities/getOneCurrency";
 
 
 function Converter() {
-    const [rateSelectOption, setRateSelectOption] = useState([]);
 
-    const defaultFirstCurrency = {
-        currency: 'EUR',
-        value: 'EUR',
-        label: 'EUR',
-        rate: '1'
-    };
-
-    const [defaultUsdRate, setDefaultUsdRate] = useState('');
-
-    const defaultTargetCurrenciesKey = {
+    const [defaultTargetCurrenciesKey, setDefaultTargetCurrenciesKey] = useState({
         currency: 'USD',
         value: 'USD',
         label: 'USD',
-        rate: '1.05'
-    };
+        rate: ''
+    });
 
+    const [rateSelectOption, setRateSelectOption] = useState([]);
     const [firstCurrency, setFirstCurrency] = useState('');
-    const [defaultTargetCurrency, setDefaultTargetCurrency] = useState(defaultTargetCurrenciesKey);
-
     const [targetCurrencies, setTargetCurrencies] = useState('');
 
-
-    const [showConvert, setShowConvert] = useState ('');
-    const [inputValue, setInputValue] = useState('')
+    const [showConvert, setShowConvert] = useState('');
+    const [inputValue, setInputValue] = useState('');
 
     const [dataTable, setDataTable] = useState(rateSelectOption);
     const [inputCurrencyCustomRateTable, setInputCurrencyCustomRateTable] = useState('');
 
-    //console.log('rateSelectOption', rateSelectOption);
+    const [showAmountErrorMessage, setShowAmountErrorMessage] = useState(false);
+    const [showCurrencyErrorMessage, setShowCurrencyErrorMessage] = useState(false);
 
-    /** 
-     *  This function updates rates according to a chosen currency label
-     * @param ratesTable - The rates tables from the fetch api
-     * @param targetCurrency - currency to set by default
-     * @return {array} - array of all rates values with target currency rate set to 1
-    */
-    const getRatesSetToInputCurrency = (ratesTable, targetCurrency) => {
-        const rateEntries = Object.entries(ratesTable);
-        const rateArray = rateEntries.map(([currency, rate]) => {
-            return {
-                currency: currency,
-                value: currency,
-                label: currency,
-                rate: parseFloat(rate / ratesTable[targetCurrency]).toFixed(4)
-            }
-        });
-        const defaultInputCurrency = rateArray.filter((currency) => currency.label === targetCurrency);
-        //const defaultTargetCurrency = rateArray.filter((currency) => currency.label === 'USD');
-        
-        setFirstCurrency(defaultInputCurrency);
-        //setDefaultTargetCurrency(defaultTargetCurrency);
-        
-        return rateArray;
-    }
+    const outputCurrentData = useRef([]);
+    const inputRef = useRef();
 
-    const getOutputCurrencyRates = (table, currencyLabel) => {
-
-        const outputCurrencyRate = table.filter((currency) => currency.label === currencyLabel);
-        console.log('outputCurrencyRate', outputCurrencyRate);
-        return outputCurrencyRate;
-        
-    }
 
     useEffect(() => {
 
@@ -77,13 +40,15 @@ function Converter() {
                 const data = await response.json();
                 setDataTable(data.rates);
 
-                const selectData = getRatesSetToInputCurrency(data.rates, 'EUR');
+                const selectData = formatRatesTable(data.rates, 'EUR', setFirstCurrency);
                 setRateSelectOption(selectData);
                 setInputCurrencyCustomRateTable(selectData);
 
-                const selectOutputData = getOutputCurrencyRates(selectData, 'USD');
+                const selectOutputData = getOneCurrency(selectData, 'USD');
                 setTargetCurrencies(selectOutputData);
-                setDefaultUsdRate(selectOutputData[0].rate); 
+                setDefaultTargetCurrenciesKey({
+                    ...defaultTargetCurrenciesKey,
+                    rate: selectOutputData[0].rate});
 
             } catch (error) {
                 console.error('Erreur lors de la récupération des taux de change :', error);
@@ -91,90 +56,66 @@ function Converter() {
         }
 
         fetchExchangeRate();
+
     }, []);
 
-    
-    function handleFirstCurrency(data) {
 
-        console.log('getRatesSetToInputCurrency', getRatesSetToInputCurrency(dataTable, data.label));
-        const activeSelectData = getRatesSetToInputCurrency(dataTable, data.label);
-        setInputCurrencyCustomRateTable(activeSelectData);
-        
-    }
-    
-    const outputCurrentData = useRef([]);
-
-    useEffect (() => {
+    useEffect(() => {
 
         function convertTableToArray(object) {
-    
-            if(!Array.isArray(object)) {
+
+            if (!Array.isArray(object)) {
                 object = [object];
             }
             return object;
-            
+
         }
 
         const outputTable = convertTableToArray(outputCurrentData.current.props.value);
 
         const updatedOutputCurrencies = outputTable.map(currencyInfo => {
-            console.log('inputCurrencyCustomRateTable ', inputCurrencyCustomRateTable);
-            if(inputCurrencyCustomRateTable.length > 0) {
-                const outputCurrenciesTable = getOutputCurrencyRates(inputCurrencyCustomRateTable, currencyInfo.label);
+
+            if (inputCurrencyCustomRateTable.length > 0) {
+                const outputCurrenciesTable = getOneCurrency(inputCurrencyCustomRateTable, currencyInfo.label);
                 return outputCurrenciesTable[0];
             }
+
         });
 
         setTargetCurrencies(updatedOutputCurrencies);
 
-
-    }, [firstCurrency]);
+    }, [firstCurrency, inputCurrencyCustomRateTable]);
 
 
     function handleTargetCurrencies(data) {
 
         const updatedTargetCurrencies = data.map(currencyInfo => {
-            const targetCurrenciesTable = getOutputCurrencyRates(inputCurrencyCustomRateTable, currencyInfo.label)
+            const targetCurrenciesTable = getOneCurrency(inputCurrencyCustomRateTable, currencyInfo.label)
             return targetCurrenciesTable[0];
         });
 
         setTargetCurrencies(updatedTargetCurrencies);
+        setShowCurrencyErrorMessage(false);
+    }
+
+    function handleFirstCurrency(data) {
+
+        const activeSelectData = formatRatesTable(dataTable, data.label, setFirstCurrency);
+        setInputCurrencyCustomRateTable(activeSelectData);
 
     }
 
-    console.log('targetCurrencies', targetCurrencies);
 
-
-    const convertValue = () => {
-
-        let resultText = '';
-        console.log(defaultTargetCurrency);
-
-        targetCurrencies.forEach(currency => {
-            resultText += `<p> la valeur convertie en <strong> ${currency.label }</strong> est ${(inputValue * currency.rate).toFixed(3) }</p> <br/> `
-        });
-        setShowConvert(resultText);
-    }
-
-
-
-    function handleSubmit(e) {
-        e.preventDefault();
-    }
-
-    /**
-     * This function gets the input value and set the state of const inputValue
-     * @param inputValue - input value.
-     */
     function handleInputChange(e) {
         setInputValue(e.target.value);
+        setShowAmountErrorMessage(false);
     }
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(e) => e.preventDefault()}>
                 <h3>Devise initiale :</h3>
-                <div style={{ width: '120px'}}>
+                <div style={{ width: '120px' }}>
 
                     <Select
                         options={rateSelectOption}
@@ -185,32 +126,49 @@ function Converter() {
                     />
 
                 </div>
-                <span style={{display: 'block', height: '1rem'}}></span>
-                
-                <input type="number" step="0.01" defaultValue={''} placeholder="Entrez le montant à convertir" onChange={handleInputChange} style={{width: '12rem', border: '1px solid lightGray', padding: '0.5rem', borderRadius: '4px'}}/>
+                <span style={{ display: 'block', height: '1rem' }}></span>
 
+                <input type="number" step="0.01" min="0" defaultValue={''} placeholder="Entrez le montant à convertir" ref={inputRef} onChange={handleInputChange} style={{ width: '12rem', border: '1px solid lightGray', padding: '0.5rem', borderRadius: '4px' }} />
+                {
+                    showAmountErrorMessage &&
+                    <div style={{ fontSize: '15px', color: 'red' }}>
+                        * Veuillez entrer un montant
+                    </div>
+
+                }
                 <h3>À convertir en :</h3>
-                <div style={{ width: 'fit-content'}}>
+                <div style={{ width: 'fit-content' }}>
 
-                        <Select
-                            isMulti
-                            options={rateSelectOption}
-                            defaultValue={defaultTargetCurrenciesKey}
-                            //value={targetCurrencies}
-                            onChange={handleTargetCurrencies}
-                            autoFocus={true}
-                            ref={outputCurrentData}
-                        />
+                    <Select
+                        isMulti
+                        options={rateSelectOption}
+                        defaultValue={defaultTargetCurrenciesKey}
+                        value={targetCurrencies}
+                        onChange={handleTargetCurrencies}
+                        autoFocus={true}
+                        ref={outputCurrentData}
+                    />
 
                 </div>
-                <span style={{display: 'block', height: '1rem'}}></span>
+                {
+                    showCurrencyErrorMessage &&
+                    <div style={{ fontSize: '15px', color: 'red' }}>
+                        * Veuillez sélectionner au moins une devise
+                    </div>
+
+                }
+                <span style={{ display: 'block', height: '1rem' }}></span>
                 <div>
-                    <button onClick={() => convertValue()}>Convertir</button>
-                </div>
-                <div dangerouslySetInnerHTML={{__html: showConvert}}>
-
+                    <button 
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                    onClick={() => convertValue(inputRef.current.value, inputValue, targetCurrencies, outputCurrentData.current.props.value, setShowConvert, setShowAmountErrorMessage, setShowCurrencyErrorMessage)}>
+                        Convertir
+                    </button>
                 </div>
             </form>
+            <div dangerouslySetInnerHTML={{ __html: showConvert }}>
+
+            </div>
         </>
     )
 }
