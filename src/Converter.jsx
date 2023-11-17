@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Table} from "./Table";
 import Select from 'react-select';
 import formatRatesTable from "./Utilities/formatRatesTable";
 import convertValue from './Utilities/convertValue';
@@ -18,7 +19,6 @@ function Converter() {
     const [firstCurrency, setFirstCurrency] = useState('');
     const [targetCurrencies, setTargetCurrencies] = useState('');
 
-    const [showConvert, setShowConvert] = useState('');
     const [inputValue, setInputValue] = useState('');
 
     const [dataTable, setDataTable] = useState(rateSelectOption);
@@ -27,7 +27,9 @@ function Converter() {
     const [showAmountErrorMessage, setShowAmountErrorMessage] = useState(false);
     const [showCurrencyErrorMessage, setShowCurrencyErrorMessage] = useState(false);
 
-    const outputCurrentData = useRef([]);
+    const [tableResults, setTableResults] = useState(null);
+
+    const targetCurrencyRef = useRef([]);
     const inputRef = useRef();
 
 
@@ -71,7 +73,7 @@ function Converter() {
 
         }
 
-        const outputTable = convertTableToArray(outputCurrentData.current.props.value);
+        const outputTable = convertTableToArray(targetCurrencyRef.current.props.value);
 
         const updatedOutputCurrencies = outputTable.map(currencyInfo => {
 
@@ -113,61 +115,73 @@ function Converter() {
 
     return (
         <>
-            <form onSubmit={(e) => e.preventDefault()}>
-                <h3>Devise initiale :</h3>
-                <div style={{ width: '120px' }}>
+            <div className="flex-center-column">
 
-                    <Select
-                        options={rateSelectOption}
-                        defaultValue={firstCurrency}
-                        value={firstCurrency}
-                        onChange={handleFirstCurrency}
-                        autoFocus={true}
-                    />
+                <form onSubmit={(e) => e.preventDefault()}>
+                    <h3>Devise initiale :</h3>
+                    <div style={{ width: '120px' }}>
 
-                </div>
-                <span style={{ display: 'block', height: '1rem' }}></span>
+                        <Select
+                            options={rateSelectOption}
+                            defaultValue={firstCurrency}
+                            value={firstCurrency}
+                            onChange={handleFirstCurrency}
+                            autoFocus={true}
+                        />
 
-                <input type="number" step="0.01" min="0" defaultValue={''} placeholder="Entrez le montant à convertir" ref={inputRef} onChange={handleInputChange} style={{ width: '12rem', border: '1px solid lightGray', padding: '0.5rem', borderRadius: '4px' }} />
-                {
-                    showAmountErrorMessage &&
-                    <div style={{ fontSize: '15px', color: 'red' }}>
-                        * Veuillez entrer un montant
                     </div>
+                    <span style={{ display: 'block', height: '1rem' }}></span>
 
-                }
-                <h3>À convertir en :</h3>
-                <div style={{ width: 'fit-content' }}>
+                    <input type="number" step="0.01" min="0" defaultValue={''} placeholder="Entrez le montant à convertir" ref={inputRef} onChange={handleInputChange} style={{ width: '12rem', border: '1px solid lightGray', padding: '0.5rem', borderRadius: '4px' }} />
+                    {
+                        showAmountErrorMessage &&
+                        <div style={{ fontSize: '15px', color: 'red' }}>
+                            * Veuillez entrer un montant
+                        </div>
 
-                    <Select
-                        isMulti
-                        options={rateSelectOption}
-                        defaultValue={defaultTargetCurrenciesKey}
-                        value={targetCurrencies}
-                        onChange={handleTargetCurrencies}
-                        autoFocus={true}
-                        ref={outputCurrentData}
-                    />
+                    }
+                    <h3>À convertir en :</h3>
+                    <div style={{ width: 'fit-content' }}>
 
-                </div>
-                {
-                    showCurrencyErrorMessage &&
-                    <div style={{ fontSize: '15px', color: 'red' }}>
-                        * Veuillez sélectionner au moins une devise
+                        <Select
+                            isMulti
+                            options={rateSelectOption}
+                            defaultValue={defaultTargetCurrenciesKey}
+                            value={targetCurrencies}
+                            onChange={handleTargetCurrencies}
+                            autoFocus={true}
+                            ref={targetCurrencyRef}
+                        />
+
                     </div>
+                    {
+                        showCurrencyErrorMessage &&
+                        <div style={{ fontSize: '15px', color: 'red' }}>
+                            * Veuillez sélectionner au moins une devise
+                        </div>
 
-                }
-                <span style={{ display: 'block', height: '1rem' }}></span>
-                <div>
-                    <button 
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-                    onClick={() => convertValue(inputRef.current.value, inputValue, targetCurrencies, outputCurrentData.current.props.value, setShowConvert, setShowAmountErrorMessage, setShowCurrencyErrorMessage)}>
+                    }
+                    <span style={{ display: 'block', height: '1rem' }}></span>
+                    <div>
+                        <button 
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                        onClick=
+                            {
+                                () => {
+                                    const table = convertValue(inputRef.current.value, inputValue, targetCurrencies, targetCurrencyRef.current.props.value, setShowAmountErrorMessage, setShowCurrencyErrorMessage);
+                                    setTableResults(table);
+                                }
+                            }>
                         Convertir
-                    </button>
+                        </button>
+                    </div>
+                </form>
+                <div>
+                    {
+                        tableResults &&  
+                        <Table list={ tableResults }/>
+                    }
                 </div>
-            </form>
-            <div dangerouslySetInnerHTML={{ __html: showConvert }}>
-
             </div>
         </>
     )

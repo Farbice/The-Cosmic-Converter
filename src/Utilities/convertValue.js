@@ -1,24 +1,39 @@
-const convertValue = (inputRefValue, inputValue, targetCurrencies, outputCurrentData, setShowConvert, setShowAmountErrorMessage, setShowCurrencyErrorMessage) => {
+const convertValue = (inputRefValue, inputValue, targetCurrencies, targetCurrencyRef, setShowAmountErrorMessage, setShowCurrencyErrorMessage) => {
 
-    if(!inputRefValue == ''){
+    if(inputRefValue !== ''){
 
-        let resultText = '';
+        let resultObject = {
+            value: '',
+            label: ''
+        };
+
+        const tableLabel = ['Amount', 'currency'];
+        let resultTable = { label: tableLabel, values: []};
 
         targetCurrencies.forEach(currency => {
-            resultText += `<p> ${(inputValue * currency.rate).toFixed(3)} <strong>${currency.label }</strong> </p><br/> `
+            resultObject.value = (inputValue * currency.rate).toFixed(3);
+            resultObject.label = currency.label;
+            resultTable.values.push([resultObject.value, resultObject.label]);
         });
-        setShowConvert(resultText);
+
+        if(targetCurrencyRef.length === 0) {
+
+            setShowCurrencyErrorMessage(true);
+    
+        } else {
+
+            return resultTable;
+
+        }
+
 
     } else {
 
         setShowAmountErrorMessage(true);
-
-    }
-
-    let outputSelectValue = outputCurrentData;
-    if(outputSelectValue.length === 0) {
         setShowCurrencyErrorMessage(true);
+    
     }
+   
 
 }
 
