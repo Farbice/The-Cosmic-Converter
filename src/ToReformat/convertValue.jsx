@@ -1,37 +1,37 @@
-const convertValue = (inputRefValue, inputValue, targetCurrencies, outputCurrentData, setShowConvert, setShowAmountErrorMessage, setShowCurrencyErrorMessage) => {
+// const convertValue = (inputRefValue, inputValue, targetCurrencies, outputCurrentData, setShowConvert, setShowAmountErrorMessage, setShowCurrencyErrorMessage) => {
 
-    if(!inputRefValue == ''){
+//     if(!inputRefValue == ''){
 
-        let resultText = '';
-        let resultTable = [];
-        let resultObject = {
-            value: '',
-            label: ''
-        };
+//         let resultText = '';
+//         let resultTable = [];
+//         let resultObject = {
+//             value: '',
+//             label: ''
+//         };
 
-        targetCurrencies.forEach(currency => {
-            resultText += `<p> ${(inputValue * currency.rate).toFixed(3)} <strong>${currency.label}</strong> </p><br/> `;
-            resultObject.value = (inputValue * currency.rate).toFixed(3);
-            resultObject.label = currency.label;
-            resultTable.push({value: resultObject.value, label: resultObject.label});
-        });
+//         targetCurrencies.forEach(currency => {
+//             resultText += `<p> ${(inputValue * currency.rate).toFixed(3)} <strong>${currency.label}</strong> </p><br/> `;
+//             resultObject.value = (inputValue * currency.rate).toFixed(3);
+//             resultObject.label = currency.label;
+//             resultTable.push({value: resultObject.value, label: resultObject.label});
+//         });
 
-        setShowConvert(resultText);
+//         setShowConvert(resultText);
 
-        console.log('resultTable : ', resultTable);
-        return resultTable
+//         console.log('resultTable : ', resultTable);
+//         return resultTable
 
-    } else {
+//     } else {
 
-        setShowAmountErrorMessage(true);
+//         setShowAmountErrorMessage(true);
 
-    }
+//     }
 
-    let outputSelectValue = outputCurrentData;
-    if(outputSelectValue.length === 0) {
-        setShowCurrencyErrorMessage(true);
-    }
+//     let outputSelectValue = outputCurrentData;
+//     if(outputSelectValue.length === 0) {
+//         setShowCurrencyErrorMessage(true);
+//     }
 
-}
+// }
 
-export default convertValue;
+// export default convertValue;
