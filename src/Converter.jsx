@@ -115,7 +115,12 @@ function Converter() {
 
     return (
         <>
-            <div className="flex-center-column">
+            <div className="main flex-column text-center">
+
+                <h1>
+                    The Cosmic Converter
+                </h1>
+
 
                 <form onSubmit={(e) => e.preventDefault()}>
                     <h3>Devise initiale :</h3>
@@ -164,7 +169,7 @@ function Converter() {
                     <span style={{ display: 'block', height: '1rem' }}></span>
                     <div>
                         <button 
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                        className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                         onClick=
                             {
                                 () => {

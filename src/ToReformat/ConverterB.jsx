@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import {ShowInnerResults, Table} from "./Table";
+import {ShowInnerResults, Table} from "./TableB";
 import Select from 'react-select';
 import formatRatesTable from "./Utilities/formatRatesTable";
 import convertValue from './Utilities/convertValue';

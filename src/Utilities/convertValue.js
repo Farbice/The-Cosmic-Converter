@@ -30,7 +30,11 @@ const convertValue = (inputRefValue, inputValue, targetCurrencies, targetCurrenc
     } else {
 
         setShowAmountErrorMessage(true);
-        setShowCurrencyErrorMessage(true);
+        
+        if(targetCurrencyRef.length === 0) {
+
+            setShowCurrencyErrorMessage(true);
+        }
     
     }
    
