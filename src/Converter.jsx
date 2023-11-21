@@ -116,11 +116,9 @@ function Converter() {
     return (
         <>
             <div className="main flex-column text-center">
-
                 <h1>
                     The Cosmic Converter
                 </h1>
-
 
                 <form onSubmit={(e) => e.preventDefault()}>
                     <h3>Devise initiale :</h3>

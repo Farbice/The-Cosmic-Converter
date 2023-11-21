@@ -4,6 +4,9 @@
 // import ConverterLegacy from './ConverterLegacy.jsx';
 // import ConverterInit from './ConverterInit.jsx';
 import Converter from './Converter.jsx';
+import Navbar from "./Navbar";
+
+
 
 function App() {
 
@@ -45,6 +48,7 @@ function App() {
     {/* <Count /> */}
     {/* <ConverterLegacy /> */}
     {/* <ConverterInit /> */}
+    <Navbar />
     <Converter />
   </>
 }
