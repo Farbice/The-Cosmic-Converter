@@ -3,14 +3,12 @@
 @tailwind utilities;
 @tailwind screens;
 
-@font-face {
-    font-family: 'Kavoon';
-    src: url('./Font/Kavoon/Kavoon-Regular.woff');
-    font-weight: 400;
-}
-
-.font-kav {
-    font-family: Kavoon , Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+:root {
+    --karla-extra-Light: url('./Font/Karla/Karla-ExtraLight.woff');
+    --karla-light: url('./Font/Karla/Karla-Light.woff');
+    --karla-medium: url('./Font/Karla/Karla-Medium.woff');
+    --karla-regular: url('./Font/Karla/Karla-Regular.woff');
+    --karla-semi-bold: url('./Font/Karla/Karla-SemiBold.woff');
 }
 
 html {
@@ -19,11 +17,107 @@ html {
 }
 
 body {
-    background-image: linear-gradient(#0E2D5B, #031925);
+    background-image: linear-gradient(#103f86, #041118);
     font-size: 1.6rem;
-    height: 100vh;
+    min-height: 100vh;
     color: #fafafa;
+    box-sizing: border-box;
 }
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* **************************************************************************** */
+/* **************************************************************************** */
+
+@font-face {
+    font-family: 'Kavoon';
+    src: url('./Font/Kavoon/Kavoon-Regular.woff');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Karla-Light';
+    src: url('./Font/Karla/Karla-Light.woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Karla-Medium';
+    src: url('./Font/Karla/Karla-Medium.woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Karla-SemiBold';
+    src: url('./Font/Karla/Karla-SemiBold.woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'RussoOne';
+    src: url('./Font/Russo-One/RussoOne-Regular.woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Vina';
+    src: url('./Font/Vina-Sans/VinaSans-Regular.woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+.font-kav {
+    font-family: Kavoon, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.font-karla-light {
+    font-family: Karla-Light, Haettenschweiler, Helvetica;
+}
+
+.font-karla-medium {
+    font-family: Karla-Medium, Haettenschweiler, Helvetica;
+}
+
+.font-karla-semibold {
+    font-family: Karla-SemiBold, Haettenschweiler, Helvetica;
+}
+
+.font-russoOne {
+    font-family: RussoOne;
+}
+
+.font-vina {
+    font-family: Vina;
+}
+
+/* **************************************************************************** */
+/* **************************************************************************** */
+
+
+
+
+input::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input {
+    appearance: none;
+    -moz-appearance: textfield;
+    width: fit-content;
+    max-width: 26rem;
+}
+
+
 
 .main {
     margin: 0 auto;
@@ -50,7 +144,7 @@ body {
     display: inline-block;
     width: 40px;
     height: 40px;
-    margin-right: 6rem
+    margin-right: 6rem;
 }
 
 #title::after {
@@ -59,5 +153,23 @@ body {
     width: 40px;
     height: 40px;
     margin-left: 2.6rem;
-    transform: rotate(180deg) scale(0.6) translate(0, 0.2rem);
+    transform: rotate(180deg) scale(0.6) translate(-0.8rem, -2.8rem);
 }
+
+.burger-menu {
+    padding: 1rem;
+    border-radius: 50%;
+    transition-duration: var(--transition-speed-hover-element);
+    background-color: none;
+    background-size: 0%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.burger-menu:hover {
+    background-color: #3c7ad1;
+    background-position: center;
+    background-size: 100%;
+    transition: background-size, 0.1s ease-in-out;
+}
+

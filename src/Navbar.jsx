@@ -51,8 +51,8 @@ function Navbar() {
                     </a>
                 </div>
                 <div className="w-1/2 flex justify-end">
-                    <a href="#">
-                        <svg className={"burger-line" + ` ${showBurgerClass}`} height='30' width='28'>
+                    <a href="#" className="burger-menu">
+                        <svg className={"burger-lines" + ` ${showBurgerClass}`} height='30' width='28'>
                             <g fill="none">
                                 <path stroke="#fff" d='M4 8 l20 0' strokeWidth={2} strokeLinecap='round' />
                                 <path stroke="#fff" d='M4 15 l20 0' strokeWidth={2} strokeLinecap='round' />
@@ -61,8 +61,8 @@ function Navbar() {
                         </svg>
                     </a>
                     <ul className={"nav-list" + ` ${showNavItems}`}>
-                        <li><a href="#">Favorites</a></li>
-                        <li className="ml-8"><a href="#">Connect</a></li>
+                        <li><a href="#" className="font-karla-semibold">Favorites</a></li>
+                        <li className="ml-8 font-karla-semibold"><a href="#">Connect</a></li>
                     </ul>
                 </div>
             </div>
