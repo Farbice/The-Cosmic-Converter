@@ -3,53 +3,28 @@
 // import Count from './Count.jsx';
 // import ConverterLegacy from './ConverterLegacy.jsx';
 // import ConverterInit from './ConverterInit.jsx';
+import { useState, createContext, useContext } from "react";
 import Converter from './Converter.jsx';
 import Navbar from "./Navbar";
+import ContextProvider from "./Utilities/Context";
 
-
+export const UserTheme = createContext(null);
 
 function App() {
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  // }
-
-  // const [currencyValues, setCurrencyValues] = useState({
-  //   euroAmount: '',
-  //   dollarAmount: ''
-  // });
-
-
-
-  // const [dollarValue, setDollarValue] = useState('');
-  // const [euroValue, setEuroValue] = useState('');
-
-  // const handleChange = (e, currency) => {
-  //   let updatedValue = 0;
-
-  //   switch (currency) {
-  //     case 'dollars':
-  //       updatedValue = parseFloat(e.target.value * 1.05).toFixed(2);
-  //       setEuroValue(updatedValue);
-          
-  //       break;
-  //     case 'euros':
-  //       updatedValue = parseFloat(e.target.value * 0.95).toFixed(2);
-  //       setDollarValue(updatedValue);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // }
-
-
   return <>
-    {/* <Intro /> */}
-    {/* <Count /> */}
-    {/* <ConverterLegacy /> */}
-    {/* <ConverterInit /> */}
-    <Navbar />
-    <Converter />
+
+    <ContextProvider>
+        
+        {/* <Intro /> */}
+        {/* <Count /> */}
+        {/* <ConverterLegacy /> */}
+        {/* <ConverterInit /> */}
+
+        <Navbar />
+        <Converter />
+    </ContextProvider>
+
   </>
 }
 

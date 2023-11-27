@@ -32,6 +32,7 @@ a {
 /* **************************************************************************** */
 /* **************************************************************************** */
 
+
 @font-face {
     font-family: 'Kavoon';
     src: url('./Font/Kavoon/Kavoon-Regular.woff');
@@ -72,7 +73,6 @@ a {
     font-weight: normal;
     font-style: normal;
 }
-
 
 
 .font-kav {
@@ -117,8 +117,6 @@ input {
     max-width: 26rem;
 }
 
-
-
 .main {
     margin: 0 auto;
     width: fit-content;
@@ -159,17 +157,11 @@ input {
 .burger-menu {
     padding: 1rem;
     border-radius: 50%;
-    transition-duration: var(--transition-speed-hover-element);
     background-color: none;
-    background-size: 0%;
-    background-position: center;
-    background-repeat: no-repeat;
 }
 
 .burger-menu:hover {
     background-color: #3c7ad1;
-    background-position: center;
-    background-size: 100%;
     transition: background-size, 0.1s ease-in-out;
 }
 

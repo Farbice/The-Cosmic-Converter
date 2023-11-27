@@ -6,6 +6,7 @@ import convertValue from './Utilities/convertValue';
 import getOneCurrency from "./Utilities/getOneCurrency";
 
 
+
 function Converter() {
 
     const [defaultTargetCurrenciesKey, setDefaultTargetCurrenciesKey] = useState({
@@ -230,7 +231,7 @@ function Converter() {
                                     setTableResults(table);
                                 }
                             }>
-                            Convertir
+                            Convert
                         </button>
                     </div>
                 </form>
