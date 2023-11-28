@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
+import { Context } from "./Utilities/Context"
 import { Table } from "./Table";
 import Select from 'react-select';
 import formatRatesTable from "./Utilities/formatRatesTable";
@@ -8,6 +9,8 @@ import getOneCurrency from "./Utilities/getOneCurrency";
 
 
 function Converter() {
+
+    const {state: {currentTheme}} = useContext(Context);
 
     const [defaultTargetCurrenciesKey, setDefaultTargetCurrenciesKey] = useState({
         currency: 'USD',

@@ -1,4 +1,6 @@
+import React from 'react';
 import ReactDOM from 'react-dom/client'
+import ContextProvider from "./Utilities/Context";
 import App from './App.jsx'
 import './Font/Kavoon/Kavoon-Regular.woff';
 import './Font/Karla/Karla-ExtraLight.woff';
@@ -11,9 +13,12 @@ import './Font/Vina-Sans/VinaSans-Regular.woff';
 
 
 
-
 ReactDOM.createRoot(document.getElementById('root')).render(
-  //<React.StrictMode>
-    <App />
-  //</React.StrictMode>
+
+    <React.StrictMode>
+        <ContextProvider>
+            <App />
+        </ContextProvider>
+    </React.StrictMode>
+
 )

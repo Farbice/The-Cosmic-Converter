@@ -1,4 +1,4 @@
-function Logotype() {
+function LogotypeLight() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -38,4 +38,4 @@ function Logotype() {
   );
 }
 
-export default Logotype;
+export default LogotypeLight;
