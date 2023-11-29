@@ -143,18 +143,18 @@ function Converter() {
         <>
             <div className="main flex-column text-center">
 
-                <h1 id="title" className="font-kav text-8xl md:mt-40 mt-16">
+                <h1 id="title" className={`font-kav text-8xl md:mt-40 mt-16 bg-clip-text text-transparent ${currentTheme === 'light' ? 'bg-gradient-to-bl from-blue-700 via-blue-800 to-gray-900' : 'bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600'}`}>
                     The Cosmic Converter
                 </h1>
 
                 <ul className="flex justify-between space-x-8 my-24">
-                    <li><a href="" className="info-items"><span className="inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-2 border-red-100 rounded-full">1</span>Enter amount</a></li>
-                    <li><a href="" className="info-items"><span className="inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-2 border-red-100 rounded-full">2</span>Choose <strong className="hover:bg-sky-700 underline underline-offset-4 decoration-2 decoration-sky-300/80">from</strong> and <strong className="hover:bg-sky-700 underline underline-offset-4 decoration-2 decoration-green-300/80">to</strong> currency</a></li>
-                    <li><a href="" className="info-items"><span className="inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-2 border-red-100 rounded-full">3</span>🎉 Hit convert</a></li>
+                    <li><a href="" className={`info-items ${currentTheme === 'light' ? 'text-sky-900' : 'text-inherit'}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${currentTheme === 'light' ? 'text-sky-900' + ' ' + 'border-sky-800' : 'border-red-100'} rounded-full`}>1</span>Enter amount</a></li>
+                    <li><a href="" className={`info-items ${currentTheme === 'light' ? 'text-sky-900' : 'text-inherit'}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${currentTheme === 'light' ? 'text-sky-900' + ' ' + 'border-sky-800' : 'border-red-100'} rounded-full`}>2</span>Choose <strong className="hover:bg-sky-700 underline underline-offset-4 decoration-2 decoration-sky-300/80">from</strong> and <strong className="hover:bg-sky-700 underline underline-offset-4 decoration-2 decoration-green-300/80">to</strong> currency</a></li>
+                    <li><a href="" className={`info-items ${currentTheme === 'light' ? 'text-sky-900' : 'text-inherit'}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${currentTheme === 'light' ? 'text-sky-900' + ' ' + 'border-sky-800' : 'border-red-100'} rounded-full`}>3</span>🎉 Hit convert</a></li>
                 </ul>
 
                 <form
-                    className="flex flex-col p-16 bg-regal-blue shadow-xl shadow-blue-500/20 border-none rounded-xl"
+                    className={`flex flex-col p-16 ${currentTheme === 'light' ? 'bg-[#dae6fc]' : 'bg-regal-blue'} shadow-xl shadow-blue-500/20 border-none rounded-xl`}
                     onSubmit={(e) => e.preventDefault()}>
 
                     <div className="flex gap-8 justify-center">

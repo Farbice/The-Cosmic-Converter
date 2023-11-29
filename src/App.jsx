@@ -17,7 +17,7 @@ function App() {
     //console.log('state : ', {state: {currentTheme}, setCurrentTheme});
 
     return <>
-        <div className={`h-screen ${(currentTheme === 'light' ? 'bg-slate-200' : 'bg-slate-800') } `}>
+        <div className={`h-screen ${(currentTheme === 'light' ? 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-100 via-blue-300 to-blue-500' : 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900 via-blue-900 to-gray-900') } `}>
             {
                 //console.log('state : ', currentTheme)
             }
