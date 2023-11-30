@@ -1,9 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import LogotypeLight from "./Assets/Logo/logotypeLight";
 import LogotypeDark from "./Assets/Logo/logotypeDark";
-import themesManager from "./Utilities/themes";
+//import themesManager from "./Utilities/themes";
 import { Context } from "./Utilities/Context";
-import { UserTheme } from "./App";
 
 
 function getCurrentDimension() {
@@ -22,32 +21,24 @@ function Navbar (){
     const [showNavItems, setShowNavItems] = useState('active');
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
-    const [darkMode, setDarkMode] = useState(false);
-
-    // const [currentTheme, setCurrentTheme] = useState(
-    //     {
-    //       bgc: 'bg-slate-200'
-    //     }
-    // );
-
-    //const rootTheme = useContext(UserTheme);
-    // console.log('themetheme : ', rootTheme);
+    //const [darkMode, setDarkMode] = useState(false);
 
 
-    function handleDarkMode() {
+    // function handleDarkMode() {
 
-        if (darkMode) {
+    //     if (darkMode) {
             
-            setCurrentTheme(themesManager('light'));
-            setDarkMode(false);
+    //         setCurrentTheme(themesManager('light'));
+    //         setDarkMode(false);
 
-        } else {
+    //     } else {
 
-            setCurrentTheme(themesManager('dark'));
-            setDarkMode(true);
-        }
+    //         setCurrentTheme(themesManager('dark'));
+    //         setDarkMode(true);
 
-    }
+    //     }
+
+    // }
 
 
     useEffect(() => {
@@ -75,7 +66,7 @@ function Navbar (){
 
 
     return (
-        <nav className={`navbar flex md:h-24 w-full ${currentTheme === 'light' ? 'bg-slate-200' : 'bg-black'}`}>
+        <nav className={`navbar flex md:h-24 w-full ${currentTheme === 'light' ? 'transition-all duration-200 ease-in-out bg-slate-200' : 'transition-all duration-200 ease-in-out bg-black'}`}>
             <div className="flex md:w-3/4 md:m-auto items-center w-full mx-10 my-8">
                 <div className="logo w-1/2">
                     <a href="">

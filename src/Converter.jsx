@@ -1,16 +1,14 @@
 import { useState, useEffect, useRef, useContext } from "react";
-import { Context } from "./Utilities/Context"
+import { Context } from "./Utilities/Context";
 import { Table } from "./Table";
 import Select from 'react-select';
 import formatRatesTable from "./Utilities/formatRatesTable";
 import convertValue from './Utilities/convertValue';
 import getOneCurrency from "./Utilities/getOneCurrency";
 
-
-
 function Converter() {
 
-    const {state: {currentTheme}} = useContext(Context);
+    const { state: { currentTheme } } = useContext(Context);
 
     const [defaultTargetCurrenciesKey, setDefaultTargetCurrenciesKey] = useState({
         currency: 'USD',
@@ -37,22 +35,22 @@ function Converter() {
     const inputRef = useRef();
 
     const inputColorStyles = {
-        control: (styles, state) => ({...styles, backgroundColor: '#d9e8f6', borderColor: (state.isFocused ? '#c8db34' : 'none'), FontFamily: 'impact', borderRadius: '0' }),
-        valueContainer: (styles) => ({...styles, fontFamily: 'karla-medium'}),
+        control: (styles, state) => ({ ...styles, backgroundColor: '#d9e8f6', borderColor: (state.isFocused ? '#c8db34' : 'none'), FontFamily: 'impact', borderRadius: '0' }),
+        valueContainer: (styles) => ({ ...styles, fontFamily: 'karla-medium' }),
 
         option: (styles, state) => {
             return (
-                {...styles, backgroundColor: state.isFocused ? '#4586bf' : '#d9e8f6', color: state.isFocused ? '#d9e8f6' : '#0D1A2B'}
+                { ...styles, backgroundColor: state.isFocused ? '#4586bf' : '#d9e8f6', color: state.isFocused ? '#d9e8f6' : '#0D1A2B' }
             )
         }
     }
 
     const outputColorStyles = {
-        control: (styles, state) => ({...styles, backgroundColor: '#d9f6f4', borderColor: (state.isFocused ? '#c8db34' : 'none'), FontFamily: 'impact', borderRadius: '0' }),
-        valueContainer: (styles) => ({...styles, fontFamily: 'karla-medium'}),
+        control: (styles, state) => ({ ...styles, backgroundColor: '#d9f6f4', borderColor: (state.isFocused ? '#c8db34' : 'none'), FontFamily: 'impact', borderRadius: '0' }),
+        valueContainer: (styles) => ({ ...styles, fontFamily: 'karla-medium' }),
         option: (styles, state) => {
             return (
-                {...styles, backgroundColor: state.isFocused ? '#42b5ad' : '#d9f6f4', color: state.isFocused ? '#d9e8f6' : '#0D1A2B'}
+                { ...styles, backgroundColor: state.isFocused ? '#42b5ad' : '#d9f6f4', color: state.isFocused ? '#d9e8f6' : '#0D1A2B' }
             )
         }
     }
@@ -147,25 +145,25 @@ function Converter() {
                     The Cosmic Converter
                 </h1>
 
-                <ul className="flex justify-between space-x-8 my-24">
+                <ul className="flex justify-between space-x-8 mt-24 mb-12">
                     <li><a href="" className={`info-items ${currentTheme === 'light' ? 'text-sky-900' : 'text-inherit'}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${currentTheme === 'light' ? 'text-sky-900' + ' ' + 'border-sky-800' : 'border-red-100'} rounded-full`}>1</span>Enter amount</a></li>
                     <li><a href="" className={`info-items ${currentTheme === 'light' ? 'text-sky-900' : 'text-inherit'}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${currentTheme === 'light' ? 'text-sky-900' + ' ' + 'border-sky-800' : 'border-red-100'} rounded-full`}>2</span>Choose <strong className="hover:bg-sky-700 underline underline-offset-4 decoration-2 decoration-sky-300/80">from</strong> and <strong className="hover:bg-sky-700 underline underline-offset-4 decoration-2 decoration-green-300/80">to</strong> currency</a></li>
                     <li><a href="" className={`info-items ${currentTheme === 'light' ? 'text-sky-900' : 'text-inherit'}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${currentTheme === 'light' ? 'text-sky-900' + ' ' + 'border-sky-800' : 'border-red-100'} rounded-full`}>3</span>🎉 Hit convert</a></li>
                 </ul>
 
                 <form
-                    className={`flex flex-col p-16 ${currentTheme === 'light' ? 'bg-[#dae6fc]' : 'bg-regal-blue'} shadow-xl shadow-blue-500/20 border-none rounded-xl`}
+                    className={`flex flex-col p-16 ${currentTheme === 'light' ? 'bg-[#dae6fc] transition-all duration-300 ease-out' : 'bg-regal-blue transition-all duration-300 ease-out'} shadow-xl shadow-blue-500/20 border-none rounded-xl`}
                     onSubmit={(e) => e.preventDefault()}>
 
                     <div className="flex gap-8 justify-center">
                         <div>
-                            <input 
-                            className="block transition bg-transparent/10 outline-none underline underline-offset-8 text-8xl font-thin decoration-1 focus-within:bg-input-focus-blue"
-                            type="number" 
-                            step="0.01" min="0.00" 
-                            defaultValue={''} 
-                            placeholder="0.00"
-                            ref={inputRef} onChange={handleInputChange}
+                            <input
+                                className={`block transition outline-none underline underline-offset-8 text-8xl font-thin decoration-1 bg-transparent/10 ${currentTheme === 'light' ? 'focus-within:bg-[#fafafa]' : 'focus-within:bg-input-focus-blue'}`}
+                                type="number"
+                                step="0.01" min="0.00"
+                                defaultValue={''}
+                                placeholder="0.00"
+                                ref={inputRef} onChange={handleInputChange}
                             />
                             {
                                 showAmountErrorMessage &&
@@ -196,7 +194,7 @@ function Converter() {
 
 
                     <span style={{ display: 'block', height: '1rem' }}></span>
-                    
+
                     <div className="flex flex-col items-center justify-between">
                         <p className="font-medium text-end font-karla-medium text-green-300/80">to :</p>
                         <div style={{ width: 'fit-content' }}>
@@ -221,21 +219,28 @@ function Converter() {
 
                         }
                     </div>
-                    
+
 
                     <span style={{ display: 'block', height: '1rem' }}></span>
-                    <div>
-                        <button
-                            className="mt-8 bg-transparent hover:bg-orange-500 text-orange-500 font-karla-semibold hover:text-white py-2 px-4 border border-orange-500 hover:border-transparent rounded"
-                            onClick=
-                            {
-                                () => {
-                                    const table = convertValue(inputRef.current.value, inputValue, targetCurrencies, targetCurrencyRef.current.props.value, setShowAmountErrorMessage, setShowCurrencyErrorMessage);
-                                    setTableResults(table);
-                                }
-                            }>
-                            Convert
-                        </button>
+                    <div className="flex gap-8 self-center">
+                        <div>
+                            <button
+                                className="convert-button mt-8 py-2 px-4 bg-orange-500 hover:bg-gradient-to-r from-yellow-600 to-red-600 text-slate-300 font-karla-semibold hover:text-white border border-orange-500 hover:border-transparent rounded"
+                                onClick=
+                                {
+                                    () => {
+                                        const table = convertValue(inputRef.current.value, inputValue, targetCurrencies, targetCurrencyRef.current.props.value, setShowAmountErrorMessage, setShowCurrencyErrorMessage);
+                                        setTableResults(table);
+                                    }
+                                }>
+                                Convert
+                            </button>
+                        </div>
+                        <div>
+                            <button className="reset-button mt-8 py-2 px-4 font-karla-regular bg-orange-200 text-slate-400 rounded">
+                                Reset
+                            </button>
+                        </div>
                     </div>
                 </form>
                 <div>

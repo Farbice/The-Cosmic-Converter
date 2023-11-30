@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: [
     "./index.html",
@@ -10,7 +11,7 @@ export default {
         'regal-blue': '#0D1A2B',
         'input-focus-blue': '#142741'
       }
-      
+
     },
   },
   plugins: [],

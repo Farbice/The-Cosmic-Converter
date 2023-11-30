@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState, createContext, useMemo, useCallback } from "react"
 
 export const Context = createContext();
@@ -19,7 +20,10 @@ const ContextProvider = (props) => {
     )
 
     return <Context.Provider value={value}> {props.children} </Context.Provider>
+}
 
+ContextProvider.propTypes = {
+    children: PropTypes.node.isRequired,
 }
 
 export default ContextProvider
