@@ -10,7 +10,7 @@ function App() {
     const {state: {currentTheme}} = useContext(Context);
 
     return (
-        <div className={`h-screen ${(currentTheme === 'light' ? 'bg-gradient-to-br from-blue-100 via-blue-300 to-blue-500 transition-all duration-1000 ease-in-out' : 'bg-gradient-to-br from-blue-900 via-blue-900 to-gray-900 transition-all duration-1000 ease-in-out')} `}>
+        <div className={`h-screen transition-all duration-1000 ease-in-out ${(currentTheme === 'light' ? 'bg-gradient-to-br from-blue-100 via-blue-300 to-blue-500' : 'bg-gradient-to-br from-blue-900 via-blue-900 to-gray-900')} `}>
                 <Navbar />
                 <Converter />
         </div>
