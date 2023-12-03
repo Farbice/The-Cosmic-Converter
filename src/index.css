@@ -137,7 +137,7 @@ input {
 }
 
 #title::before {
-    content: url(./Assets/stars.svg);
+    content: url(./Assets/Images/stars.svg);
     display: inline-block;
     width: 40px;
     height: 40px;
@@ -145,7 +145,7 @@ input {
 }
 
 #title::after {
-    content: url(./Assets/stars.svg);
+    content: url(./Assets/Images/stars.svg);
     display: inline-block;
     width: 40px;
     height: 40px;
