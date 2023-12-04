@@ -22,6 +22,8 @@ function Navbar() {
     const [showNavItems, setShowNavItems] = useState('active');
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
+    const [animateIcon, setAnimateIcon] = useState(false);
+
 
     useEffect(() => {
 
@@ -45,6 +47,10 @@ function Navbar() {
         }
 
     }, [screenSize.width]);
+
+    useEffect(() => {
+        console.log(animateIcon);
+    }, [animateIcon]);
 
 
     return (
@@ -80,15 +86,21 @@ function Navbar() {
                     </ul>
                     <div
                         data-name="dark-mode--icon"
-                        className="theme-icon ml-8 p-3 hover:bg-slate-300 rounded-full scale-75 active:bg-slate-400 cursor-pointer"
-                        onClick={() => setCurrentTheme(currentTheme === 'dark' ? 'light' : 'dark')}>
-                            {
-                                (currentTheme === 'light') ? <Moon /> : <Sun />
-                            }
+                        className={"theme-icon ml-8 p-3 rounded-full scale-75 cursor-pointer ring-inset" + " " + `${currentTheme === 'light' ? 'hover:bg-slate-300 active:bg-slate-400' + " " + `${animateIcon && "ring-2 ring-sky-950 transition-all duration-200 ease-in"}` : 'hover:bg-gray-800 active:bg-gray-700' + " " + `${animateIcon && "ring-2 ring-slate-600 transition-all duration-200 ease-out"}`}`}
+                        onClick={() => {
+                            setAnimateIcon(true);
+                            setTimeout(() => {
+                                setCurrentTheme(currentTheme === 'dark' ? 'light' : 'dark');
+                                setAnimateIcon(false);
+                            }, 250);
+                        }}>
+                        {
+                            (currentTheme === 'light') ? <Moon /> : <Sun />
+                        }
                     </div>
                 </div>
             </div>
-        </nav>
+        </nav >
     )
 }
 
