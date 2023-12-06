@@ -176,7 +176,7 @@ function Converter() {
                                 </div>
                             }
                         </div>
-                        <div className="flex flex-col justify-between">
+                        <div className="flex flex-col justify-start">
                             <p className="font-medium text-end font-karla-medium text-sky-300/80">from :</p>
                             <div style={{ width: '120px' }}>
 

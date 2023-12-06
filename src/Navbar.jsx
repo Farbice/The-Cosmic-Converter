@@ -17,6 +17,7 @@ function getCurrentDimension() {
 function Navbar() {
 
     const { state: { currentTheme }, setCurrentTheme } = useContext(Context);
+    const { themeColors } = useContext(Context);
 
     const [showBurgerClass, setShowBurgerClass] = useState('inactive');
     const [showNavItems, setShowNavItems] = useState('active');
@@ -48,15 +49,10 @@ function Navbar() {
 
     }, [screenSize.width]);
 
-    useEffect(() => {
-        console.log(animateIcon);
-    }, [animateIcon]);
-
-
     return (
         <nav
             data-name="navbar--component"
-            className={`navbar flex md:h-24 w-full ${currentTheme === 'light' ? 'transition-all duration-200 ease-in-out bg-slate-200' : 'transition-all duration-200 ease-in-out bg-black'}`}>
+            className={`navbar flex md:h-24 w-full` + " " + `${themeColors.nav_bg}` + " " + 'transition-all duration-200 ease-in-out'}>
             <div className="flex md:w-3/4 md:m-auto items-center w-full mx-10 my-8">
                 <div className="logo w-1/2">
                     <a href="">
@@ -81,18 +77,22 @@ function Navbar() {
                         </svg>
                     </a>
                     <ul className={"nav-list" + ` ${showNavItems}`}>
-                        <li><a href="#" className={`font-karla-semibold ${currentTheme === 'light' ? 'text-slate-800' : 'text-slate-200'}`}>Favorites</a></li>
-                        <li className={`ml-8 font-karla-semibold ${currentTheme === 'light' ? 'text-slate-800' : 'text-slate-200'}`}><a href="#">Connect</a></li>
+                        <li>
+                            <a href="#" className={`font-karla-semibold ${themeColors.nav_text}`}>Favorites</a>
+                        </li>
+                        <li className={`ml-8 font-karla-semibold ${themeColors.nav_text}`}>
+                            <a href="#">Connect</a>
+                        </li>
                     </ul>
                     <div
                         data-name="dark-mode--icon"
-                        className={"theme-icon ml-8 p-3 rounded-full scale-75 cursor-pointer ring-inset" + " " + `${currentTheme === 'light' ? 'hover:bg-slate-300 active:bg-slate-400' + " " + `${animateIcon && "ring-2 ring-sky-950 transition-all duration-200 ease-in"}` : 'hover:bg-gray-800 active:bg-gray-700' + " " + `${animateIcon && "ring-2 ring-slate-600 transition-all duration-200 ease-out"}`}`}
+                        className={"theme-icon ml-8 p-3 rounded-full scale-75 cursor-pointer ring-inset " + " " + `hover:${themeColors.icon.hover}` + " " + `active:${themeColors.icon.active}` + " " + `${currentTheme === 'light' ? + " " + `${animateIcon && "ring-2 ring-slate-500 transition-all duration-200 ease-in"}` : + " " + `${animateIcon && "ring-2 ring-slate-600 transition-all duration-200 ease-out"}`}`}
                         onClick={() => {
                             setAnimateIcon(true);
                             setTimeout(() => {
                                 setCurrentTheme(currentTheme === 'dark' ? 'light' : 'dark');
                                 setAnimateIcon(false);
-                            }, 250);
+                            }, 200);
                         }}>
                         {
                             (currentTheme === 'light') ? <Moon /> : <Sun />

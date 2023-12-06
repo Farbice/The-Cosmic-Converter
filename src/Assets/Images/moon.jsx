@@ -1,6 +1,6 @@
 function Moon() {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="none">
+        <svg className="opacity-30"  xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="none">
             <mask id="a" width="28.946" height="31.067" x="-3.089" y="-3.292" fill="#000" maskUnits="userSpaceOnUse">
                 <path fill="#fff" d="M-3.089-3.292h28.946v31.067H-3.089z" />
                 <path fillRule="evenodd"

@@ -1,18 +1,34 @@
 
-const themesManager = (theme, colorSet) => {
-    if (theme === 'dark') {
+const themesManager = (theme) => {
+
+    let colorSet = {};
+
+    if (theme === 'light') {
         colorSet = {
-            bgc: 'bg-slate-800',
+            bckgd: 'bg-gradient-to-br from-blue-100 via-blue-300 to-blue-500',
+            nav_bg: 'bg-slate-200',
+            nav_text: 'text-slate-800',
+            icon : {
+                hover: 'bg-slate-300',
+                active: 'bg-slate-400',
+            }
         };
         return colorSet;
     }
 
-    if (theme === 'light') {
+    if (theme === 'dark') {
         colorSet = {
-            bgc: 'bg-slate-200',
+            bckgd: 'bg-gradient-to-br from-blue-900 via-blue-900 to-gray-900',
+            nav_bg: 'bg-black',
+            nav_text: 'text-slate-200',
+            icon : {
+                hover: 'bg-gray-800',
+                active: 'bg-gray-700',
+            }
         };
         return colorSet;
     }
+
 }
 
 export default themesManager;
