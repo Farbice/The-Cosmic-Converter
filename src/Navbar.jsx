@@ -27,6 +27,8 @@ function Navbar() {
 
     const [animateIcon, setAnimateIcon] = useState(false);
 
+    console.log('animateIcon ', animateIcon);
+
 
     useEffect(() => {
 
@@ -88,13 +90,14 @@ function Navbar() {
                     </ul>
                     <div
                         data-name="dark-mode--icon"
-                        className={"theme-icon ml-8 p-3 rounded-full scale-75 cursor-pointer ring-inset" + " " + `hover:${themeColors.icon.hover}` + " " + `active:${themeColors.icon.active}` + " " + `${currentTheme === 'light' ? + " " + `${animateIcon && "ring-2 ring-slate-500 transition-all duration-200 ease-in"}` : + " " + `${animateIcon && "ring-2 ring-slate-600 transition-all duration-200 ease-in"}`}`}
+                        className={"theme-icon ml-8 p-3 rounded-full scale-75 cursor-pointer ring-inset" + " " + `hover:${themeColors.icon.hover}` + " " + `active:${themeColors.icon.active}` + " " + `${currentTheme === 'light' ? `${animateIcon && "ring-1 ring-slate-500 transition-all duration-200 ease-in"}` : `${animateIcon && "ring-1 ring-slate-600 transition-all duration-200 ease-out"}`}`}
+
                         onClick={() => {
                             setAnimateIcon(true);
                             setTimeout(() => {
                                 setCurrentTheme(currentTheme === 'dark' ? 'light' : 'dark');
                                 setAnimateIcon(false);
-                            }, 200);
+                            }, 300);
                         }}>
                         {
                             (currentTheme === 'light') ? <Moon /> : <Sun />

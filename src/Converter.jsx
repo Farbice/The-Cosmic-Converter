@@ -139,9 +139,9 @@ function Converter() {
 
     return (
         <>
-            <div 
-            data-name="converter--component"
-            className="main flex-column text-center">
+            <div
+                data-name="converter--component"
+                className="main flex-column text-center">
 
                 <h1 id="title" className={`font-kav text-8xl md:mt-40 mt-16 bg-clip-text text-transparent ${currentTheme === 'light' ? 'bg-gradient-to-bl from-blue-700 via-blue-800 to-gray-900' : 'bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600'}`}>
                     The Cosmic Converter
