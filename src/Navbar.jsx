@@ -19,15 +19,11 @@ function Navbar() {
     const { state: { currentTheme }, setCurrentTheme } = useContext(Context);
     const { themeColors } = useContext(Context);
 
-    console.log(themeColors.test);
-
     const [showBurgerClass, setShowBurgerClass] = useState('inactive');
     const [showNavItems, setShowNavItems] = useState('active');
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
     const [animateIcon, setAnimateIcon] = useState(false);
-
-    console.log('animateIcon ', animateIcon);
 
 
     useEffect(() => {
@@ -82,15 +78,15 @@ function Navbar() {
                     </a>
                     <ul className={"nav-list" + ` ${showNavItems}`}>
                         <li>
-                            <a href="#" className={`font-karla-semibold ${themeColors.nav_text}`}>Favorites</a>
+                            <a href="#" className={`font-questrial ${themeColors.nav_text}`}>Favorites</a>
                         </li>
-                        <li className={`ml-8 font-karla-semibold ${themeColors.nav_text}`}>
-                            <a href="#">Connect</a>
+                        <li>
+                            <a href="#" className={`ml-8 font-questrial ${themeColors.nav_text}`}>Get in touch</a>
                         </li>
                     </ul>
                     <div
                         data-name="dark-mode--icon"
-                        className={"theme-icon ml-8 p-3 rounded-full scale-75 cursor-pointer ring-inset" + " " + `${themeColors.icon.hover}` + " " + `${themeColors.icon.active}` + " " + `${currentTheme === 'light' ? `${animateIcon && "ring-1 ring-slate-500 transition-all duration-200 ease-in"}` : `${animateIcon && "ring-1 ring-slate-600 transition-all duration-200 ease-out"}`}`}
+                        className={"theme-icon ml-8 p-3 rounded-full scale-75 cursor-pointer ring-inset" + " " + `${themeColors.icon.hover}` + " " + `${themeColors.icon.active}` + " " + `${animateIcon && "ring-1" + " " + `${themeColors.icon.ring}` + " " + "transition-all duration-200 ease-out"}`}
 
                         onClick={() => {
                             setAnimateIcon(true);

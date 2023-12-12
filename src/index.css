@@ -74,6 +74,19 @@ a {
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Playfair-Display-Black';
+    src: url('./Font/Playfair_Display/PlayfairDisplay-Black.woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Questrial';
+    src: url('./Font/Questrial/Questrial-Regular.woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 .font-kav {
     font-family: Kavoon, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -97,6 +110,14 @@ a {
 
 .font-vina {
     font-family: Vina;
+}
+
+.font-playfair-black {
+    font-family: Playfair-Display-Black, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.font-questrial {
+    font-family: Questrial, Haettenschweiler, Helvetica;
 }
 
 /* **************************************************************************** */
@@ -144,14 +165,14 @@ input {
     margin-right: 6rem;
 }
 
-#title::after {
+/* #title::after {
     content: url(./Assets/Images/stars.svg);
     display: inline-block;
     width: 40px;
     height: 40px;
     margin-left: 2.6rem;
     transform: rotate(180deg) scale(0.6) translate(-0.8rem, -2.8rem);
-}
+} */
 
 .burger-menu {
     padding: 1rem;

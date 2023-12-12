@@ -10,9 +10,11 @@ const themesManager = (theme) => {
             nav_text: 'text-slate-800',
             test: 'bg-zinc-300',
             icon : {
-                hover: 'hover:bg-slate-300',
+                hover: 'hover:bg-slate-300 transition duration-200 ease-in-out',
                 active: 'active:bg-slate-400',
+                ring: 'ring-slate-500',
             }
+            
         };
         return colorSet;
     }
@@ -24,8 +26,9 @@ const themesManager = (theme) => {
             nav_text: 'text-slate-200',
             test: 'bg-red-300',
             icon : {
-                hover: 'hover:bg-gray-700',
+                hover: 'hover:bg-gray-700 transition duration-200 ease-in-out',
                 active: 'active:bg-gray-500',
+                ring: 'ring-slate-600',
             }
         };
         return colorSet;

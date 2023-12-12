@@ -5,10 +5,12 @@ import Select from 'react-select';
 import formatRatesTable from "./Utilities/formatRatesTable";
 import convertValue from './Utilities/convertValue';
 import getOneCurrency from "./Utilities/getOneCurrency";
+import StarPosRight from "./Assets/Images/star_pos_right";
 
 function Converter() {
 
     const { state: { currentTheme } } = useContext(Context);
+    const {themeColors} = useContext(Context);
 
     const [defaultTargetCurrenciesKey, setDefaultTargetCurrenciesKey] = useState({
         currency: 'USD',
@@ -143,8 +145,11 @@ function Converter() {
                 data-name="converter--component"
                 className="main flex-column text-center">
 
-                <h1 id="title" className={`font-kav text-8xl md:mt-40 mt-16 bg-clip-text text-transparent ${currentTheme === 'light' ? 'bg-gradient-to-bl from-blue-700 via-blue-800 to-gray-900' : 'bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600'}`}>
+                <h1 id="title" className={`font-playfair-black text-8xl md:mt-40 mt-16 bg-clip-text text-transparent ${currentTheme === 'light' ? 'bg-gradient-to-bl from-blue-700 via-blue-800 to-gray-900' : 'bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600'}`}>
                     The Cosmic Converter
+                    <span className="after: absolute after:inline-block after:w-10 after:h-10">
+                        <StarPosRight />
+                    </span>
                 </h1>
 
                 <ul className="flex justify-between space-x-8 mt-24 mb-12">
@@ -157,27 +162,29 @@ function Converter() {
                     className={`flex flex-col p-16 ${currentTheme === 'light' ? 'bg-[#dae6fc] transition-all duration-300 ease-out' : 'bg-regal-blue transition-all duration-300 ease-out'} shadow-xl shadow-blue-500/20 border-none rounded-xl`}
                     onSubmit={(e) => e.preventDefault()}>
 
-                    <div className="flex gap-8 justify-center">
+                    <div className="flex gap-8 justify-center bg-slate-200">
                         <div>
-                            <input
-                                className={`block transition outline-none underline underline-offset-8 text-8xl font-thin decoration-1 bg-transparent/10 ${currentTheme === 'light' ? 'focus-within:bg-[#fafafa] text-slate-700' : 'focus-within:bg-input-focus-blue'}`}
-                                type="number"
-                                step="0.01" min="0.00"
-                                defaultValue={''}
-                                placeholder="0.00"
-                                ref={inputRef} onChange={handleInputChange}
-                            />
-                            {
-                                showAmountErrorMessage &&
-                                <div className="text-start">
-                                    <p className="text-1xl text-red-500">
-                                        * Veuillez entrer un montant
-                                    </p>
-                                </div>
-                            }
+                            <label className="block py-2 px-6 min-w-full rounded-xl bg-transparent/10">
+                                <input
+                                    className={`transition outline-none rounded-xl underline underline-offset-8 text-8xl font-thin decoration-1 decoration-slate-400 ${currentTheme === 'light' ? 'focus-within:bg-[#dce9f8] text-slate-700 bg-slate-300' : 'focus-within:bg-input-focus-blue bg-slate-700'}`}
+                                    type="number"
+                                    step="0.01" min="0.00"
+                                    defaultValue={''}
+                                    placeholder="0.00"
+                                    ref={inputRef} onChange={handleInputChange}
+                                />
+                            </label>
+                                {
+                                    showAmountErrorMessage &&
+                                    <div className="text-start inline">
+                                        <p className="text-1xl text-red-500">
+                                            * N&rsquo;oubliez pas d&rsquo;entrer un montant
+                                        </p>
+                                    </div>
+                                }
                         </div>
                         <div className="flex flex-col justify-start">
-                            <p className="font-medium text-end font-karla-medium text-sky-300/80">from :</p>
+                            <p className="font-medium text-end font-questrial text-sky-300/80">from :</p>
                             <div style={{ width: '120px' }}>
 
                                 <Select
@@ -198,7 +205,7 @@ function Converter() {
                     <span style={{ display: 'block', height: '1rem' }}></span>
 
                     <div className="flex flex-col items-center justify-between">
-                        <p className="font-medium text-end font-karla-medium text-green-300/80">to :</p>
+                        <p className="font-medium text-end font-questrial text-green-300/80">to :</p>
                         <div style={{ width: 'fit-content' }}>
 
                             <Select
@@ -227,7 +234,7 @@ function Converter() {
                     <div className="flex gap-8 self-center">
                         <div>
                             <button
-                                className="convert-button mt-8 py-2 px-4 bg-orange-500 hover:bg-gradient-to-r from-yellow-600 to-red-600 text-slate-300 font-karla-semibold hover:text-white border border-orange-500 hover:border-transparent rounded"
+                                className="convert-button mt-8 py-2 px-4 bg-orange-500 hover:bg-gradient-to-r from-yellow-600 to-red-600 text-slate-300 font-questrial hover:text-white border border-orange-500 hover:border-transparent rounded"
                                 onClick=
                                 {
                                     () => {
@@ -239,7 +246,7 @@ function Converter() {
                             </button>
                         </div>
                         <div>
-                            <button className="reset-button mt-8 py-2 px-4 font-karla-regular bg-orange-200 text-slate-400 rounded">
+                            <button className="reset-button mt-8 py-2 px-4 font-questrial bg-orange-200 text-slate-400 rounded">
                                 Reset
                             </button>
                         </div>
