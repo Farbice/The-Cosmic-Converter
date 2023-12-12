@@ -71,7 +71,7 @@ function Navbar() {
                     </a>
                 </div>
                 <div className="w-1/2 flex justify-end items-center">
-                    <a href="#" className={"burger-menu order-4 ml-8 hover:bg-slate-300 transition-all duration-200" + ` ${showBurgerClass}`}>
+                    <a href="#" className={"burger-menu order-4 ml-4 scale-75 hover:bg-slate-300 transition-all duration-200" + ` ${showBurgerClass}`}>
                         <svg className="burger-lines stroke-sky-900" height='30' width='28'>
                             <g fill="none">
                                 <path stroke="" d='M4 8 l20 0' strokeWidth={2} strokeLinecap='round' />
@@ -90,7 +90,7 @@ function Navbar() {
                     </ul>
                     <div
                         data-name="dark-mode--icon"
-                        className={"theme-icon ml-8 p-3 rounded-full scale-75 cursor-pointer ring-inset" + " " + `hover:${themeColors.icon.hover}` + " " + `active:${themeColors.icon.active}` + " " + `${currentTheme === 'light' ? `${animateIcon && "ring-1 ring-slate-500 transition-all duration-200 ease-in"}` : `${animateIcon && "ring-1 ring-slate-600 transition-all duration-200 ease-out"}`}`}
+                        className={"theme-icon ml-8 p-3 rounded-full scale-75 cursor-pointer ring-inset" + " " + `${themeColors.icon.hover}` + " " + `${themeColors.icon.active}` + " " + `${currentTheme === 'light' ? `${animateIcon && "ring-1 ring-slate-500 transition-all duration-200 ease-in"}` : `${animateIcon && "ring-1 ring-slate-600 transition-all duration-200 ease-out"}`}`}
 
                         onClick={() => {
                             setAnimateIcon(true);
