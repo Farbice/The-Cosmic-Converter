@@ -138,11 +138,6 @@ input {
     max-width: 26rem;
 }
 
-.main {
-    margin: 0 auto;
-    width: fit-content;
-}
-
 .active {
     display: inline-flex;
 }
@@ -151,19 +146,19 @@ input {
     display: none;
 }
 
-#title {
+/* #title {
     background-clip: text;
     background-size: 100%;
     -webkit-text-fill-color: transparent;
-}
+} */
 
-#title::before {
+/* #title::before {
     content: url(./Assets/Images/stars.svg);
     display: inline-block;
     width: 40px;
     height: 40px;
     margin-right: 6rem;
-}
+} */
 
 /* #title::after {
     content: url(./Assets/Images/stars.svg);

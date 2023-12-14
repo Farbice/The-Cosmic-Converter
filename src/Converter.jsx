@@ -6,11 +6,12 @@ import formatRatesTable from "./Utilities/formatRatesTable";
 import convertValue from './Utilities/convertValue';
 import getOneCurrency from "./Utilities/getOneCurrency";
 import StarPosRight from "./Assets/Images/star_pos_right";
+import StarPosLeft from "./Assets/Images/star_pos_left";
 
 function Converter() {
 
     const { state: { currentTheme } } = useContext(Context);
-    const {themeColors} = useContext(Context);
+    const { themeColors } = useContext(Context);
 
     const [defaultTargetCurrenciesKey, setDefaultTargetCurrenciesKey] = useState({
         currency: 'USD',
@@ -143,14 +144,23 @@ function Converter() {
         <>
             <div
                 data-name="converter--component"
-                className="main flex-column text-center">
+                className="w-3/4 mx-auto flex-column text-center">
 
-                <h1 id="title" className={`font-playfair-black text-8xl md:mt-40 mt-16 bg-clip-text text-transparent ${currentTheme === 'light' ? 'bg-gradient-to-bl from-blue-700 via-blue-800 to-gray-900' : 'bg-gradient-to-bl from-green-300 via-blue-500 to-purple-600'}`}>
+                <h1 id="title" className={`font-playfair-black text-7xl md:mt-40 mt-16 ${themeColors.main_text}`}>
                     The Cosmic Converter
                     <span className="after: absolute after:inline-block after:w-10 after:h-10">
                         <StarPosRight />
                     </span>
                 </h1>
+                <div className="w-fit mx-auto">
+                    <h2 className={`font-questrial text-5xl w-full my-2 ${themeColors.main_text}`}>
+                        <span className={`relative -left-24 -top-10 inline-block w-10 h-10`}>
+                            <StarPosLeft />
+                        </span>
+                        Convert <span className="before:absolute before:block before:-inset-2 before:bg-[#FFC47C] before:-skew-y-3 before:-skew-x-6 relative inline-block"><span className="relative">instantly</span></span> any currency to any currency
+                    </h2>
+                </div>
+
 
                 <ul className="flex justify-between space-x-8 mt-24 mb-12">
                     <li><a href="" className={`info-items ${currentTheme === 'light' ? 'text-sky-900' : 'text-inherit'}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${currentTheme === 'light' ? 'text-sky-900' + ' ' + 'border-sky-800' : 'border-red-100'} rounded-full`}>1</span>Enter amount</a></li>
@@ -174,14 +184,14 @@ function Converter() {
                                     ref={inputRef} onChange={handleInputChange}
                                 />
                             </label>
-                                {
-                                    showAmountErrorMessage &&
-                                    <div className="text-start inline">
-                                        <p className="text-1xl text-red-500">
-                                            * N&rsquo;oubliez pas d&rsquo;entrer un montant
-                                        </p>
-                                    </div>
-                                }
+                            {
+                                showAmountErrorMessage &&
+                                <div className="text-start inline">
+                                    <p className="text-1xl text-red-500">
+                                        * N&rsquo;oubliez pas d&rsquo;entrer un montant
+                                    </p>
+                                </div>
+                            }
                         </div>
                         <div className="flex flex-col justify-start">
                             <p className="font-medium text-end font-questrial text-sky-300/80">from :</p>

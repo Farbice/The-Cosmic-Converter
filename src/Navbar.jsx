@@ -52,8 +52,8 @@ function Navbar() {
     return (
         <nav
             data-name="navbar--component"
-            className={`navbar flex md:h-24 w-full` + " " + `${themeColors.nav_bg}` + " " + 'transition-all duration-200 ease-in-out'}>
-            <div className="flex md:w-3/4 md:m-auto items-center w-full mx-10 my-8">
+            className={`navbar flex p-4 w-full` + " " + `${themeColors.nav_bg}` + " " + 'transition-all duration-200 ease-in-out'}>
+            <div className="flex md:w-3/4 w-5/6 m-auto items-center">
                 <div className="logo w-1/2">
                     <a href="">
                         {
