@@ -1,7 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
+import { Context } from "./Utilities/Context";
+import LogoDark from "./Assets/Logo/logoDark";
+import LogoLight from "./Assets/Logo/logoLight";
 import LogotypeLight from "./Assets/Logo/logotypeLight";
 import LogotypeDark from "./Assets/Logo/logotypeDark";
-import { Context } from "./Utilities/Context";
 import Moon from "./Assets/Images/moon";
 import Sun from "./Assets/Images/sun";
 
@@ -25,6 +27,7 @@ function Navbar() {
 
     const [animateIcon, setAnimateIcon] = useState(false);
 
+    const refHere = useRef(null);
 
     useEffect(() => {
 
@@ -57,7 +60,7 @@ function Navbar() {
                 <div className="logo w-1/2">
                     <a href="">
                         {
-                            (currentTheme === 'light') &&
+                            (currentTheme === 'light') && 
                             <LogotypeDark />
                         }
                         {
@@ -78,15 +81,15 @@ function Navbar() {
                     </a>
                     <ul className={"nav-list" + ` ${showNavItems}`}>
                         <li>
-                            <a href="#" className={`font-questrial ${themeColors.nav_text}`}>Favorites</a>
+                            <a href="#" className={`font-questrial ${themeColors.text}`}>Favorites</a>
                         </li>
                         <li>
-                            <a href="#" className={`ml-8 font-questrial ${themeColors.nav_text}`}>Get in touch</a>
+                            <a href="#" className={`ml-8 font-questrial ${themeColors.text}`}>Get in touch</a>
                         </li>
                     </ul>
                     <div
                         data-name="dark-mode--icon"
-                        className={"theme-icon ml-8 p-3 rounded-full scale-75 cursor-pointer ring-inset" + " " + `${themeColors.icon.hover}` + " " + `${themeColors.icon.active}` + " " + `${animateIcon && "ring-1" + " " + `${themeColors.icon.ring}` + " " + "transition-all duration-200 ease-out"}`}
+                        className={"theme-icon ml-8 p-3 rounded-full scale-75 cursor-pointer ring-inset" + " " + `${themeColors.icon.hover}` + " " + `${themeColors.icon.active}` + " " + `${animateIcon && "ring-2" + " " + `${themeColors.icon.ring}` + " " + "transition-all duration-200 ease-out"}`}
 
                         onClick={() => {
                             setAnimateIcon(true);

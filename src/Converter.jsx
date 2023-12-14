@@ -148,13 +148,13 @@ function Converter() {
 
                 <h1 id="title" className={`font-playfair-black text-7xl md:mt-40 mt-16 ${themeColors.main_text}`}>
                     The Cosmic Converter
-                    <span className="after: absolute after:inline-block after:w-10 after:h-10">
+                    <span className="absolute md:top-[15rem] top-[8rem] after:inline-block after:w-10 after:h-10">
                         <StarPosRight />
                     </span>
                 </h1>
                 <div className="w-fit mx-auto">
                     <h2 className={`font-questrial text-5xl w-full my-2 ${themeColors.main_text}`}>
-                        <span className={`relative -left-24 -top-10 inline-block w-10 h-10`}>
+                        <span className={`relative md:-left-24 md:-top-10 -top-[4rem] -left-[4rem] md:scale-100 scale-75 inline-block w-10 h-10`}>
                             <StarPosLeft />
                         </span>
                         Convert <span className="before:absolute before:block before:-inset-2 before:bg-[#FFC47C] before:-skew-y-3 before:-skew-x-6 relative inline-block"><span className="relative">instantly</span></span> any currency to any currency
@@ -162,10 +162,10 @@ function Converter() {
                 </div>
 
 
-                <ul className="flex justify-between space-x-8 mt-24 mb-12">
-                    <li><a href="" className={`info-items ${currentTheme === 'light' ? 'text-sky-900' : 'text-inherit'}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${currentTheme === 'light' ? 'text-sky-900' + ' ' + 'border-sky-800' : 'border-red-100'} rounded-full`}>1</span>Enter amount</a></li>
-                    <li><a href="" className={`info-items ${currentTheme === 'light' ? 'text-sky-900' : 'text-inherit'}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${currentTheme === 'light' ? 'text-sky-900' + ' ' + 'border-sky-800' : 'border-red-100'} rounded-full`}>2</span>Choose <strong className="hover:bg-sky-700 underline underline-offset-4 decoration-2 decoration-sky-300/80">from</strong> and <strong className="hover:bg-sky-700 underline underline-offset-4 decoration-2 decoration-green-300/80">to</strong> currency</a></li>
-                    <li><a href="" className={`info-items ${currentTheme === 'light' ? 'text-sky-900' : 'text-inherit'}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${currentTheme === 'light' ? 'text-sky-900' + ' ' + 'border-sky-800' : 'border-red-100'} rounded-full`}>3</span>🎉 Hit convert</a></li>
+                <ul className="flex md:w-2/3 mx-auto justify-between space-x-8 mt-24 mb-12">
+                    <li><a href="" className={`info-items ${themeColors.text}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>1</span>Enter amount</a></li>
+                    <li><a href="" className={`info-items ${themeColors.text}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>2</span>Choose <strong className="hover:bg-sky-700 underline underline-offset-4 decoration-2 decoration-sky-300/80">from</strong> and <strong className="hover:bg-sky-700 underline underline-offset-4 decoration-2 decoration-green-300/80">to</strong> currency</a></li>
+                    <li><a href="" className={`info-items ${themeColors.text}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>3</span>🎉 Hit convert</a></li>
                 </ul>
 
                 <form
