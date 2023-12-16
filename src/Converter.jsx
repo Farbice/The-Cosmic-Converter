@@ -144,124 +144,127 @@ function Converter() {
         <>
             <div
                 data-name="converter--component"
-                className="w-3/4 mx-auto flex-column text-center">
-
-                <h1 id="title" className={`font-playfair-black text-7xl md:mt-40 mt-16 ${themeColors.main_text}`}>
-                    The Cosmic Converter
-                    <span className="absolute md:top-[15rem] top-[8rem] after:inline-block after:w-10 after:h-10">
-                        <StarPosRight />
-                    </span>
-                </h1>
-                <div className="w-fit mx-auto">
-                    <h2 className={`font-questrial text-5xl w-full my-2 ${themeColors.main_text}`}>
-                        <span className={`relative md:-left-24 md:-top-10 -top-[4rem] -left-[4rem] md:scale-100 scale-75 inline-block w-10 h-10`}>
-                            <StarPosLeft />
+                className="w-full">
+                <div className="w-3/4 mx-auto flex-column text-center">
+                    <h1 id="title" className={`font-playfair-black text-7xl md:mt-35 mt-16 ${themeColors.main_text}`}>
+                        The Cosmic Converter
+                        <span className="absolute md:top-[8rem] top-[8rem] after:inline-block after:w-10 after:h-10">
+                            <StarPosRight />
                         </span>
-                        Convert <span className="before:absolute before:block before:-inset-2 before:bg-[#FFC47C] before:-skew-y-3 before:-skew-x-6 relative inline-block"><span className="relative">instantly</span></span> any currency to any currency
-                    </h2>
+                    </h1>
+                    <div className="w-fit mx-auto">
+                        <h2 className={`font-questrial text-5xl w-full my-2 ${themeColors.main_text}`}>
+                            <span className={`relative md:-left-24 md:-top-10 -top-[4rem] -left-[4rem] md:scale-100 scale-75 inline-block w-10 h-10`}>
+                                <StarPosLeft />
+                            </span>
+                            Convert <span className={`before:absolute before:block before:-inset-2 ${themeColors.element_highlight} before:-skew-y-3 before:-skew-x-6 relative inline-block`}><span className="relative">instantly</span></span> any currency to any currency
+                        </h2>
+                    </div>
+
+
+                    <ul className="flex md:w-2/3 mx-auto justify-between space-x-8 mt-24 mb-12">
+                        <li><a href="" className={`info-items ${themeColors.text}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>1</span>Enter amount</a></li>
+                        <li><a href="" className={`info-items ${themeColors.text}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>2</span>Choose <strong className="hover:bg-sky-700 underline underline-offset-4 decoration-2 decoration-sky-300/80">from</strong> and <strong className="hover:bg-sky-700 underline underline-offset-4 decoration-2 decoration-green-300/80">to</strong> currency</a></li>
+                        <li><a href="" className={`info-items ${themeColors.text}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>3</span>🎉 Hit convert</a></li>
+                    </ul>
                 </div>
 
+                <div className="w-3/4 mx-auto">
+                    <form
+                        className={`flex flex-col p-16 ${currentTheme === 'light' ? 'bg-[#dae6fc] transition-all duration-300 ease-out' : 'bg-regal-blue transition-all duration-300 ease-out'} shadow-xl shadow-blue-500/20 border-none rounded-xl`}
+                        onSubmit={(e) => e.preventDefault()}>
 
-                <ul className="flex md:w-2/3 mx-auto justify-between space-x-8 mt-24 mb-12">
-                    <li><a href="" className={`info-items ${themeColors.text}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>1</span>Enter amount</a></li>
-                    <li><a href="" className={`info-items ${themeColors.text}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>2</span>Choose <strong className="hover:bg-sky-700 underline underline-offset-4 decoration-2 decoration-sky-300/80">from</strong> and <strong className="hover:bg-sky-700 underline underline-offset-4 decoration-2 decoration-green-300/80">to</strong> currency</a></li>
-                    <li><a href="" className={`info-items ${themeColors.text}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>3</span>🎉 Hit convert</a></li>
-                </ul>
+                        <div className="flex gap-8 justify-center bg-slate-200">
+                            <div>
+                                <label className="block py-2 px-6 min-w-full rounded-xl bg-transparent/10">
+                                    <input
+                                        className={`transition outline-none rounded-xl underline underline-offset-8 text-8xl font-thin decoration-1 decoration-slate-400 ${currentTheme === 'light' ? 'focus-within:bg-[#dce9f8] text-slate-700 bg-slate-300' : 'focus-within:bg-input-focus-blue bg-slate-700'}`}
+                                        type="number"
+                                        step="0.01" min="0.00"
+                                        defaultValue={''}
+                                        placeholder="0.00"
+                                        ref={inputRef} onChange={handleInputChange}
+                                    />
+                                </label>
+                                {
+                                    showAmountErrorMessage &&
+                                    <div className="text-start inline">
+                                        <p className="text-1xl text-red-500">
+                                            * N&rsquo;oubliez pas d&rsquo;entrer un montant
+                                        </p>
+                                    </div>
+                                }
+                            </div>
+                            <div className="flex flex-col justify-start">
+                                <p className="font-medium text-end font-questrial text-sky-300/80">from :</p>
+                                <div style={{ width: '120px' }}>
 
-                <form
-                    className={`flex flex-col p-16 ${currentTheme === 'light' ? 'bg-[#dae6fc] transition-all duration-300 ease-out' : 'bg-regal-blue transition-all duration-300 ease-out'} shadow-xl shadow-blue-500/20 border-none rounded-xl`}
-                    onSubmit={(e) => e.preventDefault()}>
+                                    <Select
+                                        className="block file:bg-orange-200"
+                                        options={rateSelectOption}
+                                        defaultValue={firstCurrency}
+                                        value={firstCurrency}
+                                        onChange={handleFirstCurrency}
+                                        styles={inputColorStyles}
+                                        autoFocus={true}
+                                    />
 
-                    <div className="flex gap-8 justify-center bg-slate-200">
-                        <div>
-                            <label className="block py-2 px-6 min-w-full rounded-xl bg-transparent/10">
-                                <input
-                                    className={`transition outline-none rounded-xl underline underline-offset-8 text-8xl font-thin decoration-1 decoration-slate-400 ${currentTheme === 'light' ? 'focus-within:bg-[#dce9f8] text-slate-700 bg-slate-300' : 'focus-within:bg-input-focus-blue bg-slate-700'}`}
-                                    type="number"
-                                    step="0.01" min="0.00"
-                                    defaultValue={''}
-                                    placeholder="0.00"
-                                    ref={inputRef} onChange={handleInputChange}
-                                />
-                            </label>
-                            {
-                                showAmountErrorMessage &&
-                                <div className="text-start inline">
-                                    <p className="text-1xl text-red-500">
-                                        * N&rsquo;oubliez pas d&rsquo;entrer un montant
-                                    </p>
                                 </div>
-                            }
+                            </div>
                         </div>
-                        <div className="flex flex-col justify-start">
-                            <p className="font-medium text-end font-questrial text-sky-300/80">from :</p>
-                            <div style={{ width: '120px' }}>
+
+
+                        <span style={{ display: 'block', height: '1rem' }}></span>
+
+                        <div className="flex flex-col items-center justify-between">
+                            <p className="font-medium text-end font-questrial text-green-300/80">to :</p>
+                            <div style={{ width: 'fit-content' }}>
 
                                 <Select
-                                    className="block file:bg-orange-200"
+                                    isMulti
                                     options={rateSelectOption}
-                                    defaultValue={firstCurrency}
-                                    value={firstCurrency}
-                                    onChange={handleFirstCurrency}
-                                    styles={inputColorStyles}
+                                    defaultValue={defaultTargetCurrenciesKey}
+                                    value={targetCurrencies}
+                                    onChange={handleTargetCurrencies}
+                                    styles={outputColorStyles}
                                     autoFocus={true}
+                                    ref={targetCurrencyRef}
                                 />
 
                             </div>
+                            {
+                                showCurrencyErrorMessage &&
+                                <div className="text-1xl text-red-500">
+                                    * Veuillez sélectionner au moins une devise
+                                </div>
+
+                            }
                         </div>
-                    </div>
 
 
-                    <span style={{ display: 'block', height: '1rem' }}></span>
-
-                    <div className="flex flex-col items-center justify-between">
-                        <p className="font-medium text-end font-questrial text-green-300/80">to :</p>
-                        <div style={{ width: 'fit-content' }}>
-
-                            <Select
-                                isMulti
-                                options={rateSelectOption}
-                                defaultValue={defaultTargetCurrenciesKey}
-                                value={targetCurrencies}
-                                onChange={handleTargetCurrencies}
-                                styles={outputColorStyles}
-                                autoFocus={true}
-                                ref={targetCurrencyRef}
-                            />
-
-                        </div>
-                        {
-                            showCurrencyErrorMessage &&
-                            <div className="text-1xl text-red-500">
-                                * Veuillez sélectionner au moins une devise
+                        <span style={{ display: 'block', height: '1rem' }}></span>
+                        <div className="flex gap-8 self-center">
+                            <div>
+                                <button
+                                    className="convert-button mt-8 py-2 px-4 bg-orange-500 hover:bg-gradient-to-r from-yellow-600 to-red-600 text-slate-300 font-questrial hover:text-white border border-orange-500 hover:border-transparent rounded"
+                                    onClick=
+                                    {
+                                        () => {
+                                            const table = convertValue(inputRef.current.value, inputValue, targetCurrencies, targetCurrencyRef.current.props.value, setShowAmountErrorMessage, setShowCurrencyErrorMessage);
+                                            setTableResults(table);
+                                        }
+                                    }>
+                                    Convert
+                                </button>
                             </div>
-
-                        }
-                    </div>
-
-
-                    <span style={{ display: 'block', height: '1rem' }}></span>
-                    <div className="flex gap-8 self-center">
-                        <div>
-                            <button
-                                className="convert-button mt-8 py-2 px-4 bg-orange-500 hover:bg-gradient-to-r from-yellow-600 to-red-600 text-slate-300 font-questrial hover:text-white border border-orange-500 hover:border-transparent rounded"
-                                onClick=
-                                {
-                                    () => {
-                                        const table = convertValue(inputRef.current.value, inputValue, targetCurrencies, targetCurrencyRef.current.props.value, setShowAmountErrorMessage, setShowCurrencyErrorMessage);
-                                        setTableResults(table);
-                                    }
-                                }>
-                                Convert
-                            </button>
+                            <div>
+                                <button className="reset-button mt-8 py-2 px-4 font-questrial bg-orange-200 text-slate-400 rounded">
+                                    Reset
+                                </button>
+                            </div>
                         </div>
-                        <div>
-                            <button className="reset-button mt-8 py-2 px-4 font-questrial bg-orange-200 text-slate-400 rounded">
-                                Reset
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
                 <div>
                     {
                         tableResults &&

@@ -5,9 +5,10 @@ const themesManager = (theme) => {
 
     if (theme === 'light') {
         colorSet = {
-            bckgd: 'bg-gradient-to-br from-blue-100 via-blue-300 to-blue-100',
+            bckgd_primary: 'bg-gradient-to-br from-blue-100 via-blue-300 to-blue-100',
+            bckgd_secondary: 'bg-gradient-to-tr from-purple-50 to-blue-200',
             nav_bg: 'bg-slate-200',
-            text: 'text-slate-800',
+            text: 'text-slate-600',
             main_text: 'text-[#0E2C58]',
             regular_text: 'text-[#1D3A63]',
             test: 'bg-zinc-300',
@@ -18,7 +19,8 @@ const themesManager = (theme) => {
             },
             border : {
                 accent: 'border-orange-500',
-            }
+            },
+            element_highlight: 'before:bg-[#FFC47C]',
             
         };
         return colorSet;
@@ -26,7 +28,8 @@ const themesManager = (theme) => {
 
     if (theme === 'dark') {
         colorSet = {
-            bckgd: 'bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900',
+            bckgd_primary: 'bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900',
+            bckgd_secondary: 'bg-gradient-to-tr from-blue-900 to-zinc-900',
             nav_bg: 'bg-black',
             text: 'text-slate-200',
             main_text: 'text-[#fefefe]',
@@ -39,7 +42,8 @@ const themesManager = (theme) => {
             },
             border : {
                 accent: 'border-amber-300',
-            }
+            },
+            element_highlight: 'before:bg-orange-500',
         };
         return colorSet;
     }

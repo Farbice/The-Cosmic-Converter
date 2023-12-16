@@ -12,7 +12,7 @@ function App() {
     { currentTheme }
 
     return (
-        <div className={`h-screen transition-all duration-1000 ease-in-out ${themeColors.bckgd}`}>
+        <div className={`h-screen transition-all duration-1000 ease-in-out ${themeColors.bckgd_secondary}`}>
             <Navbar />
             <Converter />
         </div>

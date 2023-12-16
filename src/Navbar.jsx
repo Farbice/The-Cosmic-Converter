@@ -58,16 +58,30 @@ function Navbar() {
             className={`navbar flex p-4 w-full` + " " + `${themeColors.nav_bg}` + " " + 'transition-all duration-200 ease-in-out'}>
             <div className="flex md:w-3/4 w-5/6 m-auto items-center">
                 <div className="logo w-1/2">
-                    <a href="">
-                        {
-                            (currentTheme === 'light') && 
-                            <LogotypeDark />
-                        }
-                        {
-                            (currentTheme === 'dark') &&
-                            <LogotypeLight />
-                        }
-                    </a>
+                    <div className="md:block hidden">
+                        <a href="">
+                            {
+                                (currentTheme === 'light') &&
+                                <LogotypeDark />
+                            }
+                            {
+                                (currentTheme === 'dark') &&
+                                <LogotypeLight />
+                            }
+                        </a>
+                    </div>
+                    <div className="md:hidden">
+                        <a href="">
+                            {
+                                (currentTheme === 'light') &&
+                                <LogoDark />
+                            }
+                            {
+                                (currentTheme === 'dark') &&
+                                <LogoLight />
+                            }
+                        </a>
+                    </div>
                 </div>
                 <div className="w-1/2 flex justify-end items-center">
                     <a href="#" className={"burger-menu order-4 ml-4 scale-75 hover:bg-slate-300 transition-all duration-200" + ` ${showBurgerClass}`}>
@@ -80,9 +94,9 @@ function Navbar() {
                         </svg>
                     </a>
                     <ul className={"nav-list" + ` ${showNavItems}`}>
-                        <li>
+                        {/* <li>
                             <a href="#" className={`font-questrial ${themeColors.text}`}>Favorites</a>
-                        </li>
+                        </li> */}
                         <li>
                             <a href="#" className={`ml-8 font-questrial ${themeColors.text}`}>Get in touch</a>
                         </li>
