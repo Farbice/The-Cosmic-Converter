@@ -13,6 +13,9 @@ export default {
       }
 
     },
+    screens: {
+      xxs: '540px',
+    }
   },
   plugins: [],
 }

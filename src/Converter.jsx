@@ -162,16 +162,37 @@ function Converter() {
                     </div>
 
 
-                    <ul className="flex md:w-2/3 mx-auto justify-between space-x-8 mt-24 mb-12">
-                        <li><a href="" className={`info-items ${themeColors.text}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>1</span>Enter amount</a></li>
-                        <li><a href="" className={`info-items ${themeColors.text}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>2</span>Choose <strong className="hover:bg-sky-700 underline underline-offset-4 decoration-2 decoration-sky-300/80">from</strong> and <strong className="hover:bg-sky-700 underline underline-offset-4 decoration-2 decoration-green-300/80">to</strong> currency</a></li>
-                        <li><a href="" className={`info-items ${themeColors.text}`}><span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>3</span>🎉 Hit convert</a></li>
+                    <ul className="flex flex-row w-2/3 justify-between space-x-8 xl:bg-emerald-200 lg:w-4/5 lg:bg-purple-300 md:w-full md:bg-yellow-300 mx-auto mt-24 mb-12">
+                        <li>
+                            <a href="" className={`info-items ${themeColors.text}`}>
+                                <div className="flex flex-wrap items-center justify-center">
+                                    <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>1</span>
+                                    <span>Enter amount</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" className={`info-items ${themeColors.text}`}>
+                                <div className="flex flex-wrap items-center justify-center">
+                                    <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>2</span>
+                                    <span>Choose <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">from</strong> and <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">to</strong> currency</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" className={`info-items ${themeColors.text}`}>
+                                <div className="flex flex-wrap items-center justify-center">
+                                    <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>3</span>
+                                    <span>🎉 Hit convert</span>
+                                </div>
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
-                <div className="w-3/4 mx-auto">
+                <div className={`w-full py-20 ${themeColors.banner}`}>
                     <form
-                        className={`flex flex-col p-16 ${currentTheme === 'light' ? 'bg-[#dae6fc] transition-all duration-300 ease-out' : 'bg-regal-blue transition-all duration-300 ease-out'} shadow-xl shadow-blue-500/20 border-none rounded-xl`}
+                        className={`flex flex-col w-3/4 mx-auto p-16 ${currentTheme === 'light' ? 'bg-[#dae6fc] transition-all duration-300 ease-out' : 'bg-regal-blue transition-all duration-300 ease-out'} shadow-xl shadow-blue-500/20 border-none rounded-xl`}
                         onSubmit={(e) => e.preventDefault()}>
 
                         <div className="flex gap-8 justify-center bg-slate-200">
