@@ -8,8 +8,9 @@ const themesManager = (theme) => {
             bckgd_primary: 'bg-gradient-to-br from-blue-100 via-blue-300 to-blue-100',
             bckgd_secondary: 'bg-gradient-to-tr from-purple-50 to-blue-200',
             nav_bg: 'bg-slate-100',
-            text: 'text-slate-600',
             main_text: 'text-[#0E2C58]',
+            text: 'text-slate-600',
+            accent_text: 'text-orange-500',
             regular_text: 'text-[#1D3A63]',
             banner: 'bg-[#E8F5FF]',
             icon : {
@@ -31,8 +32,9 @@ const themesManager = (theme) => {
             bckgd_primary: 'bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900',
             bckgd_secondary: 'bg-gradient-to-tr from-blue-900 to-zinc-900',
             nav_bg: 'bg-black',
-            text: 'text-slate-200',
             main_text: 'text-[#fefefe]',
+            text: 'text-slate-200',
+            accent_text: 'text-orange-500',
             regular_text: 'text-[#fbfbfb]',
             banner: 'bg-[#384774]',
             icon : {

@@ -98,7 +98,7 @@ function Navbar() {
                             <a href="#" className={`font-questrial ${themeColors.text}`}>Favorites</a>
                         </li> */}
                         <li>
-                            <a href="#" className={`ml-8 font-questrial ${themeColors.text}`}>Get in touch</a>
+                            <a href="#" className={`ml-8 font-questrial ${themeCo@@@@@@@@@@@@lors.text}`}>Get in touch</a>
                         </li>
                     </ul>
                     <div

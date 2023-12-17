@@ -22,6 +22,7 @@ function Converter() {
 
     const [rateSelectOption, setRateSelectOption] = useState([]);
     const [firstCurrency, setFirstCurrency] = useState('');
+
     const [targetCurrencies, setTargetCurrencies] = useState('');
 
     const [inputValue, setInputValue] = useState('');
@@ -38,18 +39,21 @@ function Converter() {
     const inputRef = useRef();
 
     const inputColorStyles = {
-        control: (styles, state) => ({ ...styles, backgroundColor: '#d9e8f6', borderColor: (state.isFocused ? '#c8db34' : 'none'), FontFamily: 'impact', borderRadius: '0' }),
-        valueContainer: (styles) => ({ ...styles, fontFamily: 'karla-medium' }),
+        control: (styles, state) => ({ ...styles, backgroundColor: '#FB6D3C', borderColor: (state.isFocused ? '#348adb' : 'none'), borderRadius: '5px' }),
+        singleValue: (styles) => ({ ...styles, color:'#ffff' }),
+        valueContainer: (styles) => ({ ...styles, fontFamily: 'Questrial', paddingRight: "4px"}),
+        dropdownIndicator: (styles, state) => ({ ...styles, paddingLeft: "4px", color: (state.isFocused ? '#ffff' : '#ffff'), "&:hover" : {color : "#ffb95d", } }),
+        indicatorSeparator: (styles) => ({...styles, display: "none" }),
 
         option: (styles, state) => {
             return (
-                { ...styles, backgroundColor: state.isFocused ? '#4586bf' : '#d9e8f6', color: state.isFocused ? '#d9e8f6' : '#0D1A2B' }
+                { ...styles, backgroundColor: state.isFocused ? '#f7dcc8' : '#fffdf8', color: state.isFocused ? '#596570' : '#0D1A2B' }
             )
         }
     }
 
     const outputColorStyles = {
-        control: (styles, state) => ({ ...styles, backgroundColor: '#d9f6f4', borderColor: (state.isFocused ? '#c8db34' : 'none'), FontFamily: 'impact', borderRadius: '0' }),
+        control: (styles, state) => ({ ...styles, backgroundColor: '#d9f6f4', borderColor: (state.isFocused ? '#c8db34' : 'none'), borderRadius: '0' }),
         valueContainer: (styles) => ({ ...styles, fontFamily: 'karla-medium' }),
         option: (styles, state) => {
             return (
@@ -140,12 +144,19 @@ function Converter() {
         setShowAmountErrorMessage(false);
     }
 
+    const handleTextOnly = data => {
+
+        if ((data.keyCode < 65 && data.keyCode !== 16 &&  data.keyCode !== 20 && data.keyCode !== 8) || data.keyCode > 90 ) {
+            data.preventDefault();
+        }
+    }
+
     return (
         <>
             <div
                 data-name="converter--component"
                 className="w-full">
-                <div className="w-3/4 mx-auto flex-column text-center">
+                <div className="xs:w-3/4 w-4/5 mx-auto flex-column text-center">
                     <h1 id="title" className={`font-playfair-black text-7xl md:mt-35 mt-16 ${themeColors.main_text}`}>
                         The Cosmic Converter
                         <span className="absolute md:top-[8rem] top-[8rem] after:inline-block after:w-10 after:h-10">
@@ -162,28 +173,28 @@ function Converter() {
                     </div>
 
 
-                    <ul className="flex flex-row w-2/3 justify-between space-x-8 xl:bg-emerald-200 lg:w-4/5 lg:bg-purple-300 md:w-full md:bg-yellow-300 mx-auto mt-24 mb-12">
+                    <ul className="flex flex-col xxs:flex-row xxs:w-full xs:space-x-8 xs:space-y-0 lg:w-4/5 md:w-full justify-between space-y-8 mx-auto mt-24 mb-12">
                         <li>
                             <a href="" className={`info-items ${themeColors.text}`}>
-                                <div className="flex flex-wrap items-center justify-center">
+                                <div className="flex flex-wrap w-full items-center xs:justify-center justify-left">
                                     <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>1</span>
-                                    <span>Enter amount</span>
+                                    <span className="xs:pl-0 pl-8">Enter amount</span>
                                 </div>
                             </a>
                         </li>
                         <li>
                             <a href="" className={`info-items ${themeColors.text}`}>
-                                <div className="flex flex-wrap items-center justify-center">
+                                <div className="flex flex-wrap w-full items-center xs:justify-center justify-left">
                                     <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>2</span>
-                                    <span>Choose <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">from</strong> and <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">to</strong> currency</span>
+                                    <span className="xs:pl-0 pl-8">Choose <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">from</strong> and <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">to</strong> currency</span>
                                 </div>
                             </a>
                         </li>
                         <li>
                             <a href="" className={`info-items ${themeColors.text}`}>
-                                <div className="flex flex-wrap items-center justify-center">
+                                <div className="flex flex-wrap w-full items-center xs:justify-center justify-left">
                                     <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>3</span>
-                                    <span>🎉 Hit convert</span>
+                                    <span className="xs:pl-0 pl-8">🎉 Hit convert</span>
                                 </div>
                             </a>
                         </li>
@@ -192,45 +203,49 @@ function Converter() {
 
                 <div className={`w-full py-20 ${themeColors.banner}`}>
                     <form
-                        className={`flex flex-col w-3/4 mx-auto p-16 ${currentTheme === 'light' ? 'bg-[#dae6fc] transition-all duration-300 ease-out' : 'bg-regal-blue transition-all duration-300 ease-out'} shadow-xl shadow-blue-500/20 border-none rounded-xl`}
+                        className={`flex flex-wrap xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto p-16 ${currentTheme === 'light' ? 'bg-[#ffffff] transition-all duration-300 ease-out' : 'bg-regal-blue transition-all duration-300 ease-out'} shadow-xl shadow-blue-500/20 border-none rounded-xl`}
                         onSubmit={(e) => e.preventDefault()}>
 
-                        <div className="flex gap-8 justify-center bg-slate-200">
+                        <div className="bg-white">
                             <div>
-                                <label className="block py-2 px-6 min-w-full rounded-xl bg-transparent/10">
-                                    <input
-                                        className={`transition outline-none rounded-xl underline underline-offset-8 text-8xl font-thin decoration-1 decoration-slate-400 ${currentTheme === 'light' ? 'focus-within:bg-[#dce9f8] text-slate-700 bg-slate-300' : 'focus-within:bg-input-focus-blue bg-slate-700'}`}
-                                        type="number"
-                                        step="0.01" min="0.00"
-                                        defaultValue={''}
-                                        placeholder="0.00"
-                                        ref={inputRef} onChange={handleInputChange}
-                                    />
-                                </label>
-                                {
-                                    showAmountErrorMessage &&
-                                    <div className="text-start inline">
-                                        <p className="text-1xl text-red-500">
-                                            * N&rsquo;oubliez pas d&rsquo;entrer un montant
-                                        </p>
+                                <legend className={`relative top-5 inset-x-[310px] w-fit h-fit px-3 font-medium bg-white font-questrial ${themeColors.accent_text}`}>from :</legend>
+                                <div className="flex flex-col justify-start p-4 border border-orange-400 rounded-3xl">
+                                    <p className="text-slate-300 text-[1.2rem] pl-4">Enter amount</p>
+                                    <div className="flex flex-row gap-8">
+                                        <label className="block w-fit rounded-xl">
+                                            <input
+                                                className={`transition outline-2 rounded-xl underline underline-offset-4 text-6xl pl-4 font-thin decoration-1 decoration-slate-400 ${currentTheme === 'light' ? 'focus-within:bg-[#dce9f8] text-slate-700 bg-slate-300' : 'focus-within:bg-input-focus-blue bg-slate-700'}`}
+                                                type="number"
+                                                step="0.01" min="0.00"
+                                                defaultValue={''}
+                                                placeholder="0.00"
+                                                ref={inputRef} onChange={handleInputChange}
+                                            />
+                                            {
+                                                showAmountErrorMessage &&
+                                                <div className="text-start inline">
+                                                    <p className="text-1xl text-red-500">
+                                                        * N&rsquo;oubliez pas d&rsquo;entrer un montant
+                                                    </p>
+                                                </div>
+                                            }
+                                        </label>
+                                        <div className="flex self-center w-fit h-fit">
+                                            <Select
+                                                className="block"
+                                                options={rateSelectOption}
+                                                defaultValue={firstCurrency}
+                                                value={firstCurrency}
+                                                onChange={handleFirstCurrency}
+                                                styles={inputColorStyles}
+                                                autoFocus={true}
+                                                onKeyDown={handleTextOnly}
+                                            />
+                                        </div>
                                     </div>
-                                }
-                            </div>
-                            <div className="flex flex-col justify-start">
-                                <p className="font-medium text-end font-questrial text-sky-300/80">from :</p>
-                                <div style={{ width: '120px' }}>
-
-                                    <Select
-                                        className="block file:bg-orange-200"
-                                        options={rateSelectOption}
-                                        defaultValue={firstCurrency}
-                                        value={firstCurrency}
-                                        onChange={handleFirstCurrency}
-                                        styles={inputColorStyles}
-                                        autoFocus={true}
-                                    />
-
                                 </div>
+                            </div>
+                            <div className="flex items-center">
                             </div>
                         </div>
 
