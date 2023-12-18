@@ -22,7 +22,11 @@ const themesManager = (theme) => {
                 accent: 'border-orange-500',
             },
             element_highlight: 'before:bg-[#FFC47C]',
-            
+            select : {
+                bckgd: 'bg-white',
+                input_bg: 'bg-orange-100 focus-within:bg-orange-200',
+            },
+            animate_settings: 'transition-all duration-300 ease-in-out',
         };
         return colorSet;
     }
@@ -46,6 +50,11 @@ const themesManager = (theme) => {
                 accent: 'border-amber-300',
             },
             element_highlight: 'before:bg-orange-500',
+            select : {
+                bckgd: 'bg-regal-blue',
+                input_bg: 'bg-slate-700 focus-within:bg-slate-800',
+            },
+            animate_settings: 'transition-all duration-300 ease-in-out',
         };
         return colorSet;
     }

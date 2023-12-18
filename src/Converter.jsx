@@ -10,7 +10,6 @@ import StarPosLeft from "./Assets/Images/star_pos_left";
 
 function Converter() {
 
-    const { state: { currentTheme } } = useContext(Context);
     const { themeColors } = useContext(Context);
 
     const [defaultTargetCurrenciesKey, setDefaultTargetCurrenciesKey] = useState({
@@ -40,10 +39,10 @@ function Converter() {
 
     const inputColorStyles = {
         control: (styles, state) => ({ ...styles, backgroundColor: '#FB6D3C', borderColor: (state.isFocused ? '#348adb' : 'none'), borderRadius: '5px' }),
-        singleValue: (styles) => ({ ...styles, color:'#ffff' }),
-        valueContainer: (styles) => ({ ...styles, fontFamily: 'Questrial', paddingRight: "4px"}),
-        dropdownIndicator: (styles, state) => ({ ...styles, paddingLeft: "4px", color: (state.isFocused ? '#ffff' : '#ffff'), "&:hover" : {color : "#ffb95d", } }),
-        indicatorSeparator: (styles) => ({...styles, display: "none" }),
+        singleValue: (styles) => ({ ...styles, color: '#ffff' }),
+        valueContainer: (styles) => ({ ...styles, fontFamily: 'Questrial', paddingRight: "4px" }),
+        dropdownIndicator: (styles, state) => ({ ...styles, paddingLeft: "4px", color: (state.isFocused ? '#ffff' : '#ffff'), "&:hover": { color: "#ffb95d", } }),
+        indicatorSeparator: (styles) => ({ ...styles, display: "none" }),
 
         option: (styles, state) => {
             return (
@@ -146,7 +145,7 @@ function Converter() {
 
     const handleTextOnly = data => {
 
-        if ((data.keyCode < 65 && data.keyCode !== 16 &&  data.keyCode !== 20 && data.keyCode !== 8) || data.keyCode > 90 ) {
+        if ((data.keyCode < 65 && data.keyCode !== 16 && data.keyCode !== 20 && data.keyCode !== 8) || data.keyCode > 90) {
             data.preventDefault();
         }
     }
@@ -203,36 +202,28 @@ function Converter() {
 
                 <div className={`w-full py-20 ${themeColors.banner}`}>
                     <form
-                        className={`flex flex-wrap xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto p-16 ${currentTheme === 'light' ? 'bg-[#ffffff] transition-all duration-300 ease-out' : 'bg-regal-blue transition-all duration-300 ease-out'} shadow-xl shadow-blue-500/20 border-none rounded-xl`}
+                        className={`flex flex-wrap justify-center xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 ${themeColors.select.bckgd} ${themeColors.animate_settings} shadow-xl shadow-blue-500/20 border-none rounded-3xl`}
                         onSubmit={(e) => e.preventDefault()}>
 
-                        <div className="bg-white">
+                        <div className={`${themeColors.select.bckgd} ${themeColors.animate_settings}`}>
                             <div>
-                                <legend className={`relative top-5 inset-x-[310px] w-fit h-fit px-3 font-medium bg-white font-questrial ${themeColors.accent_text}`}>from :</legend>
-                                <div className="flex flex-col justify-start p-4 border border-orange-400 rounded-3xl">
+                                <legend className={`relative top-5 xs:inset-x-[296px] inset-x-[255px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.select.bckgd} ${themeColors.animate_settings} ${themeColors.accent_text}`}>from :</legend>
+                                <div className="flex flex-col justify-start p-4 mb-8 border border-orange-400 rounded-3xl">
                                     <p className="text-slate-300 text-[1.2rem] pl-4">Enter amount</p>
                                     <div className="flex flex-row gap-8">
-                                        <label className="block w-fit rounded-xl">
+                                        <label className="inline-block rounded-xl">
                                             <input
-                                                className={`transition outline-2 rounded-xl underline underline-offset-4 text-6xl pl-4 font-thin decoration-1 decoration-slate-400 ${currentTheme === 'light' ? 'focus-within:bg-[#dce9f8] text-slate-700 bg-slate-300' : 'focus-within:bg-input-focus-blue bg-slate-700'}`}
+                                                className={`xs:max-w-sm max-w-xs transition outline-2 rounded-xl underline underline-offset-4 text-6xl pl-4 font-thin decoration-1 decoration-slate-400 text-slate-700 ${themeColors.select.input_bg}`}
                                                 type="number"
                                                 step="0.01" min="0.00"
                                                 defaultValue={''}
                                                 placeholder="0.00"
                                                 ref={inputRef} onChange={handleInputChange}
                                             />
-                                            {
-                                                showAmountErrorMessage &&
-                                                <div className="text-start inline">
-                                                    <p className="text-1xl text-red-500">
-                                                        * N&rsquo;oubliez pas d&rsquo;entrer un montant
-                                                    </p>
-                                                </div>
-                                            }
                                         </label>
-                                        <div className="flex self-center w-fit h-fit">
+                                        <div className="flex self-center">
                                             <Select
-                                                className="block"
+                                                className="block min-w-[96px] max-w-[96px]"
                                                 options={rateSelectOption}
                                                 defaultValue={firstCurrency}
                                                 value={firstCurrency}
@@ -242,6 +233,16 @@ function Converter() {
                                                 onKeyDown={handleTextOnly}
                                             />
                                         </div>
+                                    </div>
+                                    <div className="relative">
+                                        {
+                                            showAmountErrorMessage &&
+                                            <div className="absolute inset-y-4 -inset-x-3">
+                                                <p className="text-1xl text-orange-600">
+                                                    * N&rsquo;oubliez pas d&rsquo;entrer un montant
+                                                </p>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
