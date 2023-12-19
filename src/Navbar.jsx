@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Context } from "./Utilities/Context";
 import LogoDark from "./Assets/Logo/logoDark";
 import LogoLight from "./Assets/Logo/logoLight";
@@ -27,8 +27,6 @@ function Navbar() {
 
     const [animateIcon, setAnimateIcon] = useState(false);
 
-    const refHere = useRef(null);
-
     useEffect(() => {
 
         function handleScreenSize() {
@@ -56,7 +54,7 @@ function Navbar() {
         <nav
             data-name="navbar--component"
             className={`navbar flex p-4 w-full` + " " + `${themeColors.nav_bg}` + " " + 'transition-all duration-200 ease-in-out'}>
-            <div className="flex md:w-3/4 w-5/6 m-auto items-center">
+            <div className="flex md:w-3/4 xs:w-5/6 w-11/12 m-auto items-center">
                 <div className="logo w-1/2">
                     <div className="md:block hidden">
                         <a href="">
@@ -95,12 +93,14 @@ function Navbar() {
                     </a>
                     <ul className={"nav-list" + ` ${showNavItems}`}>
                         <li>
-                            <a href="#" className={`ml-8 font-questrial ${themeColors.text}`}>Get in touch</a>
+                            <a href="#" className={`ml-8 font-questrial ${themeColors.text}`}>
+                                <button className={`${themeColors.button.default} ${themeColors.button.hover} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}>Get in touch</button>
+                            </a>
                         </li>
                     </ul>
                     <div
                         data-name="dark-mode--icon"
-                        className={"theme-icon ml-8 p-3 rounded-full scale-75 cursor-pointer ring-inset" + " " + `${themeColors.icon.hover}` + " " + `${themeColors.icon.active}` + " " + `${animateIcon && "ring-2" + " " + `${themeColors.icon.ring}` + " " + "transition-all duration-200 ease-out"}`}
+                        className={"theme-icon ml-8 p-3 rounded-full scale-75 cursor-pointer ring-2 ring-orange-300" + " " + `${themeColors.icon.hover}` + " " + `${themeColors.icon.active}` + " " + `${animateIcon && "ring-2 ring-inset" + " " + `${themeColors.icon.ring}` + " " + `${themeColors.animate_settings.button}`}`}
 
                         onClick={() => {
                             setAnimateIcon(true);

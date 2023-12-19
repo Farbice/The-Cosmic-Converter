@@ -1,6 +1,6 @@
 function Sun() {
     return (
-        <svg className="opacity-70" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="none">
+        <svg className="opacity-50" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="none">
             <mask id="a" width="25" height="25" x="0" y="0" fill="#000" maskUnits="userSpaceOnUse">
                 <path fill="#fff" d="M0 0h25v25H0z" />
                 <path fillRule="evenodd"

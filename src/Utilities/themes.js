@@ -16,7 +16,7 @@ const themesManager = (theme) => {
             icon : {
                 hover: 'hover:bg-slate-300 transition duration-200 ease-in-out',
                 active: 'active:bg-slate-400',
-                ring: 'ring-slate-500',
+                ring: 'ring-orange-400',
             },
             border : {
                 accent: 'border-orange-500',
@@ -26,7 +26,14 @@ const themesManager = (theme) => {
                 bckgd: 'bg-white',
                 input_bg: 'bg-orange-100 focus-within:bg-orange-200',
             },
-            animate_settings: 'transition-all duration-300 ease-in-out',
+            animate_settings : {
+                bckgd : 'transition-all duration-300 ease-in-out',
+                button : 'transition-all duration-200 ease-out',
+            },
+            button : {
+                default: 'border-[1px] border-orange-400 py-3 px-4 rounded-2xl',
+                hover: 'hover:bg-[#FB6D3C] hover:shadow-xl hover:shadow-orange-600/40 hover:text-slate-200',
+            }
         };
         return colorSet;
     }
@@ -44,7 +51,7 @@ const themesManager = (theme) => {
             icon : {
                 hover: 'hover:bg-gray-700 transition duration-200 ease-in-out',
                 active: 'active:bg-gray-500',
-                ring: 'ring-slate-600',
+                ring: 'ring-orange-400',
             },
             border : {
                 accent: 'border-amber-300',
@@ -55,6 +62,10 @@ const themesManager = (theme) => {
                 input_bg: 'bg-slate-700 focus-within:bg-slate-800',
             },
             animate_settings: 'transition-all duration-300 ease-in-out',
+            button : {
+                default: 'border-[1px] border-orange-400 py-3 px-4 rounded-2xl',
+                hover: 'hover:bg-[#FB6D3C] hover:shadow-xl hover:shadow-orange-600/40 hover:text-slate-200',
+            }
         };
         return colorSet;
     }
