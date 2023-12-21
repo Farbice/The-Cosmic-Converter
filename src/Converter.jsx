@@ -12,11 +12,14 @@ function Converter() {
 
     const { themeColors } = useContext(Context);
 
+    const [targetCurrencyBackgroundColor, setTargetCurrencyBackgroundColor] = useState('#b0ecf6');
+
     const [defaultTargetCurrenciesKey, setDefaultTargetCurrenciesKey] = useState({
         currency: 'USD',
         value: 'USD',
         label: 'USD',
-        rate: ''
+        rate: '',
+        color: targetCurrencyBackgroundColor
     });
 
     const [rateSelectOption, setRateSelectOption] = useState([]);
@@ -38,36 +41,48 @@ function Converter() {
     const inputRef = useRef();
 
     const [selectOutputSize, setSelectOutputSize] = useState({
-        width : '',
-        height : ''
+        width: '',
+        height: ''
     });
     const selectRef = useRef();
 
     const inputColorStyles = {
-        control: (styles, state) => ({ ...styles, backgroundColor: '#FB6D3C', borderColor: (state.isFocused ? '#348adb' : 'none'), borderRadius: '5px' }),
+        control: (styles) => ({ ...styles, backgroundColor: '#FB6D3C', border: 'none', borderRadius: '5px' }),
         singleValue: (styles) => ({ ...styles, color: '#ffff' }),
         valueContainer: (styles) => ({ ...styles, fontFamily: 'Questrial', paddingRight: "4px" }),
-        dropdownIndicator: (styles, state) => ({ ...styles, paddingLeft: "4px", color: (state.isFocused ? '#ffff' : '#ffff'), "&:hover": { color: "#ffb95d", } }),
+        dropdownIndicator: (styles, state) => ({ ...styles, paddingLeft: "4px", color: (state.isFocused ? '#ffff' : '#ffff'), "&:hover": { color: "#ffb95d" } }),
         indicatorSeparator: (styles) => ({ ...styles, display: "none" }),
+        menuList: (styles) => ({ ...styles, borderRadius: '5px' }),
 
         option: (styles, state) => {
             return (
-                { ...styles, backgroundColor: state.isFocused ? '#f7dcc8' : '#fffdf8', color: state.isFocused ? '#596570' : '#0D1A2B' }
+                { ...styles, backgroundColor: state.isFocused ? '#f7e5d7' : '#fffefd', color: state.isFocused ? '#FB6D3C' : '#5a6a7e' }
             )
         }
     }
 
     const outputColorStyles = {
-        control: (styles, state) => ({ ...styles, minHeight: 'min-content', maxWidth: 'content', backgroundColor: 'none', borderColor: (state.isFocused ? '#5b34db' : 'none'), borderRadius: '5px' }),
-        valueContainer: (styles) => ({ ...styles, flexWrap: 'nowrap', padding: '0px', fontFamily: 'Questrial', overflow: 'scroll'  }),
-        multiValue: (styles) => ({ ...styles, margin: '0px 8px 0px 0px', padding: '5px', minWidth: 'fit-content' }),
+        control: (styles) => ({ ...styles, minHeight: 'min-content', maxWidth: 'content', padding: '2px', backgroundColor: 'none', border: '1px solid #FFEDD5' }),
+        valueContainer: (styles) => ({ ...styles, flexWrap: 'nowrap', padding: '0px', fontFamily: 'Questrial', overflow: 'scroll' }),
+        multiValue: (styles, data) => {
+            const bcg = '#DA23FF';
+            return (
+                console.log(data),
+                { ...styles, margin: '0px 8px 0px 0px', padding: '4px', minWidth: 'fit-content', borderRadius: '5px', "&:hover": { color: "#ffb95d" }, backgroundColor: data.isSelected ? bcg : '#b0bdf6' }
+            )
+        },
+        singleValue: (styles, state) => {
+            return (
+                { ...styles, backgroundColor: state.singleValue ? targetCurrencyBackgroundColor : '#b2f6b0' }
+            )
+        },
 
         option: (styles, state) => {
             return (
-                { ...styles, backgroundColor: state.isFocused ? '#74b542' : '#f6d9f2', color: state.isFocused ? '#d9e8f6' : '#0D1A2B' }
+                { ...styles, backgroundColor: state.isFocused ? '#f7e5d7' : '#fffefd', color: state.isFocused ? '#FB6D3C' : '#5a6a7e' }
             )
         }
-    }
+    };
 
 
     useEffect(() => {
@@ -128,7 +143,7 @@ function Converter() {
 
 
 
-    useEffect (() => {
+    useEffect(() => {
 
         if (selectRef.current) {
             setSelectOutputSize({
@@ -137,8 +152,22 @@ function Converter() {
             });
         }
 
-    }, [selectOutputSize.width, selectOutputSize.height, selectRef]);
+    }, [selectOutputSize.width, selectOutputSize.height]);
 
+
+    // useEffect(() => {
+
+    //     if(targetCurrencyRef.current.props) {
+
+    //         console.log(targetCurrencyRef.current.props.value);
+
+    //         const selectValue = targetCurrencyRef.current.props.value;
+    //         const lastSelectValue = selectValue[selectValue.length-1];
+    //         console.log(lastSelectValue);
+
+    //     }
+
+    // }, [targetCurrencyRef.current.props]);
 
 
     function handleTargetCurrencies(data) {
@@ -150,6 +179,7 @@ function Converter() {
 
         setTargetCurrencies(updatedTargetCurrencies);
         setShowCurrencyErrorMessage(false);
+        handleTargetCurrencyBackgroundColor();
     }
 
     function handleFirstCurrency(data) {
@@ -159,7 +189,6 @@ function Converter() {
 
     }
 
-
     function handleInputChange(e) {
         setInputValue(e.target.value);
         setShowAmountErrorMessage(false);
@@ -167,12 +196,21 @@ function Converter() {
 
     const handleTextOnly = data => {
 
-        console.log(data.keyCode);
-
         if ((data.keyCode < 65 && data.keyCode !== 16 && data.keyCode !== 20 && data.keyCode !== 8) || data.keyCode > 90) {
             data.preventDefault();
         }
     }
+
+    function handleTargetCurrencyBackgroundColor() {
+
+        let backgroundColor = "#" + ((1<<24)*Math.random() | 0).toString(16);
+        setTargetCurrencyBackgroundColor(backgroundColor);
+        console.log('here');
+
+        console.log(targetCurrencyBackgroundColor);
+
+    }
+
 
     return (
         <>
@@ -191,7 +229,7 @@ function Converter() {
                             <span className={`relative md:-left-24 md:-top-10 -top-[4rem] -left-[4rem] md:scale-100 scale-75 inline-block w-10 h-10`}>
                                 <StarPosLeft />
                             </span>
-                            Convert <span className={`before:absolute before:block before:-inset-2 ${themeColors.element_highlight} before:-skew-y-3 before:-skew-x-6 relative inline-block`}><span className="relative">instantly</span></span> any currency to any currency
+                            Convert <span className={`before:absolute before:block before:-inset-2 ${themeColors.element_highlight} before:-skew-y-3 before:-skew-x-6 relative inline-block`}><span className="relative">instantly</span></span> any currency to many currencies
                         </h2>
                     </div>
 
@@ -209,7 +247,7 @@ function Converter() {
                             <a href="" className={`info-items ${themeColors.text}`}>
                                 <div className="flex flex-wrap w-full items-center xs:justify-center justify-left">
                                     <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>2</span>
-                                    <span className="xs:pl-0 pl-8">Choose <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">from</strong> and <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">to</strong> currency</span>
+                                    <span className="xs:pl-0 pl-8">Choose <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">from</strong> and <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">to</strong> currencies</span>
                                 </div>
                             </a>
                         </li>
@@ -217,7 +255,7 @@ function Converter() {
                             <a href="" className={`info-items ${themeColors.text}`}>
                                 <div className="flex flex-wrap w-full items-center xs:justify-center justify-left">
                                     <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>3</span>
-                                    <span className="xs:pl-0 pl-8">🎉 Hit convert</span>
+                                    <span className="xs:pl-0 pl-8">🎉 Hit convert !</span>
                                 </div>
                             </a>
                         </li>
@@ -228,105 +266,105 @@ function Converter() {
                     <form
                         className={`flex flex-wrap md:gap-8 justify-center xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 ${themeColors.select.bckgd} ${themeColors.animate_settings.bckgd} shadow-xl shadow-blue-500/20 border-none rounded-3xl`}
                         onSubmit={(e) => e.preventDefault()}>
-
-                        <div className={`${themeColors.select.bckgd} ${themeColors.animate_settings.bckgd}`}>
-                            <div>
-                                <legend className={`relative top-5 xs:inset-x-[296px] inset-x-[255px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.select.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>from :</legend>
-                                <div className="flex flex-col justify-start p-4 mb-8 border border-orange-400 rounded-3xl" ref={selectRef}>
-                                    <p className="text-slate-300 text-[1.2rem] pl-4">Enter amount</p>
-                                    <div className="flex flex-row gap-8">
-                                        <label className="inline-block rounded-xl">
-                                            <input
-                                                className={`xs:max-w-sm max-w-xs transition outline-2 rounded-xl underline underline-offset-4 text-6xl pl-4 font-thin decoration-1 decoration-slate-400 text-slate-700 ${themeColors.select.input_bg}`}
-                                                type="number"
-                                                step="0.01" min="0.00"
-                                                defaultValue={''}
-                                                placeholder="0.00"
-                                                ref={inputRef} onChange={handleInputChange}
-                                            />
-                                        </label>
-                                        <div className="flex self-center">
-                                            <Select
-                                                className="block min-w-[96px] max-w-[96px]"
-                                                options={rateSelectOption}
-                                                defaultValue={firstCurrency}
-                                                value={firstCurrency}
-                                                onChange={handleFirstCurrency}
-                                                styles={inputColorStyles}
-                                                autoFocus={true}
-                                                onKeyDown={handleTextOnly}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="relative">
-                                        {
-                                            showAmountErrorMessage &&
-                                            <div className="absolute inset-y-4 -inset-x-3 text-[1.4rem]">
-                                                <p className="text-1xl text-orange-600">
-                                                    * N&rsquo;oubliez pas d&rsquo;entrer un montant
-                                                </p>
+                        <div className="flex flex-wrap md:gap-8 justify-center">
+                            <div className={`${themeColors.select.bckgd} ${themeColors.animate_settings.bckgd}`}>
+                                <div>
+                                    <legend className={`relative top-5 xs:inset-x-[296px] inset-x-[255px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.select.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>from :</legend>
+                                    <div className="flex flex-col justify-start p-4 mb-8 border border-orange-400 rounded-3xl" ref={selectRef}>
+                                        <p className="text-slate-300 text-[1.2rem] pl-4">Enter amount</p>
+                                        <div className="flex flex-row gap-8">
+                                            <label className="inline-block rounded-xl">
+                                                <input
+                                                    className={`xs:max-w-sm max-w-xs transition outline-0 rounded-xl underline underline-offset-4 text-[2.60rem] pl-4 font-light decoration-1 decoration-slate-400 text-slate-700 ${themeColors.select.input_bg}`}
+                                                    type="number"
+                                                    step="0.01" min="0.00"
+                                                    defaultValue={''}
+                                                    placeholder="0.00"
+                                                    ref={inputRef} onChange={handleInputChange}
+                                                />
+                                            </label>
+                                            <div className="flex self-center">
+                                                <Select
+                                                    className="block min-w-[96px] max-w-[96px]"
+                                                    options={rateSelectOption}
+                                                    defaultValue={firstCurrency}
+                                                    value={firstCurrency}
+                                                    onChange={handleFirstCurrency}
+                                                    styles={inputColorStyles}
+                                                    autoFocus={true}
+                                                    onKeyDown={handleTextOnly}
+                                                />
                                             </div>
-                                        }
+                                        </div>
+                                        <div className="relative">
+                                            {
+                                                showAmountErrorMessage &&
+                                                <div className="absolute inset-y-4 -inset-x-3 text-[1.4rem]">
+                                                    <p className="text-1xl text-orange-600">
+                                                        * N&rsquo;oubliez pas d&rsquo;entrer un montant
+                                                    </p>
+                                                </div>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className={`${themeColors.select.bckgd} ${themeColors.animate_settings.bckgd}`}>
-                            <div>
-                                <legend className={`relative top-5 xs:inset-x-[28px] inset-x-[155px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.select.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>to :</legend>
-                                <div className={`flex flex-col justify-between min-w-[${selectOutputSize.width}px] max-w-[${selectOutputSize.width}px] min-h-[${selectOutputSize.height}px] max-h-[${selectOutputSize.height}px] justify-start p-4 mb-8 border border-orange-400 rounded-3xl`}>
-                                    <p className="text-end text-slate-300 text-[1.2rem] pl-4">add currenies</p>
-                                    <div className="">
+                            <div className={`${themeColors.select.bckgd} ${themeColors.animate_settings.bckgd}`}>
+                                <div>
+                                    <legend className={`relative top-5 xs:inset-x-[28px] inset-x-[155px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.select.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>to :</legend>
+                                    <div className={`flex flex-col justify-between min-w-[${selectOutputSize.width}px] max-w-[${selectOutputSize.width}px] min-h-[${selectOutputSize.height}px] max-h-[${selectOutputSize.height}px] justify-start p-4 mb-8 border border-orange-400 rounded-3xl`}>
+                                        <p className="text-end text-slate-300 text-[1rem] pl-4">add currencies</p>
                                         <div className="">
-                                            <Select
-                                                isMulti
-                                                options={rateSelectOption}
-                                                defaultValue={defaultTargetCurrenciesKey}
-                                                value={targetCurrencies}
-                                                onChange={handleTargetCurrencies}
-                                                styles={outputColorStyles}
-                                                autoFocus={true}
-                                                ref={targetCurrencyRef}
-                                                isClearable={false}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="relative">
-                                        {
-                                            showCurrencyErrorMessage &&
-                                            <div className="absolute inset-y-4 -inset-x-3 text-[1.4rem]">
-                                                <p className="text-1xl text-orange-600">
-                                                    * Veuillez sélectionner au moins une devise
-                                                </p>
+                                            <div className="">
+                                                <Select
+                                                    isMulti
+                                                    options={rateSelectOption}
+                                                    defaultValue={defaultTargetCurrenciesKey}
+                                                    value={targetCurrencies}
+                                                    onChange={handleTargetCurrencies}
+                                                    styles={outputColorStyles}
+                                                    autoFocus={true}
+                                                    ref={targetCurrencyRef}
+                                                    isClearable={true}
+                                                />
                                             </div>
-                                        }
+                                        </div>
+                                        <div className="relative">
+                                            {
+                                                showCurrencyErrorMessage &&
+                                                <div className="absolute inset-y-4 -inset-x-3 text-[1.4rem]">
+                                                    <p className="text-1xl text-orange-600">
+                                                        * Veuillez sélectionner au moins une devise
+                                                    </p>
+                                                </div>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
+                            <div className="flex gap-8 self-center">
+                                <div>
+                                    <button
+                                        className={`${themeColors.button.default} ${themeColors.button.hover} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}
+                                        onClick=
+                                        {
+                                            () => {
+                                                const table = convertValue(inputRef.current.value, inputValue, targetCurrencies, targetCurrencyRef.current.props.value, setShowAmountErrorMessage, setShowCurrencyErrorMessage);
+                                                setTableResults(table);
+                                            }
+                                        }>
+                                        Convert
+                                    </button>
+                                </div>
+                                <div>
+                                    <button className={`${themeColors.button.default} ${themeColors.button.hover} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}>
+                                        Reset
+                                    </button>
+                                </div>
+                            </div>
 
-                        <span style={{ display: 'block', height: '1rem' }}></span>
-                        <div className="flex gap-8 self-center">
-                            <div>
-                                <button
-                                    className="convert-button mt-8 py-2 px-4 bg-orange-500 hover:bg-gradient-to-r from-yellow-600 to-red-600 text-slate-300 font-questrial hover:text-white border border-orange-500 hover:border-transparent rounded"
-                                    onClick=
-                                    {
-                                        () => {
-                                            const table = convertValue(inputRef.current.value, inputValue, targetCurrencies, targetCurrencyRef.current.props.value, setShowAmountErrorMessage, setShowCurrencyErrorMessage);
-                                            setTableResults(table);
-                                        }
-                                    }>
-                                    Convert
-                                </button>
-                            </div>
-                            <div>
-                                <button className="reset-button mt-8 py-2 px-4 font-questrial bg-orange-200 text-slate-400 rounded">
-                                    Reset
-                                </button>
-                            </div>
                         </div>
                     </form>
                 </div>

@@ -11,7 +11,8 @@ const formatRatesTable = (ratesTable, targetCurrency, setFirstCurrency) => {
             currency: currency,
             value: currency,
             label: currency,
-            rate: parseFloat(rate / ratesTable[targetCurrency]).toFixed(4)
+            rate: parseFloat(rate / ratesTable[targetCurrency]).toFixed(4),
+            color: ''
         }
     });
     const defaultInputCurrency = rateArray.filter((currency) => currency.label === targetCurrency);
