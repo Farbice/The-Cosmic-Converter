@@ -5,6 +5,8 @@
      * @return {array} - array of all rates values with target currency rate set to 1
     */
 const formatRatesTable = (ratesTable, targetCurrency, setFirstCurrency) => {
+    const customColor = "#" + ((1<<24)*Math.random() | 0).toString(16);
+        
     const rateEntries = Object.entries(ratesTable);
     const rateArray = rateEntries.map(([currency, rate]) => {
         return {
@@ -12,11 +14,11 @@ const formatRatesTable = (ratesTable, targetCurrency, setFirstCurrency) => {
             value: currency,
             label: currency,
             rate: parseFloat(rate / ratesTable[targetCurrency]).toFixed(4),
-            color: ''
+            color: customColor
         }
     });
-    const defaultInputCurrency = rateArray.filter((currency) => currency.label === targetCurrency);
 
+    const defaultInputCurrency = rateArray.filter((currency) => currency.label === targetCurrency);
     setFirstCurrency(defaultInputCurrency);
 
     return rateArray;

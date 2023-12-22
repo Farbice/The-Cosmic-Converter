@@ -64,24 +64,49 @@ function Converter() {
     const outputColorStyles = {
         control: (styles) => ({ ...styles, minHeight: 'min-content', maxWidth: 'content', padding: '2px', backgroundColor: 'none', border: '1px solid #FFEDD5' }),
         valueContainer: (styles) => ({ ...styles, flexWrap: 'nowrap', padding: '0px', fontFamily: 'Questrial', overflow: 'scroll' }),
-        multiValue: (styles, data) => {
-            const bcg = '#DA23FF';
+        multiValue: (styles, {isSelected}) => {
+
+            let backgroundColorValue = targetCurrencyBackgroundColor;
+            isSelected && backgroundColorValue
+
+            if (isSelected) {
+                console.log('Selected');
+            }
+
             return (
-                console.log(data),
-                { ...styles, margin: '0px 8px 0px 0px', padding: '4px', minWidth: 'fit-content', borderRadius: '5px', "&:hover": { color: "#ffb95d" }, backgroundColor: data.isSelected ? bcg : '#b0bdf6' }
-            )
-        },
-        singleValue: (styles, state) => {
-            return (
-                { ...styles, backgroundColor: state.singleValue ? targetCurrencyBackgroundColor : '#b2f6b0' }
+                { ...styles, margin: '0px 8px 0px 0px', padding: '4px', minWidth: 'fit-content', borderRadius: '5px', "&:hover": { color: "#ffb95d" }, backgroundColor: '#282c5f'  }
             )
         },
 
-        option: (styles, state) => {
+        multiValueLabel: (styles) => {
+
             return (
-                { ...styles, backgroundColor: state.isFocused ? '#f7e5d7' : '#fffefd', color: state.isFocused ? '#FB6D3C' : '#5a6a7e' }
+                { ...styles, color: '#5582dd99H' }
             )
-        }
+        },
+
+        option: (styles, {data, isFocused, isSelected}) => {
+
+            let backgroundColorValue = '#fffefd';
+            let colorValue = '#5a6a7e';
+
+            if (isFocused) {
+                backgroundColorValue ='#f7e5d7';
+                colorValue = '#FB6D3C';
+            }
+
+            if (isSelected) {
+                console.log(data);
+                if (data && data.color) {
+                    backgroundColorValue = data.color;
+                    console.log(backgroundColorValue);
+                }
+            }
+
+            return (
+                { ...styles, backgroundColor: backgroundColorValue, color: colorValue }
+            )
+        },
     };
 
 
@@ -205,9 +230,6 @@ function Converter() {
 
         let backgroundColor = "#" + ((1<<24)*Math.random() | 0).toString(16);
         setTargetCurrencyBackgroundColor(backgroundColor);
-        console.log('here');
-
-        console.log(targetCurrencyBackgroundColor);
 
     }
 
@@ -275,7 +297,7 @@ function Converter() {
                                         <div className="flex flex-row gap-8">
                                             <label className="inline-block rounded-xl">
                                                 <input
-                                                    className={`xs:max-w-sm max-w-xs transition outline-0 rounded-xl underline underline-offset-4 text-[2.60rem] pl-4 font-light decoration-1 decoration-slate-400 text-slate-700 ${themeColors.select.input_bg}`}
+                                                    className={`xs:max-w-sm max-w-xs transition outline-0 rounded-xl underline underline-offset-4 text-[2.60rem] pl-4 font-light decoration-1 decoration-slate-400 ${themeColors.select.text} ${themeColors.select.input_bg}`}
                                                     type="number"
                                                     step="0.01" min="0.00"
                                                     defaultValue={''}
@@ -360,7 +382,7 @@ function Converter() {
                                 </div>
                                 <div>
                                     <button className={`${themeColors.button.default} ${themeColors.button.hover} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}>
-                                        Reset
+                                        <a href="">Reset</a>
                                     </button>
                                 </div>
                             </div>

@@ -25,6 +25,7 @@ const themesManager = (theme) => {
             select : {
                 bckgd: 'bg-white',
                 input_bg: 'bg-orange-100 focus-within:bg-orange-200',
+                text: 'text-slate-700',
             },
             animate_settings : {
                 bckgd : 'transition-all duration-300 ease-in-out',
@@ -60,6 +61,7 @@ const themesManager = (theme) => {
             select : {
                 bckgd: 'bg-regal-blue',
                 input_bg: 'bg-slate-700 focus-within:bg-slate-800',
+                text: 'text-slate-200',
             },
             animate_settings: 'transition-all duration-300 ease-in-out',
             button : {
