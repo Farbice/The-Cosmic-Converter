@@ -65,7 +65,7 @@ const themesManager = (theme) => {
             },
             animate_settings: 'transition-all duration-300 ease-in-out',
             button : {
-                default: 'border-[1px] border-orange-400 py-3 px-4 rounded-2xl',
+                default: 'border-[1px] border-orange-400 py-3 px-4 rounded-2xl w-[12rem]',
                 hover: 'hover:bg-[#FB6D3C] hover:shadow-xl hover:shadow-orange-600/40 hover:text-slate-200',
             }
         };

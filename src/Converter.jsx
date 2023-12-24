@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import { Context } from "./Utilities/Context";
 import { Table } from "./Table";
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import formatRatesTable from "./Utilities/formatRatesTable";
 import convertValue from './Utilities/convertValue';
 import getOneCurrency from "./Utilities/getOneCurrency";
 import StarPosRight from "./Assets/Images/star_pos_right";
 import StarPosLeft from "./Assets/Images/star_pos_left";
+import DropdownLight from "./Assets/Images/dropdown_light";
 
 function Converter() {
 
@@ -50,7 +51,7 @@ function Converter() {
         control: (styles) => ({ ...styles, backgroundColor: '#FB6D3C', border: 'none', borderRadius: '5px' }),
         singleValue: (styles) => ({ ...styles, color: '#ffff' }),
         valueContainer: (styles) => ({ ...styles, fontFamily: 'Questrial', paddingRight: "4px" }),
-        dropdownIndicator: (styles, state) => ({ ...styles, paddingLeft: "4px", color: (state.isFocused ? '#ffff' : '#ffff'), "&:hover": { color: "#ffb95d" } }),
+        dropdownIndicator: (styles, state) => ({ ...styles, paddingLeft: "4px", color: (state.isFocused ? '#ffff' : '#ffff'), "&:hover": { color: "#ffb95d" }, cursor: 'pointer' }),
         indicatorSeparator: (styles) => ({ ...styles, display: "none" }),
         menuList: (styles) => ({ ...styles, borderRadius: '5px' }),
 
@@ -64,17 +65,17 @@ function Converter() {
     const outputColorStyles = {
         control: (styles) => ({ ...styles, minHeight: 'min-content', maxWidth: 'content', padding: '2px', backgroundColor: 'none', border: '1px solid #FFEDD5' }),
         valueContainer: (styles) => ({ ...styles, flexWrap: 'nowrap', padding: '0px', fontFamily: 'Questrial', overflow: 'scroll' }),
-        multiValue: (styles, {isSelected}) => {
+        multiValue: (styles, { isSelected }) => {
 
             let backgroundColorValue = targetCurrencyBackgroundColor;
-            isSelected && backgroundColorValue
 
+            isSelected && backgroundColorValue;
             if (isSelected) {
                 console.log('Selected');
             }
 
             return (
-                { ...styles, margin: '0px 8px 0px 0px', padding: '4px', minWidth: 'fit-content', borderRadius: '5px', "&:hover": { color: "#ffb95d" }, backgroundColor: '#282c5f'  }
+                { ...styles, margin: '0px 8px 0px 0px', padding: '4px', minWidth: 'fit-content', borderRadius: '5px', "&:hover": { color: "#ffb95d" }, backgroundColor: '#282c5f' }
             )
         },
 
@@ -85,13 +86,13 @@ function Converter() {
             )
         },
 
-        option: (styles, {data, isFocused, isSelected}) => {
+        option: (styles, { data, isFocused, isSelected }) => {
 
             let backgroundColorValue = '#fffefd';
             let colorValue = '#5a6a7e';
 
             if (isFocused) {
-                backgroundColorValue ='#f7e5d7';
+                backgroundColorValue = '#f7e5d7';
                 colorValue = '#FB6D3C';
             }
 
@@ -108,6 +109,26 @@ function Converter() {
             )
         },
     };
+
+    // const DropdownIndicatorStyles = (styles, state) =>
+    //     ({ ...styles, cursor: 'pointer', padding: '0px', margin: '0px' });
+
+
+
+    const DropdownIndicator = (props) => {
+
+        const { getStyles } = props;
+
+        return (
+            <components.DropdownIndicator {...props}>
+                <div className="cursor-pointer">
+                    <DropdownLight style={getStyles('dropdownIndicator', props)}/>
+                </div>
+            </components.DropdownIndicator>
+        );
+    };
+
+    const dropdownIndicatorStyles = (styles) =>({...styles, cursor: 'pointer'});
 
 
     useEffect(() => {
@@ -177,6 +198,8 @@ function Converter() {
             });
         }
 
+        console.log(selectOutputSize.width, selectOutputSize.height);
+
     }, [selectOutputSize.width, selectOutputSize.height]);
 
 
@@ -228,7 +251,7 @@ function Converter() {
 
     function handleTargetCurrencyBackgroundColor() {
 
-        let backgroundColor = "#" + ((1<<24)*Math.random() | 0).toString(16);
+        let backgroundColor = "#" + ((1 << 24) * Math.random() | 0).toString(16);
         setTargetCurrencyBackgroundColor(backgroundColor);
 
     }
@@ -335,17 +358,18 @@ function Converter() {
                             <div className={`${themeColors.select.bckgd} ${themeColors.animate_settings.bckgd}`}>
                                 <div>
                                     <legend className={`relative top-5 xs:inset-x-[28px] inset-x-[155px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.select.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>to :</legend>
-                                    <div className={`flex flex-col justify-between min-w-[${selectOutputSize.width}px] max-w-[${selectOutputSize.width}px] min-h-[${selectOutputSize.height}px] max-h-[${selectOutputSize.height}px] justify-start p-4 mb-8 border border-orange-400 rounded-3xl`}>
+                                    <div className={`flex flex-col justify-between min-w-[${selectOutputSize.width}px] max-w-[${selectOutputSize.width}px] min-h-[${selectOutputSize.height}px] max-h-[${selectOutputSize.height}px] p-4 mb-8 border border-orange-400 rounded-3xl`}>
                                         <p className="text-end text-slate-300 text-[1rem] pl-4">add currencies</p>
                                         <div className="">
                                             <div className="">
                                                 <Select
                                                     isMulti
                                                     options={rateSelectOption}
+                                                    components={{DropdownIndicator}}
                                                     defaultValue={defaultTargetCurrenciesKey}
                                                     value={targetCurrencies}
                                                     onChange={handleTargetCurrencies}
-                                                    styles={outputColorStyles}
+                                                    styles={{ ...outputColorStyles, DropdownIndicator: dropdownIndicatorStyles }}
                                                     autoFocus={true}
                                                     ref={targetCurrencyRef}
                                                     isClearable={true}
@@ -392,6 +416,9 @@ function Converter() {
                 </div>
                 <div>
                     {
+                        console.log(tableResults)
+                    }
+                    {   
                         tableResults &&
                         <Table list={tableResults} />
                     }

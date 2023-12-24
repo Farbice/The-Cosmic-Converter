@@ -131,7 +131,8 @@ a {
 
 
 
-input::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+input::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
@@ -179,4 +180,3 @@ input {
     border-radius: 50%;
     background-color: none;
 }
-
