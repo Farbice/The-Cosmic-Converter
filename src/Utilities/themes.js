@@ -22,7 +22,7 @@ const themesManager = (theme) => {
                 accent: 'border-orange-500',
             },
             element_highlight: 'before:bg-[#FFC47C]',
-            select : {
+            component : {
                 bckgd: 'bg-white',
                 input_bg: 'bg-orange-100 focus-within:bg-orange-200',
                 text: 'text-slate-700',
@@ -58,12 +58,15 @@ const themesManager = (theme) => {
                 accent: 'border-amber-300',
             },
             element_highlight: 'before:bg-orange-500',
-            select : {
+            component : {
                 bckgd: 'bg-regal-blue',
                 input_bg: 'bg-slate-700 focus-within:bg-slate-800',
                 text: 'text-slate-200',
             },
-            animate_settings: 'transition-all duration-300 ease-in-out',
+            animate_settings : {
+                bckgd : 'transition-all duration-300 ease-in-out',
+                button : 'transition-all duration-200 ease-out',
+            },
             button : {
                 default: 'border-[1px] border-orange-400 py-3 px-4 rounded-2xl w-[12rem]',
                 hover: 'hover:bg-[#FB6D3C] hover:shadow-xl hover:shadow-orange-600/40 hover:text-slate-200',

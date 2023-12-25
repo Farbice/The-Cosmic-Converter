@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import { Context } from "./Utilities/Context";
 import { Table } from "./Table";
+import Results from "./Results";
 import Select, { components } from 'react-select';
 import formatRatesTable from "./Utilities/formatRatesTable";
 import convertValue from './Utilities/convertValue';
@@ -309,18 +310,18 @@ function Converter() {
 
                 <div className={`w-full py-20 ${themeColors.banner}`}>
                     <form
-                        className={`flex flex-wrap md:gap-8 justify-center xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 ${themeColors.select.bckgd} ${themeColors.animate_settings.bckgd} shadow-xl shadow-blue-500/20 border-none rounded-3xl`}
+                        className={`flex flex-wrap md:gap-8 justify-center xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} shadow-xl shadow-blue-500/20 border-none rounded-3xl`}
                         onSubmit={(e) => e.preventDefault()}>
                         <div className="flex flex-wrap md:gap-8 justify-center">
-                            <div className={`${themeColors.select.bckgd} ${themeColors.animate_settings.bckgd}`}>
+                            <div className={`${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd}`}>
                                 <div>
-                                    <legend className={`relative top-5 xs:inset-x-[296px] inset-x-[255px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.select.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>from :</legend>
+                                    <legend className={`relative top-5 xs:inset-x-[296px] inset-x-[255px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>from :</legend>
                                     <div className="flex flex-col justify-start p-4 mb-8 border border-orange-400 rounded-3xl" ref={selectRef}>
                                         <p className="text-slate-300 text-[1.2rem] pl-4">Enter amount</p>
                                         <div className="flex flex-row gap-8">
                                             <label className="inline-block rounded-xl">
                                                 <input
-                                                    className={`xs:max-w-sm max-w-xs transition outline-0 rounded-xl underline underline-offset-4 text-[2.60rem] pl-4 font-light decoration-1 decoration-slate-400 ${themeColors.select.text} ${themeColors.select.input_bg}`}
+                                                    className={`xs:max-w-sm max-w-xs transition outline-0 rounded-xl underline underline-offset-4 text-[2.60rem] pl-4 font-light decoration-1 decoration-slate-400 ${themeColors.component.text} ${themeColors.component.input_bg}`}
                                                     type="number"
                                                     step="0.01" min="0.00"
                                                     defaultValue={''}
@@ -355,9 +356,9 @@ function Converter() {
                                 </div>
                             </div>
 
-                            <div className={`${themeColors.select.bckgd} ${themeColors.animate_settings.bckgd}`}>
+                            <div className={`${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd}`}>
                                 <div>
-                                    <legend className={`relative top-5 xs:inset-x-[28px] inset-x-[155px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.select.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>to :</legend>
+                                    <legend className={`relative top-5 xs:inset-x-[28px] inset-x-[155px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>to :</legend>
                                     <div className={`flex flex-col justify-between min-w-[${selectOutputSize.width}px] max-w-[${selectOutputSize.width}px] min-h-[${selectOutputSize.height}px] max-h-[${selectOutputSize.height}px] p-4 mb-8 border border-orange-400 rounded-3xl`}>
                                         <p className="text-end text-slate-300 text-[1rem] pl-4">add currencies</p>
                                         <div className="">
@@ -414,13 +415,17 @@ function Converter() {
                         </div>
                     </form>
                 </div>
+
                 <div>
                     {
                         console.log(tableResults)
                     }
                     {   
                         tableResults &&
-                        <Table list={tableResults} />
+                        <Results>
+                            <Table 
+                                list={tableResults} />
+                        </Results>
                     }
                 </div>
             </div>
