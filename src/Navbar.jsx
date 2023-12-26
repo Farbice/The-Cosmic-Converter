@@ -94,7 +94,9 @@ function Navbar() {
                     <ul className={"nav-list" + ` ${showNavItems}`}>
                         <li>
                             <a href="#" className={`ml-8 font-questrial ${themeColors.text}`}>
-                                <button className={`${themeColors.button.default} ${themeColors.button.hover} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}>Get in touch</button>
+                                <button className={`${themeColors.button.default} ${themeColors.button.hover} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}>
+                                    <a href="mailto:fab.louis.971@gmail.com" target="blank">Get in touch</a>
+                                </button>
                             </a>
                         </li>
                     </ul>
