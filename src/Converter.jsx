@@ -66,14 +66,7 @@ function Converter() {
     const outputColorStyles = {
         control: (styles) => ({ ...styles, minHeight: 'min-content', maxWidth: 'content', padding: '2px', backgroundColor: 'none', border: '1px solid #FFEDD5' }),
         valueContainer: (styles) => ({ ...styles, flexWrap: 'nowrap', padding: '0px', fontFamily: 'Questrial', overflow: 'scroll' }),
-        multiValue: (styles, { isSelected }) => {
-
-            let backgroundColorValue = targetCurrencyBackgroundColor;
-
-            isSelected && backgroundColorValue;
-            if (isSelected) {
-                console.log('Selected');
-            }
+        multiValue: (styles) => {
 
             return (
                 { ...styles, margin: '0px 8px 0px 0px', padding: '4px', minWidth: 'fit-content', borderRadius: '5px', "&:hover": { color: "#ffb95d" }, backgroundColor: '#282c5f' }
@@ -110,11 +103,6 @@ function Converter() {
             )
         },
     };
-
-    // const DropdownIndicatorStyles = (styles, state) =>
-    //     ({ ...styles, cursor: 'pointer', padding: '0px', margin: '0px' });
-
-
 
     const DropdownIndicator = (props) => {
 
@@ -417,15 +405,21 @@ function Converter() {
                 </div>
 
                 <div>
-                    {
-                        console.log(tableResults)
-                    }
                     {   
-                        tableResults &&
-                        <Results>
-                            <Table 
-                                list={tableResults} />
-                        </Results>
+                        tableResults && (
+                            <Results>
+                                {/* return(
+                                    <div className="flex flex-start p-8 bg-slate-200">
+                                        <legend>conversion</legend>
+                                        <div>
+
+                                        </div>
+                                    </div>
+                                ) */}
+                                <Table 
+                                    list={tableResults} />
+                            </Results>
+                        )
                     }
                 </div>
             </div>

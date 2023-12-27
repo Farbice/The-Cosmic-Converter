@@ -30,26 +30,21 @@ function Results(props) {
                     }
                     {
                         children.props.list.values.map((element, index) => {
-                            console.log(element);
-                            return <div key={index}>
-                                <div className="bg-slate-200 p-8 rounded-xl m-4 flex gap-8">
-                                    <div values={element} className={`text-4xl ${themeColors.main_text}`}>
-                                        {element[0]}
-                                    </div>
-                                    <div values={element} className={`text-3xl ${themeColors.text}`}>
-                                        {element[1]}
+                            return (
+                                
+                                <div className="block text-end" key={index}>
+                                    <div className={`${themeColors.bckgd_secondary} p-8 rounded-xl m-4 flex gap-8 justify-end`}>
+                                        <div values={element} className={`text-4xl ${themeColors.main_text}`}>
+                                            {element[0]}
+                                        </div>
+                                        <div values={element} className={`text-3xl ${themeColors.text}`}>
+                                            {element[1]}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            )
                         })
                     }
-                    {/* {children.props.list.values[0][0]}
-                    {children.props.list.values[1][0]}
-                    {children.props.list.values[2][0]}
-
-                    {children.props.list.values[0][1]}
-                    {children.props.list.values[1][1]}
-                    {children.props.list.values[2][1]} */}
                 </div>
             </div>
         </>
