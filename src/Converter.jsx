@@ -106,18 +106,19 @@ function Converter() {
 
     const DropdownIndicator = (props) => {
 
+        // eslint-disable-next-line react/prop-types
         const { getStyles } = props;
 
         return (
             <components.DropdownIndicator {...props}>
                 <div className="cursor-pointer">
-                    <DropdownLight style={getStyles('dropdownIndicator', props)}/>
+                    <DropdownLight style={getStyles('dropdownIndicator', props)} />
                 </div>
             </components.DropdownIndicator>
         );
     };
 
-    const dropdownIndicatorStyles = (styles) =>({...styles, cursor: 'pointer'});
+    const dropdownIndicatorStyles = (styles) => ({ ...styles, cursor: 'pointer' });
 
 
     useEffect(() => {
@@ -354,7 +355,7 @@ function Converter() {
                                                 <Select
                                                     isMulti
                                                     options={rateSelectOption}
-                                                    components={{DropdownIndicator}}
+                                                    components={{ DropdownIndicator }}
                                                     defaultValue={defaultTargetCurrenciesKey}
                                                     value={targetCurrencies}
                                                     onChange={handleTargetCurrencies}
@@ -405,18 +406,18 @@ function Converter() {
                 </div>
 
                 <div>
-                    {   
+                    {
+                        tableResults && (
+                            <div className="flex flex-start p-8 bg-slate-200">
+                                <legend>conversion</legend>
+                                <div>{inputValue}</div>
+                            </div>
+                        )
+                    }
+                    {
                         tableResults && (
                             <Results>
-                                {/* return(
-                                    <div className="flex flex-start p-8 bg-slate-200">
-                                        <legend>conversion</legend>
-                                        <div>
-
-                                        </div>
-                                    </div>
-                                ) */}
-                                <Table 
+                                <Table
                                     list={tableResults} />
                             </Results>
                         )

@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
-import themesManager from "./themes";
 import { useState, createContext, useMemo, useCallback } from "react";
+import themesManager from "./themes";
+import PropTypes from 'prop-types';
 
 export const Context = createContext();
 
