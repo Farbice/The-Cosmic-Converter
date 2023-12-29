@@ -26,10 +26,10 @@ function Results(props) {
                 </div>
                 <div className="block">
                     {
-                        console.log(children.props.list.values)
+                        children.props.list && console.log(children.props.list.values)
                     }
                     {
-                        children.props.list.values.map((element, index) => {
+                        children.props.list && children.props.list.values.map((element, index) => {
                             return (
                                 
                                 <div className="block text-end" key={index}>
