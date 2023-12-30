@@ -12,7 +12,7 @@ function App() {
     { currentTheme }
 
     return (
-        <div className={`xs:min-h-screen ${themeColors.bckgd_secondary}`}>
+        <div className={`xs:min-h-screen pb-40 ${themeColors.bckgd_secondary}`}>
             <Navbar />
             <Converter />
         </div>

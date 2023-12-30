@@ -12,9 +12,7 @@ import DropdownLight from "./Assets/Images/dropdown_light";
 
 function Converter() {
 
-    const { themeColors, state, getData } = useContext(Context);
-
-    console.log(state);
+    const { themeColors, getData } = useContext(Context);
 
     const [targetCurrencyBackgroundColor, setTargetCurrencyBackgroundColor] = useState('#b0ecf6');
 
@@ -411,10 +409,6 @@ function Converter() {
                     {
                         tableResults && (
                             <Results>
-                                {/* <div className="flex flex-start p-8 bg-slate-200">
-                                    <legend>conversion</legend>
-                                    <div>{inputValue}</div>
-                                </div> */}
                                 <Table
                                     list={tableResults} />
                             </Results>

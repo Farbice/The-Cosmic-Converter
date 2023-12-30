@@ -34,7 +34,10 @@ const themesManager = (theme) => {
             button : {
                 default: 'border-[1px] border-orange-400 py-3 px-4 rounded-2xl w-[12rem]',
                 hover: 'hover:bg-[#FB6D3C] hover:shadow-xl hover:shadow-orange-600/40 hover:text-slate-200',
-            }
+            },
+            title : {
+                bckgd : 'bg-[#F0F4FA]',
+            },
         };
         return colorSet;
     }
@@ -70,7 +73,10 @@ const themesManager = (theme) => {
             button : {
                 default: 'border-[1px] border-orange-400 py-3 px-4 rounded-2xl w-[12rem]',
                 hover: 'hover:bg-[#FB6D3C] hover:shadow-xl hover:shadow-orange-600/40 hover:text-slate-200',
-            }
+            },
+            title : {
+                bckgd : 'bg-[#F0F4FA]',
+            },
         };
         return colorSet;
     }
