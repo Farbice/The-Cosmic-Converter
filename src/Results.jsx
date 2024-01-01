@@ -8,6 +8,8 @@ function Results(props) {
     // eslint-disable-next-line react/prop-types
     const { children } = props;
 
+    console.log(themeColors.border.clipping);
+
     const [numberOfConversions, setNumOfConversions] = useState({
         number: '',
         grammar: 'Conversion'
@@ -43,26 +45,26 @@ function Results(props) {
 
                         </div>
                         <div>
-                            <h3 className={`text-4xl font-questrial p-8 rounded-3xl ${themeColors.title.bckgd}`}>Your {numberOfConversions.number} Cosmic {numberOfConversions.grammar}</h3>
+                            <h3 className={`text-4xl font-questrial`}>Your {numberOfConversions.number} Cosmic {numberOfConversions.grammar}</h3>
                         </div>
                     </div>
                 </div>
                 <div className="relative md:inset-14 inset-6 flex gap-8 items-center">
-                    <div className="inline-block p-8 bg-orange-100 rounded-xl">
-                        <ul className="flex gap-8 md:text-3xl text-2xl">
-                            <li>{state.inputData.amount}</li>
+                    <div className={`inline-block px-14 py-6 ${themeColors.component.input_bg} rounded-xl`}>
+                        <ul className={`flex justify-end gap-8 font-light md:text-3xl text-2xl ${themeColors.text}`}>
+                            <li className="text-[2.60rem]">{state.inputData.amount}</li>
                             <li>|</li>
                             <li>{state.inputData.currency}</li>
                         </ul>
                     </div>
                     <div>
-                        <p className={`md:text-4xl text-3xl ${themeColors.accent_text}`}>converts to</p>
+                        <p className={`font-questrial md:text-3xl text-2xl ${themeColors.accent_text}`}>converts to</p>
                     </div>
                 </div>
                 <div className="w-full">
                     <div className="flex flex-wrap w-full p-8 rounded-3xl border-[1px] border-orange-200">
                         <div className="block w-full">
-                            <ul className="flex gap-8 justify-end">
+                            <ul className="flex gap-4 justify-end font-questrial text-[1.2rem] text-slate-300">
                                 <li className="cursor-pointer">copy</li>
                                 <li>|</li>
                                 <li className="cursor-pointer">export</li>
@@ -73,8 +75,8 @@ function Results(props) {
                             children.props.list && children.props.list.values.map((element, index) => {
                                 return (
                                     <div key={index}>
-                                        <div className={`${themeColors.bckgd_secondary} p-8 rounded-xl m-4 flex gap-8 justify-end`}>
-                                            <div values={element} className={`text-4xl ${themeColors.main_text}`}>
+                                        <div className={`flex gap-8 justify-center items-end p-8 m-4 rounded-xl border-[1px] ${themeColors.border.result}`}>
+                                            <div values={element} className={`text-4xl font-light ${themeColors.text}`}>
                                                 {element[0]}
                                             </div>
                                             <div values={element} className={`text-3xl ${themeColors.text}`}>

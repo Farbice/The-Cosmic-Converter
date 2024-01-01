@@ -17,7 +17,6 @@ const ContextProvider = (props) => {
 
     const getData = useCallback((inputValue, inputCurrency) => {
         const data = getInputData(inputValue, inputCurrency);
-        console.log(data);
         setState({ ...state, inputData: data });
     }, [state]);
 

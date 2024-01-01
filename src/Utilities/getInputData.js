@@ -7,10 +7,16 @@ const getInputData = (inputValue, inputCurrency) => {
             currency: ''
         };
 
-        inputDataTable.amount = inputValue;
-        inputDataTable.currency = inputCurrency;
+        if (!(inputValue.includes(".") || inputValue.includes(","))) {
 
-        console.log(inputDataTable);
+            inputDataTable.amount = inputValue + '.00';
+
+        } else {
+
+            inputDataTable.amount = inputValue;
+        }
+
+        inputDataTable.currency = inputCurrency;
 
         return inputDataTable;
     }

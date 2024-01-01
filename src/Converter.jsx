@@ -348,7 +348,7 @@ function Converter() {
                                 <div>
                                     <legend className={`relative top-5 xs:inset-x-[28px] inset-x-[155px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>to :</legend>
                                     <div className={`flex flex-col justify-between min-w-[${selectOutputSize.width}px] max-w-[${selectOutputSize.width}px] min-h-[${selectOutputSize.height}px] max-h-[${selectOutputSize.height}px] p-4 mb-8 border border-orange-400 rounded-3xl`}>
-                                        <p className="text-end text-slate-300 text-[1rem] pl-4">add currencies</p>
+                                        <p className="text-end text-slate-300 text-[1.2rem] pr-4">add currencies</p>
                                         <div className="">
                                             <div className="">
                                                 <Select
