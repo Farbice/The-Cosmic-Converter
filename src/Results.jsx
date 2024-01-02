@@ -51,8 +51,8 @@ function Results(props) {
                 </div>
                 <div className="relative md:inset-14 inset-6 flex gap-8 items-center">
                     <div className={`inline-block px-14 py-6 ${themeColors.component.input_bg} rounded-xl`}>
-                        <ul className={`flex justify-end gap-8 font-light md:text-3xl text-2xl ${themeColors.text}`}>
-                            <li className="text-[2.60rem]">{state.inputData.amount}</li>
+                        <ul className={`flex justify-end gap-8 font-light md:text-3xl text-2xl ${themeColors.component.text}`}>
+                            <li className="text-[2.60rem] px-4">{state.inputData.amount}</li>
                             <li>|</li>
                             <li>{state.inputData.currency}</li>
                         </ul>
@@ -75,8 +75,8 @@ function Results(props) {
                             children.props.list && children.props.list.values.map((element, index) => {
                                 return (
                                     <div key={index}>
-                                        <div className={`flex gap-8 justify-center items-end p-8 m-4 rounded-xl border-[1px] ${themeColors.border.result}`}>
-                                            <div values={element} className={`text-4xl font-light ${themeColors.text}`}>
+                                        <div className={`flex gap-8 justify-center items-end px-8 py-4 m-4 rounded-xl border-[1px] ${themeColors.border.result}`}>
+                                            <div values={element} className={`text-4xl font-light pr-4 ${themeColors.text}`}>
                                                 {element[0]}
                                             </div>
                                             <div values={element} className={`text-3xl ${themeColors.text}`}>
