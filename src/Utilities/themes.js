@@ -12,6 +12,7 @@ const themesManager = (theme) => {
             text: 'text-slate-600',
             accent_text: 'text-orange-500',
             regular_text: 'text-[#1D3A63]',
+            result_text: 'text-[#282c5f]',
             banner: 'bg-[#E8F5FF]',
             icon : {
                 hover: 'hover:bg-slate-300 transition duration-200 ease-in-out',
@@ -20,7 +21,7 @@ const themesManager = (theme) => {
             },
             border : {
                 accent: 'border-orange-500',
-                result: 'border-regal-blue',
+                result: 'border-[#282c5f]',
             },
             element_highlight: 'before:bg-[#FFC47C]',
             component : {
@@ -39,6 +40,10 @@ const themesManager = (theme) => {
             title : {
                 bckgd : 'bg-[#F0F4FA]',
             },
+            navbar : {
+                burger: 'stroke-slate-700',
+                burger_hover: 'hover:bg-slate-300',
+            },
         };
         return colorSet;
     }
@@ -52,6 +57,7 @@ const themesManager = (theme) => {
             text: 'text-slate-200',
             accent_text: 'text-orange-500',
             regular_text: 'text-[#fbfbfb]',
+            result_text: 'text-slate-100',
             banner: 'bg-[#384774]',
             icon : {
                 hover: 'hover:bg-gray-700 transition duration-200 ease-in-out',
@@ -60,7 +66,7 @@ const themesManager = (theme) => {
             },
             border : {
                 accent: 'border-amber-300',
-                result: 'border-white',
+                result: 'border-slate-100',
             },
             element_highlight: 'before:bg-orange-500',
             component : {
@@ -78,6 +84,10 @@ const themesManager = (theme) => {
             },
             title : {
                 bckgd : 'bg-[#F0F4FA]',
+            },
+            navbar : {
+                burger: 'stroke-slate-200',
+                burger_hover: 'hover:bg-gray-700',
             },
         };
         return colorSet;

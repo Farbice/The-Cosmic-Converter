@@ -1,5 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import { Context } from "./Utilities/Context";
+import StarResLeft from "./Assets/Images/star_res_left";
+import LogoDark from "./Assets/Logo/logoDark";
+import LogoLight from "./Assets/Logo/logoLight";
 
 
 function Results(props) {
@@ -7,8 +10,6 @@ function Results(props) {
     const { themeColors, state } = useContext(Context);
     // eslint-disable-next-line react/prop-types
     const { children } = props;
-
-    console.log(themeColors.border.clipping);
 
     const [numberOfConversions, setNumOfConversions] = useState({
         number: '',
@@ -24,7 +25,7 @@ function Results(props) {
                 number: children.props.list.values.length,
                 grammar: 'Conversions'
             })
-        } else { 
+        } else {
             setNumOfConversions({
                 // eslint-disable-next-line react/prop-types
                 number: '',
@@ -40,34 +41,46 @@ function Results(props) {
         <>
             <div className={`flex flex-wrap -mt-10 mb-10 md:gap-8 justify-start xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 ${themeColors.component.bckgd} ${themeColors.text} shadow-xl shadow-blue-500/20 border-none rounded-3xl`}>
                 <div className="block w-full">
-                    <div className="flex justify-between items-center">
-                        <div className="p-8 bg-slate-200 rounded-3xl">
-
+                    <div className="flex justify-between items-center mb-6">
+                        <div className="p-[1.4rem] rounded-full scale-75">
+                            {
+                                (state.currentTheme === 'light') && <LogoDark />
+                            }
+                            {
+                                (state.currentTheme === 'dark') && <LogoLight />
+                            }
                         </div>
                         <div>
-                            <h3 className={`text-4xl font-questrial`}>Your {numberOfConversions.number} Cosmic {numberOfConversions.grammar}</h3>
+                            <h3 className={`text-4xl font-questrial ${themeColors.component.text}`}>
+                                <span className={`relative inline-block md:-left-8 md:-top-0 -left-[1.8rem] top-[0.2rem] md:scale-100 scale-70 w-8 h-8`}>
+                                    <StarResLeft />
+                                </span>
+                                Your {numberOfConversions.number} Cosmic {numberOfConversions.grammar}
+                                <span className={`relative inline-block md:-left-3 md:-top-7 -left-[0.8rem] -top-[1.8rem] md:scale-80 scale-75 w-8 h-8`}>
+                                    <StarResLeft />
+                                </span>
+                            </h3>
                         </div>
                     </div>
                 </div>
                 <div className="relative md:inset-14 inset-6 flex gap-8 items-center">
                     <div className={`inline-block px-14 py-6 ${themeColors.component.input_bg} rounded-xl`}>
-                        <ul className={`flex justify-end gap-8 font-light md:text-3xl text-2xl ${themeColors.component.text}`}>
-                            <li className="text-[2.60rem] px-4">{state.inputData.amount}</li>
-                            <li>|</li>
-                            <li>{state.inputData.currency}</li>
+                        <ul className={`flex justify-end items-baseline gap-8 md:text-3xl text-2xl ${themeColors.component.text}`}>
+                            <li className="text-[2.60rem] px-4 font-semibold">{state.inputData.amount}</li>
+                            <li className="font-semibold">{state.inputData.currency}</li>
                         </ul>
                     </div>
                     <div>
-                        <p className={`font-questrial md:text-3xl text-2xl ${themeColors.accent_text}`}>converts to</p>
+                        <p className={`font-questrial md:text-3xl text-2xl ${themeColors.accent_text}`}>converts into</p>
                     </div>
                 </div>
                 <div className="w-full">
                     <div className="flex flex-wrap w-full p-8 rounded-3xl border-[1px] border-orange-200">
                         <div className="block w-full">
-                            <ul className="flex gap-4 justify-end font-questrial text-[1.2rem] text-slate-300">
-                                <li className="cursor-pointer">copy</li>
+                            <ul className="flex gap-4 justify-end text-[1.2rem] text-slate-300">
+                                <li className="cursor-pointer hover:text-orange-500">copy all</li>
                                 <li>|</li>
-                                <li className="cursor-pointer">export</li>
+                                <li className="cursor-pointer hover:text-orange-500">export all</li>
                             </ul>
                         </div>
                         {
@@ -76,10 +89,10 @@ function Results(props) {
                                 return (
                                     <div key={index}>
                                         <div className={`flex gap-8 justify-center items-end px-8 py-4 m-4 rounded-xl border-[1px] ${themeColors.border.result}`}>
-                                            <div values={element} className={`text-4xl font-light pr-4 ${themeColors.text}`}>
+                                            <div values={element} className={`text-4xl font-light pr-4 ${themeColors.result_text}`}>
                                                 {element[0]}
                                             </div>
-                                            <div values={element} className={`text-3xl ${themeColors.text}`}>
+                                            <div values={element} className={`text-3xl ${themeColors.result_text}`}>
                                                 {element[1]}
                                             </div>
                                         </div>
@@ -88,6 +101,11 @@ function Results(props) {
                             })
                         }
                     </div>
+                </div>
+                <div className="w-full text-end md:mt-[0.5rem] mt-[2rem]">
+                    <button className={`${themeColors.button.default} ${themeColors.button.hover} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}>
+                        <a href="">Reset</a>
+                    </button>
                 </div>
             </div>
         </>

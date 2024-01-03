@@ -12,7 +12,7 @@ import DropdownLight from "./Assets/Images/dropdown_light";
 
 function Converter() {
 
-    const { themeColors, getData } = useContext(Context);
+    const { themeColors, getData, state } = useContext(Context);
 
     const [targetCurrencyBackgroundColor, setTargetCurrencyBackgroundColor] = useState('#b0ecf6');
 
@@ -43,13 +43,14 @@ function Converter() {
     const inputRef = useRef();
 
     const [selectOutputSize, setSelectOutputSize] = useState({
-        width: '',
-        height: ''
+        width: '378',
+        height: '79'
     });
+
     const selectRef = useRef();
 
     const inputColorStyles = {
-        control: (styles) => ({ ...styles, backgroundColor: '#FB6D3C', border: 'none', borderRadius: '5px' }),
+        control: (styles) => ({ ...styles, backgroundColor: '#FB6D3C', border: 'none', borderRadius: '5px', }),
         singleValue: (styles) => ({ ...styles, color: '#ffff' }),
         valueContainer: (styles) => ({ ...styles, fontFamily: 'Questrial', paddingRight: "4px" }),
         dropdownIndicator: (styles, state) => ({ ...styles, paddingLeft: "4px", color: (state.isFocused ? '#ffff' : '#ffff'), "&:hover": { color: "#ffb95d" }, cursor: 'pointer' }),
@@ -64,7 +65,24 @@ function Converter() {
     }
 
     const outputColorStyles = {
-        control: (styles) => ({ ...styles, minHeight: 'min-content', maxWidth: 'content', padding: '2px', backgroundColor: 'none', border: '1px solid #FFEDD5' }),
+        control: (styles, {isFocused}) => {
+
+            let borderStyle = '';
+
+            if (state.currentTheme === 'light') {
+                borderStyle = "1px solid #FFEDD5";
+            } else if (state.currentTheme === 'dark') {
+                borderStyle = "1px solid #48341c";
+            }
+
+            if (isFocused) {
+                borderStyle = "none";
+            }
+
+            return (
+                { ...styles, minHeight: 'min-content', maxWidth: 'content', padding: '2px', backgroundColor: 'none', border: borderStyle }
+            )
+        },
         valueContainer: (styles) => ({ ...styles, flexWrap: 'nowrap', padding: '0px', fontFamily: 'Questrial', overflow: 'scroll' }),
         multiValue: (styles) => {
 
@@ -91,7 +109,7 @@ function Converter() {
             }
 
             if (isSelected) {
-                console.log(data);
+
                 if (data && data.color) {
                     backgroundColorValue = data.color;
                     console.log(backgroundColorValue);
@@ -188,24 +206,7 @@ function Converter() {
             });
         }
 
-        console.log(selectOutputSize.width, selectOutputSize.height);
-
     }, [selectOutputSize.width, selectOutputSize.height]);
-
-
-    // useEffect(() => {
-
-    //     if(targetCurrencyRef.current.props) {
-
-    //         console.log(targetCurrencyRef.current.props.value);
-
-    //         const selectValue = targetCurrencyRef.current.props.value;
-    //         const lastSelectValue = selectValue[selectValue.length-1];
-    //         console.log(lastSelectValue);
-
-    //     }
-
-    // }, [targetCurrencyRef.current.props]);
 
 
     function handleTargetCurrencies(data) {
@@ -268,28 +269,28 @@ function Converter() {
                     </div>
 
 
-                    <ul className="flex flex-col xxs:flex-row xxs:w-full xs:space-x-8 xs:space-y-0 lg:w-4/5 md:w-full justify-between space-y-8 mx-auto mt-24 mb-12">
-                        <li>
+                    <ul className="flex flex-col xxs:flex-row xxs:w-full xs:space-x-8 xs:space-y-0 lg:w-4/5 md:w-full justify-between mx-auto mt-24 mb-12">
+                        <li className="mb-[1rem]">
                             <a href="" className={`info-items ${themeColors.text}`}>
-                                <div className="flex flex-wrap w-full items-center xs:justify-center justify-left">
-                                    <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>1</span>
-                                    <span className="xs:pl-0 pl-8">Enter amount</span>
+                                <div className="flex flex-wrap w-full items-center xxs:justify-center justify-left">
+                                    <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mx-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>1</span>
+                                    <span className="whitespace-nowrap xxs:pl-0 pl-8">Enter amount</span>
                                 </div>
                             </a>
                         </li>
-                        <li>
+                        <li className="mb-[1rem]">
                             <a href="" className={`info-items ${themeColors.text}`}>
-                                <div className="flex flex-wrap w-full items-center xs:justify-center justify-left">
-                                    <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>2</span>
-                                    <span className="xs:pl-0 pl-8">Choose <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">from</strong> and <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">to</strong> currencies</span>
+                                <div className="flex flex-wrap w-full items-center xxs:justify-center justify-left">
+                                    <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mx-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>2</span>
+                                    <span className="xs:whitespace-nowrap whitespace-wrap text-wrap xxs:pl-0 pl-8">Choose <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">from</strong> and <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">to</strong> currencies</span>
                                 </div>
                             </a>
                         </li>
-                        <li>
+                        <li className="mb-[1rem]">
                             <a href="" className={`info-items ${themeColors.text}`}>
-                                <div className="flex flex-wrap w-full items-center xs:justify-center justify-left">
-                                    <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mr-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>3</span>
-                                    <span className="xs:pl-0 pl-8">🎉 Hit convert !</span>
+                                <div className="flex flex-wrap w-full items-center xxs:justify-center justify-left">
+                                    <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mx-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>3</span>
+                                    <span className="whitespace-nowrap xxs:pl-0 pl-8">🎉 Hit convert !</span>
                                 </div>
                             </a>
                         </li>
@@ -301,7 +302,7 @@ function Converter() {
                         className={`flex flex-wrap md:gap-8 justify-center xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} shadow-xl shadow-blue-500/20 border-none rounded-3xl`}
                         onSubmit={(e) => e.preventDefault()}>
                         <div className="flex flex-wrap md:gap-8 justify-center">
-                            <div className={`${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd}`}>
+                            <div className={`md:ml-6 ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd}`}>
                                 <div>
                                     <legend className={`relative top-5 xs:inset-x-[296px] inset-x-[255px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>from :</legend>
                                     <div className="flex flex-col justify-start p-4 mb-8 border border-orange-400 rounded-3xl" ref={selectRef}>
@@ -344,26 +345,24 @@ function Converter() {
                                 </div>
                             </div>
 
-                            <div className={`${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd}`}>
+                            <div className={`md:mr-6 ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd}`}>
                                 <div>
                                     <legend className={`relative top-5 xs:inset-x-[28px] inset-x-[155px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>to :</legend>
-                                    <div className={`flex flex-col justify-between min-w-[${selectOutputSize.width}px] max-w-[${selectOutputSize.width}px] min-h-[${selectOutputSize.height}px] max-h-[${selectOutputSize.height}px] p-4 mb-8 border border-orange-400 rounded-3xl`}>
+                                    <div className={`flex flex-col justify-between w-[${selectOutputSize.width}px] min-w-[${selectOutputSize.width}px] max-w-[${selectOutputSize.width}px] h-[${parseFloat(selectOutputSize.height)}px] min-h-[${parseFloat(selectOutputSize.height)}px] max-h-[${parseFloat(selectOutputSize.height)}px] p-4 mb-8 border border-orange-400 rounded-3xl`}>
                                         <p className="text-end text-slate-300 text-[1.2rem] pr-4">add currencies</p>
-                                        <div className="">
-                                            <div className="">
-                                                <Select
-                                                    isMulti
-                                                    options={rateSelectOption}
-                                                    components={{ DropdownIndicator }}
-                                                    defaultValue={defaultTargetCurrenciesKey}
-                                                    value={targetCurrencies}
-                                                    onChange={handleTargetCurrencies}
-                                                    styles={{ ...outputColorStyles, DropdownIndicator: dropdownIndicatorStyles }}
-                                                    autoFocus={true}
-                                                    ref={targetCurrencyRef}
-                                                    isClearable={true}
-                                                />
-                                            </div>
+                                        <div>
+                                            <Select
+                                                isMulti
+                                                options={rateSelectOption}
+                                                components={{ DropdownIndicator }}
+                                                defaultValue={defaultTargetCurrenciesKey}
+                                                value={targetCurrencies}
+                                                onChange={handleTargetCurrencies}
+                                                styles={{ ...outputColorStyles, DropdownIndicator: dropdownIndicatorStyles }}
+                                                autoFocus={true}
+                                                ref={targetCurrencyRef}
+                                                isClearable={true}
+                                            />
                                         </div>
                                         <div className="relative">
                                             {
@@ -379,7 +378,7 @@ function Converter() {
                                 </div>
                             </div>
 
-                            <div className="flex gap-8 self-center">
+                            <div className="flex self-center">
                                 <div>
                                     <button
                                         className={`${themeColors.button.default} ${themeColors.button.hover} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}
@@ -392,11 +391,6 @@ function Converter() {
                                             }
                                         }>
                                         Convert
-                                    </button>
-                                </div>
-                                <div>
-                                    <button className={`${themeColors.button.default} ${themeColors.button.hover} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}>
-                                        <a href="">Reset</a>
                                     </button>
                                 </div>
                             </div>

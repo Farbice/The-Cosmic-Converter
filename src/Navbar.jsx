@@ -82,8 +82,8 @@ function Navbar() {
                     </div>
                 </div>
                 <div className="w-1/2 flex justify-end items-center">
-                    <a href="#" className={"burger-menu order-4 ml-4 scale-75 hover:bg-slate-300 transition-all duration-200" + ` ${showBurgerClass}`}>
-                        <svg className="burger-lines stroke-sky-900" height='30' width='28'>
+                    <a href="#" className={`burger-menu order-4 ml-4 scale-75 ${themeColors.navbar.burger_hover} transition-all duration-200 ${showBurgerClass}`}>
+                        <svg className={`burger-lines ${themeColors.navbar.burger}`} height='30' width='28'>
                             <g fill="none">
                                 <path stroke="" d='M4 8 l20 0' strokeWidth={2} strokeLinecap='round' />
                                 <path stroke="" d='M4 15 l20 0' strokeWidth={2} strokeLinecap='round' />
