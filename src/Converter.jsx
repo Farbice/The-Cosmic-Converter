@@ -199,14 +199,20 @@ function Converter() {
 
     useEffect(() => {
 
-        if (selectRef.current) {
-            setSelectOutputSize({
-                width: parseFloat(selectRef.current.offsetWidth),
-                height: parseFloat(selectRef.current.offsetHeight)
-            });
+        function setOutputSize () {
+
+            if (selectRef.current) {
+                setSelectOutputSize({
+                    width: parseFloat(selectRef.current.offsetWidth),
+                    height: parseFloat(selectRef.current.offsetHeight)
+                });
+            }
+
         }
 
-    }, [selectOutputSize.width, selectOutputSize.height]);
+        setOutputSize();
+
+    }, []);
 
 
     function handleTargetCurrencies(data) {
@@ -278,7 +284,7 @@ function Converter() {
                                 </div>
                             </a>
                         </li>
-                        <li className="mb-[1rem]">
+                        <li className="mb-[1rem] ml-0">
                             <a href="" className={`info-items ${themeColors.text}`}>
                                 <div className="flex flex-wrap w-full items-center xxs:justify-center justify-left">
                                     <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mx-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>2</span>
@@ -286,7 +292,7 @@ function Converter() {
                                 </div>
                             </a>
                         </li>
-                        <li className="mb-[1rem]">
+                        <li className="mb-[1rem] ml-0">
                             <a href="" className={`info-items ${themeColors.text}`}>
                                 <div className="flex flex-wrap w-full items-center xxs:justify-center justify-left">
                                     <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mx-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>3</span>
@@ -299,7 +305,7 @@ function Converter() {
 
                 <div className={`w-full py-20 ${themeColors.banner}`}>
                     <form
-                        className={`flex flex-wrap md:gap-8 justify-center xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} shadow-xl shadow-blue-500/20 border-none rounded-3xl`}
+                        className={`flex flex-wrap md:gap-8 justify-center w-4/5 xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} shadow-xl shadow-blue-500/20 border-none rounded-3xl`}
                         onSubmit={(e) => e.preventDefault()}>
                         <div className="flex flex-wrap md:gap-8 justify-center">
                             <div className={`md:ml-6 ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd}`}>
@@ -347,8 +353,8 @@ function Converter() {
 
                             <div className={`md:mr-6 ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd}`}>
                                 <div>
-                                    <legend className={`relative top-5 xs:inset-x-[28px] inset-x-[155px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>to :</legend>
-                                    <div className={`flex flex-col justify-between w-[${selectOutputSize.width}px] min-w-[${selectOutputSize.width}px] max-w-[${selectOutputSize.width}px] h-[${parseFloat(selectOutputSize.height)}px] min-h-[${parseFloat(selectOutputSize.height)}px] max-h-[${parseFloat(selectOutputSize.height)}px] p-4 mb-8 border border-orange-400 rounded-3xl`}>
+                                    <legend className={`relative top-5 xs:inset-x-[28px] inset-x-[35px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>to :</legend>
+                                    <div className={`flex flex-col justify-between min-w-[${selectOutputSize.width}px] max-w-[${selectOutputSize.width}px] min-h-[${selectOutputSize.height}px] max-h-[${selectOutputSize.height}px] p-4 mb-8 border border-orange-400 rounded-3xl`}>
                                         <p className="text-end text-slate-300 text-[1.2rem] pr-4">add currencies</p>
                                         <div>
                                             <Select
