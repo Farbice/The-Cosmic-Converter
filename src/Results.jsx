@@ -41,7 +41,7 @@ function Results(props) {
         <>
             <div className={`flex flex-wrap -mt-10 mb-10 md:gap-8 justify-start w-4/5 xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 ${themeColors.component.bckgd} ${themeColors.text} shadow-xl shadow-blue-500/20 border-none rounded-3xl`}>
                 <div className="block w-full text-center">
-                    <div className="flex xs:justify-between justify-center items-center mb-6">
+                    <div className="flex sm:justify-between justify-center items-center mb-6">
                         <div className="hidden sm:block p-[1.4rem] rounded-full scale-75">
                             {
                                 (state.currentTheme === 'light') && <LogoDark />
@@ -50,8 +50,8 @@ function Results(props) {
                                 (state.currentTheme === 'dark') && <LogoLight />
                             }
                         </div>
-                        <div>
-                            <h3 className={`text-4xl mx-auto text-center font-questrial ${themeColors.component.text}`}>
+                        <div className="my-6">
+                            <h3 className={`text-4xl mx-auto font-questrial ${themeColors.component.text}`}>
                                 <span className={`relative inline-block md:-left-8 md:-top-0 -left-[1.8rem] top-[0.2rem] md:scale-100 scale-70 w-8 h-8`}>
                                     <StarResLeft />
                                 </span>

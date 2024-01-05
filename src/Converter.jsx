@@ -10,6 +10,7 @@ import StarPosRight from "./Assets/Images/star_pos_right";
 import StarPosLeft from "./Assets/Images/star_pos_left";
 import DropdownLight from "./Assets/Images/dropdown_light";
 
+
 function Converter() {
 
     const { themeColors, getData, state } = useContext(Context);
@@ -43,8 +44,9 @@ function Converter() {
     const inputRef = useRef();
 
     const [selectOutputSize, setSelectOutputSize] = useState({
-        width: '378',
-        height: '79'
+        width: '',
+        height: '',
+        small_width: ''
     });
 
     const selectRef = useRef();
@@ -65,7 +67,7 @@ function Converter() {
     }
 
     const outputColorStyles = {
-        control: (styles, {isFocused}) => {
+        control: (styles, { isFocused }) => {
 
             let borderStyle = '';
 
@@ -197,26 +199,28 @@ function Converter() {
 
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        function setOutputSize () {
+    //     const boxDimensions = {
+    //         width: '378px',
+    //         height: '79px',
+    //         small_width: '200px'
+    //     }
 
-            if (selectRef.current) {
-                setSelectOutputSize({
-                    width: parseFloat(selectRef.current.offsetWidth),
-                    height: parseFloat(selectRef.current.offsetHeight)
-                });
-            }
+    //     setSelectOutputSize({
+    //         width: boxDimensions.width,
+    //         height: boxDimensions.height,
+    //         small_width: boxDimensions.small_width,
+    //     })
 
-        }
+    // }, []);
 
-        setOutputSize();
 
-    }, []);
+    console.log(selectOutputSize.width);
+
 
 
     function handleTargetCurrencies(data) {
-
         const updatedTargetCurrencies = data.map(currencyInfo => {
             const targetCurrenciesTable = getOneCurrency(inputCurrencyCustomRateTable, currencyInfo.label)
             return targetCurrenciesTable[0];
@@ -228,10 +232,8 @@ function Converter() {
     }
 
     function handleFirstCurrency(data) {
-
         const activeSelectData = formatRatesTable(dataTable, data.label, setFirstCurrency);
         setInputCurrencyCustomRateTable(activeSelectData);
-
     }
 
     function handleInputChange(e) {
@@ -240,17 +242,14 @@ function Converter() {
     }
 
     const handleTextOnly = data => {
-
         if ((data.keyCode < 65 && data.keyCode !== 16 && data.keyCode !== 20 && data.keyCode !== 8) || data.keyCode > 90) {
             data.preventDefault();
         }
     }
 
     function handleTargetCurrencyBackgroundColor() {
-
         let backgroundColor = "#" + ((1 << 24) * Math.random() | 0).toString(16);
         setTargetCurrencyBackgroundColor(backgroundColor);
-
     }
 
     return (
@@ -311,7 +310,7 @@ function Converter() {
                             <div className={`md:ml-6 ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd}`}>
                                 <div>
                                     <legend className={`relative top-5 xs:inset-x-[296px] inset-x-[255px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>from :</legend>
-                                    <div className="flex flex-col justify-start p-4 mb-8 border border-orange-400 rounded-3xl" ref={selectRef}>
+                                    <div className={`flex flex-col justify-start p-4 mb-8 border border-orange-200 hover:border-orange-400 focus:border-orange-400 focus-within:border-orange-400 rounded-3xl xxs:w-[${selectOutputSize.width}] xxs:min-w-[${selectOutputSize.width}] xxs:max-w-[${selectOutputSize.width}] w-[${selectOutputSize.small_width}] max-w-[${selectOutputSize.small_width}] min-h-[${selectOutputSize.height}] max-h-[${selectOutputSize.height}]`} ref={selectRef} >
                                         <p className="text-slate-300 text-[1.2rem] pl-4">Enter amount</p>
                                         <div className="flex flex-row gap-8">
                                             <label className="inline-block rounded-xl">
@@ -354,7 +353,7 @@ function Converter() {
                             <div className={`md:mr-6 ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd}`}>
                                 <div>
                                     <legend className={`relative top-5 xs:inset-x-[28px] inset-x-[35px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>to :</legend>
-                                    <div className={`flex flex-col justify-between min-w-[${selectOutputSize.width}px] max-w-[${selectOutputSize.width}px] min-h-[${selectOutputSize.height}px] max-h-[${selectOutputSize.height}px] p-4 mb-8 border border-orange-400 rounded-3xl`}>
+                                    <div className={`flex flex-col justify-between xxs:w-[${selectOutputSize.width}] xxs:min-w-[${selectOutputSize.width}] xxs:max-w-[${selectOutputSize.width}] w-[${selectOutputSize.small_width}] max-w-[${selectOutputSize.small_width}] min-h-[${selectOutputSize.height}] max-h-[${selectOutputSize.height}] p-4 mb-8 border border-orange-200 hover:border-orange-400 focus-within:border-orange-400 rounded-3xl`}>
                                         <p className="text-end text-slate-300 text-[1.2rem] pr-4">add currencies</p>
                                         <div>
                                             <Select

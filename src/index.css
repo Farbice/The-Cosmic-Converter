@@ -180,3 +180,38 @@ input {
     border-radius: 50%;
     background-color: none;
 }
+
+
+.slideIn {
+    animation: slideIn 100ms ease-in-out;
+}
+
+@keyframes slideIn {
+
+    from {
+        transform: translateX(20rem);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+    
+}
+
+.slideOut {
+    animation: slideOut 100ms ease-in-out;
+}
+
+@keyframes slideOut {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(20rem);
+    }
+    
+}
+
+

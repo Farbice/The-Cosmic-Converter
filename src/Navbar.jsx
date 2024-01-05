@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Context } from "./Utilities/Context";
+import DropdownMenu from "./DropdownMenu";
 import LogoDark from "./Assets/Logo/logoDark";
 import LogoLight from "./Assets/Logo/logoLight";
 import LogotypeLight from "./Assets/Logo/logotypeLight";
@@ -26,6 +27,9 @@ function Navbar() {
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
     const [animateIcon, setAnimateIcon] = useState(false);
+    const [dropDownMenuActive, setDropDownMenuActive] = useState(false);
+
+    const [animation, setAnimation] = useState('');
 
     useEffect(() => {
 
@@ -42,6 +46,7 @@ function Navbar() {
             }
         }
 
+        setDropDownMenuActive(false);
         window.addEventListener('resize', handleScreenSize);
 
         return () => {
@@ -49,6 +54,20 @@ function Navbar() {
         }
 
     }, [screenSize.width]);
+
+
+    function showDropDownMenu() {
+        if (dropDownMenuActive === false) {
+            setDropDownMenuActive(true);
+            setAnimation('slideIn')
+        } else if (dropDownMenuActive === true) {
+            setAnimation('slideOut');
+            setTimeout(() => {
+                setDropDownMenuActive(false);
+            }, 80);
+        }
+    }
+
 
     return (
         <nav
@@ -81,8 +100,8 @@ function Navbar() {
                         </a>
                     </div>
                 </div>
-                <div className="w-1/2 flex justify-end items-center">
-                    <a href="#" className={`burger-menu order-4 ml-4 scale-75 ${themeColors.navbar.burger_hover} transition-all duration-200 ${showBurgerClass}`}>
+                <div className="relative w-1/2 flex justify-end items-center">
+                    <a href="#" className={`burger-menu order-4 ml-4 scale-75 ${themeColors.navbar.burger_hover} transition-all duration-200 ${showBurgerClass}`} onClick={showDropDownMenu}>
                         <svg className={`burger-lines ${themeColors.navbar.burger}`} height='30' width='28'>
                             <g fill="none">
                                 <path stroke="" d='M4 8 l20 0' strokeWidth={2} strokeLinecap='round' />
@@ -91,13 +110,16 @@ function Navbar() {
                             </g>
                         </svg>
                     </a>
+                    {
+                        dropDownMenuActive && <DropdownMenu animate={animation}/>
+                    }
                     <ul className={"nav-list" + ` ${showNavItems}`}>
                         <li>
-                            <a href="#" className={`ml-8 font-questrial ${themeColors.text}`}>
+                            <div className={`ml-8 font-questrial ${themeColors.text}`}>
                                 <button className={`${themeColors.button.default} ${themeColors.button.hover} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}>
                                     <a href="mailto:fab.louis.971@gmail.com" target="blank">Get in touch</a>
                                 </button>
-                            </a>
+                            </div>
                         </li>
                     </ul>
                     <div
