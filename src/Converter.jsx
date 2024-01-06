@@ -43,12 +43,6 @@ function Converter() {
     const targetCurrencyRef = useRef([]);
     const inputRef = useRef();
 
-    const [selectOutputSize, setSelectOutputSize] = useState({
-        width: '',
-        height: '',
-        small_width: ''
-    });
-
     const selectRef = useRef();
 
     const inputColorStyles = {
@@ -59,9 +53,55 @@ function Converter() {
         indicatorSeparator: (styles) => ({ ...styles, display: "none" }),
         menuList: (styles) => ({ ...styles, borderRadius: '5px' }),
 
-        option: (styles, state) => {
+        option: (styles, { isFocused, isSelected, isDisabled }) => {
+
+            let optionBackgroundColor = '';
+            let optionColor = '';
+            let activeOptionBackgroundColor = '';
+            let activeOptionColor = '';
+
+            if (state.currentTheme === 'light') {
+                if (isFocused) {
+                    optionBackgroundColor = '#f7e5d7';
+                    optionColor = '#FB6D3C';
+                } else {
+                    optionBackgroundColor = '#fffefd';
+                    optionColor = '#5a6a7e';
+                }
+            } else if (state.currentTheme === 'dark') {
+                if (isFocused) {
+                    optionBackgroundColor = '#5a6a7e';
+                    optionColor = '#fff5e9';
+                } else {
+                    optionBackgroundColor = '#1E293B';
+                    optionColor = '#a9b7c7';
+                }
+            }
+
+
+            if (state.currentTheme === 'light') {
+                if (!isDisabled) {
+                    if (isSelected) {
+                        activeOptionBackgroundColor = '#d7d7ff';
+                    } else {
+                        activeOptionBackgroundColor = '#dfeeff';
+                    }
+                }
+            } else if (state.currentTheme === 'dark') {
+                if (!isDisabled) {
+                    if (isSelected) {
+                        activeOptionBackgroundColor = '#ee711e';
+                    } else {
+                        activeOptionBackgroundColor = '#f1a164';
+                    }
+                }
+            }
+
             return (
-                { ...styles, backgroundColor: state.isFocused ? '#f7e5d7' : '#fffefd', color: state.isFocused ? '#FB6D3C' : '#5a6a7e' }
+                {
+                    ...styles, backgroundColor: optionBackgroundColor, color: optionColor,
+                    ':active': { ...styles[':active'], backgroundColor: activeOptionBackgroundColor, color: activeOptionColor },
+                }
             )
         }
     }
@@ -100,26 +140,53 @@ function Converter() {
             )
         },
 
-        option: (styles, { data, isFocused, isSelected }) => {
+        option: (styles, { isFocused, isSelected, isDisabled }) => {
 
-            let backgroundColorValue = '#fffefd';
-            let colorValue = '#5a6a7e';
+            let optionBackgroundColor = '';
+            let optionColor = '';
+            let activeOptionBackgroundColor = '';
+            let activeOptionColor = '';
 
-            if (isFocused) {
-                backgroundColorValue = '#f7e5d7';
-                colorValue = '#FB6D3C';
+            if (state.currentTheme === 'light') {
+                if (isFocused) {
+                    optionBackgroundColor = '#f7e5d7';
+                    optionColor = '#FB6D3C';
+                } else {
+                    optionBackgroundColor = '#fffefd';
+                    optionColor = '#5a6a7e';
+                }
+            } else if (state.currentTheme === 'dark') {
+                if (isFocused) {
+                    optionBackgroundColor = '#5a6a7e';
+                    optionColor = '#fff5e9';
+                } else {
+                    optionBackgroundColor = '#1E293B';
+                    optionColor = '#a9b7c7';
+                }
             }
 
-            if (isSelected) {
 
-                if (data && data.color) {
-                    backgroundColorValue = data.color;
-                    console.log(backgroundColorValue);
+            if (state.currentTheme === 'light') {
+                if (isSelected) {
+                    activeOptionBackgroundColor = '#d7d7ff';
+                } else {
+                    activeOptionBackgroundColor = '#dfeeff';
+                }
+            } else if (state.currentTheme === 'dark') {
+                if (!isDisabled) {
+                    if (isSelected) {
+                        activeOptionBackgroundColor = '#ee711e';
+                    } else {
+                        activeOptionBackgroundColor = '#f1a164';
+                    }
                 }
             }
 
             return (
-                { ...styles, backgroundColor: backgroundColorValue, color: colorValue }
+                {
+                    ...styles, backgroundColor: optionBackgroundColor, color: optionColor,
+                    ':active': { ...styles[':active'], backgroundColor: activeOptionBackgroundColor, color: activeOptionColor },
+                }
             )
         },
     };
@@ -199,27 +266,6 @@ function Converter() {
 
 
 
-    // useEffect(() => {
-
-    //     const boxDimensions = {
-    //         width: '378px',
-    //         height: '79px',
-    //         small_width: '200px'
-    //     }
-
-    //     setSelectOutputSize({
-    //         width: boxDimensions.width,
-    //         height: boxDimensions.height,
-    //         small_width: boxDimensions.small_width,
-    //     })
-
-    // }, []);
-
-
-    console.log(selectOutputSize.width);
-
-
-
     function handleTargetCurrencies(data) {
         const updatedTargetCurrencies = data.map(currencyInfo => {
             const targetCurrenciesTable = getOneCurrency(inputCurrencyCustomRateTable, currencyInfo.label)
@@ -258,7 +304,7 @@ function Converter() {
                 data-name="converter--component"
                 className="w-full">
                 <div className="xs:w-3/4 w-4/5 mx-auto flex-column text-center">
-                    <h1 id="title" className={`font-playfair-black text-7xl md:mt-35 mt-16 ${themeColors.main_text}`}>
+                    <h1 id="title" className={`font-playfair-black text-7xl md:mt-35 mt-20 ${themeColors.main_text}`}>
                         The Cosmic Converter
                         <span className="absolute md:top-[8rem] top-[8rem] after:inline-block after:w-10 after:h-10">
                             <StarPosRight />
@@ -287,7 +333,7 @@ function Converter() {
                             <a href="" className={`info-items ${themeColors.text}`}>
                                 <div className="flex flex-wrap w-full items-center xxs:justify-center justify-left">
                                     <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mx-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>2</span>
-                                    <span className="xs:whitespace-nowrap whitespace-wrap text-wrap xxs:pl-0 pl-8">Choose <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">from</strong> and <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">to</strong> currencies</span>
+                                    <span className="xs:whitespace-nowrap whitespace-wrap text-wrap xxs:pl-0 pl-8">Choose <span className="hidden xxs:inline-block"><strong className="underline underline-offset-4 decoration-2 decoration-amber-500">from</strong> and <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">to</strong></span> currencies</span>
                                 </div>
                             </a>
                         </li>
@@ -309,13 +355,13 @@ function Converter() {
                         <div className="flex flex-wrap md:gap-8 justify-center">
                             <div className={`md:ml-6 ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd}`}>
                                 <div>
-                                    <legend className={`relative top-5 xs:inset-x-[296px] inset-x-[255px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>from :</legend>
-                                    <div className={`flex flex-col justify-start p-4 mb-8 border border-orange-200 hover:border-orange-400 focus:border-orange-400 focus-within:border-orange-400 rounded-3xl xxs:w-[${selectOutputSize.width}] xxs:min-w-[${selectOutputSize.width}] xxs:max-w-[${selectOutputSize.width}] w-[${selectOutputSize.small_width}] max-w-[${selectOutputSize.small_width}] min-h-[${selectOutputSize.height}] max-h-[${selectOutputSize.height}]`} ref={selectRef} >
+                                    <legend className={`relative top-5 xs:inset-x-[290px] xxs:inset-x-[236px] inset-x-[164px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>from :</legend>
+                                    <div className={`flex flex-col justify-start p-4 mb-8 border border-orange-200 hover:border-orange-400 focus:border-orange-400 focus-within:border-orange-400 rounded-3xl xs:w-[378px] xxs:w-[320px] w-[250px] min-h-[79px] max-h-[79px]`} ref={selectRef} >
                                         <p className="text-slate-300 text-[1.2rem] pl-4">Enter amount</p>
                                         <div className="flex flex-row gap-8">
                                             <label className="inline-block rounded-xl">
                                                 <input
-                                                    className={`xs:max-w-sm max-w-xs transition outline-0 rounded-xl underline underline-offset-4 text-[2.60rem] pl-4 font-light decoration-1 decoration-slate-400 ${themeColors.component.text} ${themeColors.component.input_bg}`}
+                                                    className={`xs:w-[238px] xxs:w-[180px] w-[140px] transition outline-0 rounded-xl underline underline-offset-4 text-[2.60rem] pl-4 font-light decoration-1 decoration-slate-400 ${themeColors.component.text} ${themeColors.component.input_bg}`}
                                                     type="number"
                                                     step="0.01" min="0.00"
                                                     defaultValue={''}
@@ -325,7 +371,7 @@ function Converter() {
                                             </label>
                                             <div className="flex self-center">
                                                 <Select
-                                                    className="block min-w-[96px] max-w-[96px]"
+                                                    className="block xxs:min-w-[96px] xxs:max-w-[96px] min-w-[80px] xxs:inset-x-0 -inset-x-5"
                                                     options={rateSelectOption}
                                                     defaultValue={firstCurrency}
                                                     value={firstCurrency}
@@ -353,7 +399,7 @@ function Converter() {
                             <div className={`md:mr-6 ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd}`}>
                                 <div>
                                     <legend className={`relative top-5 xs:inset-x-[28px] inset-x-[35px] w-fit h-fit px-3 font-medium font-questrial ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} ${themeColors.accent_text}`}>to :</legend>
-                                    <div className={`flex flex-col justify-between xxs:w-[${selectOutputSize.width}] xxs:min-w-[${selectOutputSize.width}] xxs:max-w-[${selectOutputSize.width}] w-[${selectOutputSize.small_width}] max-w-[${selectOutputSize.small_width}] min-h-[${selectOutputSize.height}] max-h-[${selectOutputSize.height}] p-4 mb-8 border border-orange-200 hover:border-orange-400 focus-within:border-orange-400 rounded-3xl`}>
+                                    <div className={`flex flex-col justify-between xs:w-[378px] xxs:w-[320px] w-[250px] min-h-[79px] max-h-[79px] p-4 mb-8 border border-orange-200 hover:border-orange-400 focus-within:border-orange-400 rounded-3xl`}>
                                         <p className="text-end text-slate-300 text-[1.2rem] pr-4">add currencies</p>
                                         <div>
                                             <Select
@@ -386,7 +432,7 @@ function Converter() {
                             <div className="flex self-center">
                                 <div>
                                     <button
-                                        className={`${themeColors.button.default} ${themeColors.button.hover} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}
+                                        className={`my-6 ${themeColors.button.default} ${themeColors.button.hover} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}
                                         onClick=
                                         {
                                             () => {

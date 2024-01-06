@@ -22,14 +22,19 @@ function Navbar() {
     const { state: { currentTheme }, setCurrentTheme } = useContext(Context);
     const { themeColors } = useContext(Context);
 
-    const [showBurgerClass, setShowBurgerClass] = useState('inactive');
-    const [showNavItems, setShowNavItems] = useState('active');
+    const [showBurgerClass, setShowBurgerClass] = useState('');
+    const [showNavItems, setShowNavItems] = useState('');
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
 
     const [animateIcon, setAnimateIcon] = useState(false);
     const [dropDownMenuActive, setDropDownMenuActive] = useState(false);
 
     const [animation, setAnimation] = useState('');
+    const [lineWidth, setLineWidth] = useState({
+        line1: 'M4 8 l20 0',
+        line2: 'M4 15 l20 0',
+        line3: 'M4 22 l20 0'
+    });
 
     useEffect(() => {
 
@@ -57,15 +62,39 @@ function Navbar() {
 
 
     function showDropDownMenu() {
+
         if (dropDownMenuActive === false) {
+
             setDropDownMenuActive(true);
             setAnimation('slideIn')
+
         } else if (dropDownMenuActive === true) {
+
             setAnimation('slideOut');
             setTimeout(() => {
                 setDropDownMenuActive(false);
             }, 80);
+
         }
+
+    }
+
+    function burgerAnimate(val) {
+
+        if (val === true) {
+            setLineWidth({
+                line1: 'M4 8 l10 0',
+                line2: 'M4 15 l16 0',
+                line3: 'M4 22 l10 0'
+            });
+        } else if (val === false) {
+            setLineWidth({
+                line1: 'M4 8 l20 0',
+                line2: 'M4 15 l20 0',
+                line3: 'M4 22 l20 0'
+            });
+        }
+
     }
 
 
@@ -101,19 +130,19 @@ function Navbar() {
                     </div>
                 </div>
                 <div className="relative w-1/2 flex justify-end items-center">
-                    <a href="#" className={`burger-menu order-4 ml-4 scale-75 ${themeColors.navbar.burger_hover} transition-all duration-200 ${showBurgerClass}`} onClick={showDropDownMenu}>
-                        <svg className={`burger-lines ${themeColors.navbar.burger}`} height='30' width='28'>
+                    <a href="#" className={`burger-menu md:hidden order-4 ml-4 scale-75 ${themeColors.navbar.burger_hover} transition-all duration-200 ${showBurgerClass}`} onClick={showDropDownMenu}>
+                        <svg className={`burger-lines ${themeColors.navbar.burger}`} height='30' width='28' onMouseEnter={() => burgerAnimate(true)} onMouseLeave={() => burgerAnimate(false)}>
                             <g fill="none">
-                                <path stroke="" d='M4 8 l20 0' strokeWidth={2} strokeLinecap='round' />
-                                <path stroke="" d='M4 15 l20 0' strokeWidth={2} strokeLinecap='round' />
-                                <path stroke="" d='M4 22 l20 0' strokeWidth={2} strokeLinecap='round' />
+                                <path className="transition-all duration-200 ease-in-out" stroke="" d={lineWidth.line1} strokeWidth={2} strokeLinecap='round' />
+                                <path className="transition-all duration-200 ease-in-out" stroke="" d={lineWidth.line2} strokeWidth={2} strokeLinecap='round' />
+                                <path className="transition-all duration-200 ease-in-out" stroke="" d={lineWidth.line3} strokeWidth={2} strokeLinecap='round' />
                             </g>
                         </svg>
                     </a>
                     {
-                        dropDownMenuActive && <DropdownMenu animate={animation}/>
+                        dropDownMenuActive && <DropdownMenu animate={animation} />
                     }
-                    <ul className={"nav-list" + ` ${showNavItems}`}>
+                    <ul className={`md:inline-block hidden ${showNavItems}`}>
                         <li>
                             <div className={`ml-8 font-questrial ${themeColors.text}`}>
                                 <button className={`${themeColors.button.default} ${themeColors.button.hover} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}>
