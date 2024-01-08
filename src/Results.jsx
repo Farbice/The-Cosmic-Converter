@@ -36,7 +36,6 @@ function Results(props) {
         // eslint-disable-next-line react/prop-types
     }, [children.props.list.values.length]);
 
-
     return (
         <>
             <div className={`flex flex-wrap -mt-10 mb-10 md:gap-8 justify-start w-4/5 xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 ${themeColors.component.bckgd} ${themeColors.text} shadow-xl shadow-blue-500/20 border-none rounded-3xl`}>
