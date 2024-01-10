@@ -51,7 +51,22 @@ function Converter() {
         valueContainer: (styles) => ({ ...styles, fontFamily: 'Questrial', paddingRight: "4px" }),
         dropdownIndicator: (styles, state) => ({ ...styles, paddingLeft: "4px", color: (state.isFocused ? '#ffff' : '#ffff'), "&:hover": { color: "#ffb95d" }, cursor: 'pointer' }),
         indicatorSeparator: (styles) => ({ ...styles, display: "none" }),
-        menuList: (styles) => ({ ...styles, borderRadius: '5px' }),
+        menuList: (styles, state) => {
+            
+            let menuListBackgroundColor = '';
+
+            if (state.currentTheme === 'light') {
+                menuListBackgroundColor = '#f7e5d7';
+            }
+            else if (state.currentTheme === 'dark') {
+                menuListBackgroundColor = '#1E293B';
+            }
+
+            return (
+                { ...styles, borderRadius: '5px', backgroundColor: menuListBackgroundColor}
+            )
+            
+        },
 
         option: (styles, { isFocused, isSelected, isDisabled }) => {
 
