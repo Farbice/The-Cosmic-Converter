@@ -64,13 +64,13 @@ function Results(props) {
                 </div>
                 <div className="relative md:inset-14 inset-6 flex gap-8 items-center">
                     <div className={`inline-block px-14 py-6 ${themeColors.component.input_bg} rounded-xl`}>
-                        <ul className={`flex justify-end items-baseline gap-8 md:text-3xl text-2xl ${themeColors.component.text}`}>
-                            <li className="text-[2.60rem] px-4 font-semibold">{state.inputData.amount}</li>
+                        <ul className={`flex justify-end items-baseline gap-8 md:text-3xl xxs:text-2xl text-[80%] ${themeColors.component.text}`}>
+                            <li className="xxs:text-[2.60rem] px-4 font-semibold">{state.inputData.amount}</li>
                             <li className="font-semibold">{state.inputData.currency}</li>
                         </ul>
                     </div>
                     <div>
-                        <p className={`font-questrial md:text-3xl text-2xl ${themeColors.accent_text}`}>converts into</p>
+                        <p className={`font-questrial md:text-3xl text-2xl xxs:block hidden ${themeColors.accent_text}`}>converts into</p>
                     </div>
                 </div>
                 <div className="w-full">
@@ -88,10 +88,10 @@ function Results(props) {
                                 return (
                                     <div key={index}>
                                         <div className={`flex gap-8 justify-center items-end px-8 py-4 m-4 rounded-xl border-[1px] ${themeColors.border.result}`}>
-                                            <div values={element} className={`text-4xl font-light pr-4 ${themeColors.result_text}`}>
+                                            <div values={element} className={`xxs:text-4xl text-[80%] font-light pr-4 ${themeColors.result_text}`}>
                                                 {element[0]}
                                             </div>
-                                            <div values={element} className={`text-3xl ${themeColors.result_text}`}>
+                                            <div values={element} className={`xxs:text-4xl text-[80%] ${themeColors.result_text}`}>
                                                 {element[1]}
                                             </div>
                                         </div>
