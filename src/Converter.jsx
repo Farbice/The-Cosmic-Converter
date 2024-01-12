@@ -51,12 +51,12 @@ function Converter() {
         valueContainer: (styles) => ({ ...styles, fontFamily: 'Questrial', paddingRight: "4px" }),
         dropdownIndicator: (styles, state) => ({ ...styles, paddingLeft: "4px", color: (state.isFocused ? '#ffff' : '#ffff'), "&:hover": { color: "#ffb95d" }, cursor: 'pointer' }),
         indicatorSeparator: (styles) => ({ ...styles, display: "none" }),
-        menuList: (styles, state) => {
+        menuList: (styles) => {
             
             let menuListBackgroundColor = '';
 
             if (state.currentTheme === 'light') {
-                menuListBackgroundColor = '#f7e5d7';
+                menuListBackgroundColor = '#ffff';
             }
             else if (state.currentTheme === 'dark') {
                 menuListBackgroundColor = '#1E293B';
@@ -65,7 +65,6 @@ function Converter() {
             return (
                 { ...styles, borderRadius: '5px', backgroundColor: menuListBackgroundColor}
             )
-            
         },
 
         option: (styles, { isFocused, isSelected, isDisabled }) => {
@@ -202,6 +201,22 @@ function Converter() {
                     ...styles, backgroundColor: optionBackgroundColor, color: optionColor,
                     ':active': { ...styles[':active'], backgroundColor: activeOptionBackgroundColor, color: activeOptionColor },
                 }
+            )
+        },
+
+        menuList: (styles) => {
+            
+            let menuListBackgroundColor = '';
+
+            if (state.currentTheme === 'light') {
+                menuListBackgroundColor = '#ffff';
+            }
+            else if (state.currentTheme === 'dark') {
+                menuListBackgroundColor = '#1E293B';
+            }
+
+            return (
+                { ...styles, borderRadius: '5px', backgroundColor: menuListBackgroundColor}
             )
         },
     };
