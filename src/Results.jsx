@@ -50,12 +50,14 @@ function Results(props) {
                             }
                         </div>
                         <div className="my-6">
-                            <h3 className={`text-4xl mx-auto font-questrial ${themeColors.component.text}`}>
-                                <span className={`relative inline-block md:-left-8 md:-top-0 -left-[1.8rem] top-[0.2rem] md:scale-100 scale-70 w-8 h-8`}>
+                            <h3 className={`text-4xl xxs:mx-auto mx-[1rem] font-questrial ${themeColors.component.text}`}>
+                                <span className={`relative xxs:inline-block md:-left-8 md:-top-0 xxs:-left-[1.8rem] xxs:top-[0.2rem] md:scale-100 scale-70 w-8 h-8 hidden`}>
                                     <StarResLeft />
                                 </span>
-                                Your {numberOfConversions.number} Cosmic {numberOfConversions.grammar}
-                                <span className={`relative inline-block md:-left-3 md:-top-7 -left-[0.8rem] -top-[1.8rem] md:scale-80 scale-75 w-8 h-8`}>
+                                <span className="xxs:inline inline-block xxs:w-full w-80">
+                                    Your {numberOfConversions.number} Cosmic {numberOfConversions.grammar}
+                                </span>
+                                <span className={`relative xxs:inline-block md:-left-3 md:-top-7 xxs:-left-[0.8rem] xxs:-top-[1.8rem] md:scale-80 scale-75 w-8 h-8 hidden`}>
                                     <StarResLeft />
                                 </span>
                             </h3>
