@@ -65,7 +65,7 @@ function Results(props) {
                 <div className="relative md:inset-14 inset-6 flex gap-8 items-center max-w-[90%]">
                     <div className={`inline-block px-14 py-6 rounded-xl xs:max-w-[calc(100%-11rem)] max-w-[100%] ${themeColors.component.input_bg}`}>
                         <ul className={`flex justify-end items-baseline gap-8 md:text-3xl xxs:text-2xl text-[95%] ${themeColors.component.text}`}>
-                            <li className="xxs:text-[2.60rem] px-4 font-semibold truncate">{state.inputData.amount}</li>
+                            <li className="xxs:text-[2.60rem] px-4 font-semibold overflow-x-scroll">{state.inputData.amount}</li>
                             <li className="font-semibold">{state.inputData.currency}</li>
                         </ul>
                     </div>
