@@ -17,20 +17,10 @@ function Results(props) {
     });
 
     const targetComponentRef = useRef();
-    const autoFocus = (element) => element.current?.scrollIntoView({behavior: "smooth", inline: "nearest"});
 
-    const [showElement, setShowElement] = useState ('');
     const [expandable, setExpandable] = useState({
         show: false
     });
-
-    function handleExpandable(effect) {
-        if(effect) {
-            setShowElement('');
-        } else {
-            setShowElement('h-0 overflow-y-clip');
-        }
-    }
 
     useEffect(() => {
 
@@ -41,11 +31,7 @@ function Results(props) {
                 number: children.props.list.values.length,
                 grammar: 'Conversions'
             })
-
-            setTimeout(() => {
-                setExpandable({show:true});
-                handleExpandable(expandable);
-            }, 400);
+            setExpandable({show:true});
 
         } else {
             setNumOfConversions({
@@ -53,6 +39,7 @@ function Results(props) {
                 number: '',
                 grammar: 'Conversion'
             })
+            setExpandable({show:false});
         }
 
         // eslint-disable-next-line react/prop-types
@@ -68,13 +55,11 @@ function Results(props) {
     // eslint-disable-next-line react/prop-types
     }, [children.props.list]);
 
-
-
-
+    const autoFocus = (element) => element.current?.scrollIntoView({behavior: "smooth", inline: "nearest"});
 
     return (
         <>
-            <div className={`flex flex-wrap ${showElement} -mt-10 mb-10 md:gap-8 justify-start w-4/5 xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 ${themeColors.component.bckgd} ${themeColors.text} shadow-xl shadow-blue-500/20 border-none rounded-3xl transition-all duration-300`}>
+            <div className={`flex flex-wrap ${expandable ? 'h-full overflow-y-visible' : 'h-0 overflow-y-clip'} -mt-10 mb-10 md:gap-8 justify-start w-4/5 xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 ${themeColors.component.bckgd} ${themeColors.text} shadow-xl shadow-blue-500/20 border-none rounded-3xl transition-all duration-300`}>
                 <div className="block w-full text-center">
                     <div className="flex sm:justify-between justify-center items-center mb-6">
                         <div className="hidden sm:block p-[1.4rem] rounded-full scale-75">
