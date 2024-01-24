@@ -18,20 +18,18 @@ function Results(props) {
 
     const targetComponentRef = useRef();
 
-    const [expandable, setExpandable] = useState({
-        show: false
-    });
+    const [expandable, setExpandable] = useState(false);
 
     useEffect(() => {
 
         // eslint-disable-next-line react/prop-types
-        if (children.props.list.values.length > 1) {
+        if (children.props.list.values.length >= 1) {
             setNumOfConversions({
                 // eslint-disable-next-line react/prop-types
                 number: children.props.list.values.length,
                 grammar: 'Conversions'
             })
-            setExpandable({show:true});
+            setExpandable(true);
 
         } else {
             setNumOfConversions({
@@ -39,7 +37,6 @@ function Results(props) {
                 number: '',
                 grammar: 'Conversion'
             })
-            setExpandable({show:false});
         }
 
         // eslint-disable-next-line react/prop-types
@@ -49,13 +46,15 @@ function Results(props) {
     useEffect(() => {
         // eslint-disable-next-line react/prop-types
         if (children.props.list) {
-            autoFocus(targetComponentRef);
+            setTimeout(() => {
+                autoFocus(targetComponentRef);
+            }, 50);
         }
 
     // eslint-disable-next-line react/prop-types
     }, [children.props.list]);
 
-    const autoFocus = (element) => element.current?.scrollIntoView({behavior: "smooth", inline: "nearest"});
+    const autoFocus = (element) => element.current?.scrollIntoView({behavior: "smooth"});
 
     return (
         <>
