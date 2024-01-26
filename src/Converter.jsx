@@ -417,7 +417,7 @@ function Converter() {
                                                 showAmountErrorMessage &&
                                                 <div className="absolute inset-y-4 -inset-x-3 text-[1.4rem]">
                                                     <p className="text-1xl text-orange-600">
-                                                        * N&rsquo;oubliez pas d&rsquo;entrer un montant
+                                                        * Don&rsquo;t forget to add an amount
                                                     </p>
                                                 </div>
                                             }
@@ -450,7 +450,7 @@ function Converter() {
                                                 showCurrencyErrorMessage &&
                                                 <div className="absolute inset-y-4 -inset-x-3 text-[1.4rem]">
                                                     <p className="text-1xl text-orange-600">
-                                                        * Veuillez sélectionner au moins une devise
+                                                        * Please select at least one currency
                                                     </p>
                                                 </div>
                                             }
