@@ -417,7 +417,7 @@ function Converter() {
                                                 showAmountErrorMessage &&
                                                 <div className="absolute inset-y-4 -inset-x-3 text-[1.4rem]">
                                                     <p className="text-1xl text-orange-600">
-                                                        * Don&rsquo;t forget to add an amount
+                                                        * Please add an amount
                                                     </p>
                                                 </div>
                                             }
