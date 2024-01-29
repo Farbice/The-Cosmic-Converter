@@ -18,18 +18,15 @@ function Results(props) {
 
     const targetComponentRef = useRef();
 
-    const [expandable, setExpandable] = useState(false);
-
     useEffect(() => {
 
         // eslint-disable-next-line react/prop-types
-        if (children.props.list.values.length >= 1) {
+        if (children.props.list.values.length > 1) {
             setNumOfConversions({
                 // eslint-disable-next-line react/prop-types
                 number: children.props.list.values.length,
                 grammar: 'Conversions'
             })
-            setExpandable(true);
 
         } else {
             setNumOfConversions({
@@ -58,7 +55,7 @@ function Results(props) {
 
     return (
         <>
-            <div className={`flex flex-wrap ${expandable ? 'h-full overflow-y-visible' : 'h-0 overflow-y-clip'} -mt-10 mb-10 md:gap-8 justify-start w-4/5 xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 ${themeColors.component.bckgd} ${themeColors.text} shadow-xl shadow-blue-500/20 border-none rounded-3xl transition-all duration-300`}>
+            <div className={`flex flex-wrap -mt-10 mb-10 md:gap-8 justify-start w-4/5 xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 ${themeColors.component.bckgd} ${themeColors.text} shadow-xl shadow-blue-500/20 border-none rounded-3xl`}>
                 <div className="block w-full text-center">
                     <div className="flex sm:justify-between justify-center items-center mb-6">
                         <div className="hidden sm:block p-[1.4rem] rounded-full scale-75">
