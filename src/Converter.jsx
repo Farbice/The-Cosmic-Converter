@@ -462,7 +462,7 @@ function Converter() {
                             <div className="flex self-center">
                                 <div>
                                     <button
-                                        className={`my-6 ${themeColors.button.default} ${themeColors.button.hover} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}
+                                        className={`my-6 ${themeColors.button.default} ${themeColors.button.hover} ${themeColors.button.active} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}
                                         onClick=
                                         {
                                             () => {

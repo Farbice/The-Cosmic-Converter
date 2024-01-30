@@ -145,7 +145,7 @@ function Navbar() {
                     <ul className={`md:inline-block hidden ${showNavItems}`}>
                         <li>
                             <div className={`ml-8 font-questrial ${themeColors.text}`}>
-                                <button className={`${themeColors.button.default} ${themeColors.button.hover} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}>
+                                <button className={`${themeColors.button.default} ${themeColors.button.hover} ${themeColors.button.active} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}>
                                     <a href="mailto:fab.louis.971@gmail.com" target="blank">Get in touch</a>
                                 </button>
                             </div>
