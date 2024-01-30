@@ -124,7 +124,7 @@ function Results(props) {
                     </div>
                 </div>
                 <div className="w-full text-end md:mt-[0.5rem] mt-[2rem]">
-                    <button className={`${themeColors.button.default} ${themeColors.button.hover} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}>
+                    <button className={`${themeColors.button.default} ${themeColors.button.hover} ${themeColors.button.active} ${themeColors.accent_text} ${themeColors.animate_settings.button}`}>
                         <a href="">Reset</a>
                     </button>
                 </div>
