@@ -9,7 +9,7 @@ function ShowInnerResults({ values }) {
 
 }
 
- ShowInnerResults.propTypes = {
+ShowInnerResults.propTypes = {
     values: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string,])).isRequired
 }
 

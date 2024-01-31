@@ -3,6 +3,7 @@ import { Context } from "./Utilities/Context";
 import StarResLeft from "./Assets/Images/star_res_left";
 import LogoDark from "./Assets/Logo/logoDark";
 import LogoLight from "./Assets/Logo/logoLight";
+import splitNumber from "./Utilities/splitNumber";
 
 
 function Results(props) {
@@ -53,6 +54,10 @@ function Results(props) {
 
     const autoFocus = (element) => element.current?.scrollIntoView({behavior: "smooth"});
 
+    const inputAmountInteger = splitNumber(state.inputData.amount)[0];
+    const inputAmountDecimals = splitNumber(state.inputData.amount)[1];
+
+
     return (
         <>
             <div className={`flex flex-wrap -mt-10 mb-10 md:gap-8 justify-start w-4/5 xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 ${themeColors.component.bckgd} ${themeColors.text} shadow-xl shadow-blue-500/20 border-none rounded-3xl`}>
@@ -84,7 +89,11 @@ function Results(props) {
                 <div className="relative md:inset-14 inset-6 flex gap-8 items-center max-w-[90%]">
                     <div className={`inline-block px-14 py-6 rounded-xl xs:max-w-[calc(100%-11rem)] max-w-[100%] ${themeColors.component.input_bg}`}>
                         <ul className={`flex justify-end items-baseline gap-8 md:text-3xl xxs:text-2xl text-[95%] ${themeColors.component.text}`}>
-                            <li className="xxs:text-[2.60rem] px-4 font-semibold overflow-x-scroll">{state.inputData.amount}</li>
+                            <li className="xxs:text-[2.60rem] px-4 font-normal overflow-x-scroll">
+                                <span>{inputAmountInteger}</span>
+                                <span>.</span>
+                                <span className="text-[75%] font-normal">{inputAmountDecimals}</span>
+                            </li>
                             <li className="font-semibold">{state.inputData.currency}</li>
                         </ul>
                     </div>
@@ -106,14 +115,22 @@ function Results(props) {
                             {
                                 // eslint-disable-next-line react/prop-types
                                 children.props.list && children.props.list.values.map((element, index) => {
+                                    const amount = element[0];
+                                    const currency = element[1];
+                                    const amountInteger = splitNumber(amount)[0];
+                                    const amountDecimal = splitNumber(amount)[1];
+
                                     return (
                                         <div key={index} className="max-w-full">
                                             <div className={`flex gap-8 justify-center items-end px-8 py-4 m-4 rounded-xl border-[1px] max-w-[90%] ${themeColors.border.result}`}>
                                                 <div values={element} className={`xxs:text-4xl text-[95%] font-light pr-4 overflow-x-scroll ${themeColors.result_text}`}>
-                                                    {element[0]}
+                                                    <span>{amountInteger}</span>
+                                                    {
+                                                        amountDecimal && (<>.<span className="text-[75%]">{amountDecimal}</span></>)
+                                                    }
                                                 </div>
                                                 <div values={element} className={`xxs:text-4xl text-[95%] ${themeColors.result_text}`}>
-                                                    {element[1]}
+                                                    {currency}
                                                 </div>
                                             </div>
                                         </div>

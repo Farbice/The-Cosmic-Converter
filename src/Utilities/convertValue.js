@@ -23,7 +23,6 @@ const convertValue = (inputRefValue, inputValue, targetCurrencies, targetCurrenc
         } else {
 
             return resultTable;
-
         }
 
 
@@ -32,7 +31,6 @@ const convertValue = (inputRefValue, inputValue, targetCurrencies, targetCurrenc
         setShowAmountErrorMessage(true);
         
         if(targetCurrencyRef.length === 0) {
-
             setShowCurrencyErrorMessage(true);
         }
     

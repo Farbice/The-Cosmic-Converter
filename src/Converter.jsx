@@ -9,7 +9,7 @@ import getOneCurrency from "./Utilities/getOneCurrency";
 import StarPosRight from "./Assets/Images/star_pos_right";
 import StarPosLeft from "./Assets/Images/star_pos_left";
 import DropdownLight from "./Assets/Images/dropdown_light";
-
+import splitNumber from "./Utilities/splitNumber";
 
 function Converter() {
 
@@ -328,6 +328,21 @@ function Converter() {
         setTargetCurrencyBackgroundColor(backgroundColor);
     }
 
+    // function formatDecimalInput(data) {
+    //     const inputValue = data.target.value;
+    //     const splittedInputValue = splitNumber(inputValue);
+    //     let formattedWithDecimalInputValue = '';
+
+    //     if (splittedInputValue[1] === undefined || splittedInputValue[1] === '00') {
+    //         formattedWithDecimalInputValue = parseFloat((data.target.value)).toFixed(2)
+    //     } else {
+    //         formattedWithDecimalInputValue = data.target.value;
+    //     }
+
+    //     data.target.value = formattedWithDecimalInputValue;
+    //     console.log(formattedWithDecimalInputValue);
+    // }
+
     return (
         <>
             <div
@@ -396,7 +411,10 @@ function Converter() {
                                                     step="0.01" min="0.00"
                                                     defaultValue={''}
                                                     placeholder="0.00"
-                                                    ref={inputRef} onChange={handleInputChange}
+                                                    ref={inputRef}
+                                                    onChange={handleInputChange}
+                                                    // onInput={formatDecimalInput}
+
                                                 />
                                             </label>
                                             <div className="flex self-center">
