@@ -328,20 +328,21 @@ function Converter() {
         setTargetCurrencyBackgroundColor(backgroundColor);
     }
 
-    // function formatDecimalInput(data) {
-    //     const inputValue = data.target.value;
-    //     const splittedInputValue = splitNumber(inputValue);
-    //     let formattedWithDecimalInputValue = '';
+    function formatDecimalInput(data) {
+        const inputValue = data.target.value;
+        const splittedInputValue = splitNumber(inputValue);
+        const decimalInputValue = splittedInputValue[1];
+        let formattedWithDecimalInputValue = '';
 
-    //     if (splittedInputValue[1] === undefined || splittedInputValue[1] === '00') {
-    //         formattedWithDecimalInputValue = parseFloat((data.target.value)).toFixed(2)
-    //     } else {
-    //         formattedWithDecimalInputValue = data.target.value;
-    //     }
+        if (decimalInputValue === undefined || decimalInputValue === '00') {
+            formattedWithDecimalInputValue = parseFloat((data.target.value)).toFixed(2);
+            formattedWithDecimalInputValue = formattedWithDecimalInputValue.replace(',', '.');
+        } else {
+            formattedWithDecimalInputValue = data.target.value;
+        }
 
-    //     data.target.value = formattedWithDecimalInputValue;
-    //     console.log(formattedWithDecimalInputValue);
-    // }
+        data.target.value = formattedWithDecimalInputValue;
+    }
 
     return (
         <>
@@ -413,7 +414,7 @@ function Converter() {
                                                     placeholder="0.00"
                                                     ref={inputRef}
                                                     onChange={handleInputChange}
-                                                    // onInput={formatDecimalInput}
+                                                    onBlur={formatDecimalInput}
 
                                                 />
                                             </label>
