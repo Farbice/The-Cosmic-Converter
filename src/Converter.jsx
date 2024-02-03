@@ -336,12 +336,11 @@ function Converter() {
 
         if (decimalInputValue === undefined || decimalInputValue === '00') {
             formattedWithDecimalInputValue = parseFloat((data.target.value)).toFixed(2);
-            formattedWithDecimalInputValue = formattedWithDecimalInputValue.replace(',', '.');
         } else {
             formattedWithDecimalInputValue = data.target.value;
         }
 
-        data.target.value = formattedWithDecimalInputValue;
+        data.target.value = formattedWithDecimalInputValue
     }
 
     return (
