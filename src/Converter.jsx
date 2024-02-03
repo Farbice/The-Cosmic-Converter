@@ -340,7 +340,7 @@ function Converter() {
             formattedWithDecimalInputValue = data.target.value;
         }
 
-        data.target.value = formattedWithDecimalInputValue;
+        data.target.value = formattedWithDecimalInputValue
     }
 
     return (
