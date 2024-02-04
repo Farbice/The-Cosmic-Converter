@@ -4,6 +4,7 @@ import StarResLeft from "./Assets/Images/star_res_left";
 import LogoDark from "./Assets/Logo/logoDark";
 import LogoLight from "./Assets/Logo/logoLight";
 import splitNumber from "./Utilities/splitNumber";
+import numeral from "numeral";
 
 
 function Results(props) {
@@ -54,7 +55,7 @@ function Results(props) {
 
     const autoFocus = (element) => element.current?.scrollIntoView({behavior: "smooth"});
 
-    const inputAmountInteger = splitNumber(state.inputData.amount)[0];
+    const inputAmountInteger = numeral(splitNumber(state.inputData.amount)[0]).format(0,0);
     const inputAmountDecimals = splitNumber(state.inputData.amount)[1];
 
 
@@ -117,7 +118,7 @@ function Results(props) {
                                 children.props.list && children.props.list.values.map((element, index) => {
                                     const amount = element[0];
                                     const currency = element[1];
-                                    const amountInteger = splitNumber(amount)[0];
+                                    const amountInteger = numeral(splitNumber(amount)[0]).format();
                                     const amountDecimal = splitNumber(amount)[1];
 
                                     return (
