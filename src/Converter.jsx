@@ -52,7 +52,7 @@ function Converter() {
         dropdownIndicator: (styles, state) => ({ ...styles, paddingLeft: "4px", color: (state.isFocused ? '#ffff' : '#ffff'), "&:hover": { color: "#ffb95d" }, cursor: 'pointer' }),
         indicatorSeparator: (styles) => ({ ...styles, display: "none" }),
         menuList: (styles) => {
-            
+
             let menuListBackgroundColor = '';
 
             if (state.currentTheme === 'light') {
@@ -63,7 +63,7 @@ function Converter() {
             }
 
             return (
-                { ...styles, borderRadius: '5px', backgroundColor: menuListBackgroundColor}
+                { ...styles, borderRadius: '5px', backgroundColor: menuListBackgroundColor }
             )
         },
 
@@ -205,7 +205,7 @@ function Converter() {
         },
 
         menuList: (styles) => {
-            
+
             let menuListBackgroundColor = '';
 
             if (state.currentTheme === 'light') {
@@ -216,7 +216,7 @@ function Converter() {
             }
 
             return (
-                { ...styles, borderRadius: '5px', backgroundColor: menuListBackgroundColor}
+                { ...styles, borderRadius: '5px', backgroundColor: menuListBackgroundColor }
             )
         },
     };
@@ -313,9 +313,22 @@ function Converter() {
     }
 
     function handleInputChange(e) {
-        setInputValue(e.target.value);
-        setShowAmountErrorMessage(false);
+        const regex = /^[0-9]+([.,][0-9]{1,2})?/;
+        const isValid = regex.test(e.target.value);
+
+        if (!isValid) {
+            e.target.value = "";
+        } else {
+            setInputValue(e.target.value);
+            setShowAmountErrorMessage(false);
+        }
     }
+
+    // const handleNumberOnly = data => {
+    //     if ((data.keyCode >= 48 && data.keyCode <= 57) || (data.keyCode !== 188) || (data.keyCode !== 16) || (data.keyCode !== 190)){
+    //         data.preventDefault();
+    //     }
+    // }
 
     const handleTextOnly = data => {
         if ((data.keyCode < 65 && data.keyCode !== 16 && data.keyCode !== 20 && data.keyCode !== 8) || data.keyCode > 90) {
@@ -407,13 +420,15 @@ function Converter() {
                                             <label className="inline-block rounded-xl">
                                                 <input
                                                     className={`xs:w-[238px] xxs:w-[180px] w-[140px] transition outline-0 rounded-xl underline underline-offset-4 text-[2.60rem] pl-4 font-light decoration-1 decoration-slate-400 ${themeColors.component.text} ${themeColors.component.input_bg}`}
-                                                    type="number"
+                                                    type="text"
+                                                    pattern="[0-9]+([\.|,][0-9]{1,2})?"
                                                     step="0.01" min="0.00"
                                                     defaultValue={''}
                                                     placeholder="0.00"
                                                     ref={inputRef}
                                                     onChange={handleInputChange}
                                                     onBlur={formatDecimalInput}
+                                                   //onKeyDown={handleNumberOnly}
                                                 />
                                             </label>
                                             <div className="flex self-center">
