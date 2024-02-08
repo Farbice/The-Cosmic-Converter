@@ -319,7 +319,7 @@ function Converter() {
         if (!isValid) {
             e.target.value = "";
         } else {
-            setInputValue(e.target.value);
+            (e.target.value).includes(',') ? setInputValue((e.target.value).replace(',', '.')) : setInputValue(e.target.value);
             setShowAmountErrorMessage(false);
         }
     }
@@ -342,18 +342,21 @@ function Converter() {
     }
 
     function formatDecimalInput(data) {
-        const inputValue = data.target.value;
-        const splittedInputValue = splitNumber(inputValue);
+        const value = data.target.value;
+        const splittedInputValue = splitNumber(value);
         const decimalInputValue = splittedInputValue[1];
         let formattedWithDecimalInputValue = '';
 
-        if (decimalInputValue === undefined || decimalInputValue === '00') {
+        console.log('decimalInputValue : ' ,decimalInputValue);
+
+        if (decimalInputValue === undefined || decimalInputValue === '00' || decimalInputValue === '') {
             formattedWithDecimalInputValue = parseFloat((data.target.value)).toFixed(2);
         } else {
             formattedWithDecimalInputValue = data.target.value;
         }
 
-        data.target.value = formattedWithDecimalInputValue;
+        formattedWithDecimalInputValue.includes(',') ? (data.target.value = formattedWithDecimalInputValue.replace(',', '.')) : data.target.value = formattedWithDecimalInputValue;
+        
     }
 
     return (
@@ -421,7 +424,7 @@ function Converter() {
                                                 <input
                                                     className={`xs:w-[238px] xxs:w-[180px] w-[140px] transition outline-0 rounded-xl underline underline-offset-4 text-[2.60rem] pl-4 font-light decoration-1 decoration-slate-400 ${themeColors.component.text} ${themeColors.component.input_bg}`}
                                                     type="text"
-                                                    pattern="[0-9]+([\.|,][0-9]{1,2})?"
+                                                    pattern="[0-9]+([.,][0-9]{1,2})?"
                                                     step="0.01" min="0.00"
                                                     defaultValue={''}
                                                     placeholder="0.00"
