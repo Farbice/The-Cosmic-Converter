@@ -313,22 +313,10 @@ function Converter() {
     }
 
     function handleInputChange(e) {
-        const regex = /^[0-9]+([.,][0-9]{1,2})?/;
-        const isValid = regex.test(e.target.value);
 
-        if (!isValid) {
-            e.target.value = "";
-        } else {
-            (e.target.value).includes(',') ? setInputValue((e.target.value).replace(',', '.')) : setInputValue(e.target.value);
-            setShowAmountErrorMessage(false);
-        }
+        setInputValue(e.target.value);
+        setShowAmountErrorMessage(false);
     }
-
-    // const handleNumberOnly = data => {
-    //     if ((data.keyCode >= 48 && data.keyCode <= 57) || (data.keyCode !== 188) || (data.keyCode !== 16) || (data.keyCode !== 190)){
-    //         data.preventDefault();
-    //     }
-    // }
 
     const handleTextOnly = data => {
         if ((data.keyCode < 65 && data.keyCode !== 16 && data.keyCode !== 20 && data.keyCode !== 8) || data.keyCode > 90) {
@@ -342,20 +330,22 @@ function Converter() {
     }
 
     function formatDecimalInput(data) {
+
         const value = data.target.value;
         const splittedInputValue = splitNumber(value);
         const decimalInputValue = splittedInputValue[1];
+
+
         let formattedWithDecimalInputValue = '';
+        let decimalListValues = [undefined, '00', ''];
 
-        console.log('decimalInputValue : ' ,decimalInputValue);
-
-        if (decimalInputValue === undefined || decimalInputValue === '00' || decimalInputValue === '') {
+        if (decimalListValues.includes(decimalInputValue)) {
             formattedWithDecimalInputValue = parseFloat((data.target.value)).toFixed(2);
         } else {
             formattedWithDecimalInputValue = data.target.value;
         }
 
-        formattedWithDecimalInputValue.includes(',') ? (data.target.value = formattedWithDecimalInputValue.replace(',', '.')) : data.target.value = formattedWithDecimalInputValue;
+        data.target.value = formattedWithDecimalInputValue;
         
     }
 
@@ -423,15 +413,13 @@ function Converter() {
                                             <label className="inline-block rounded-xl">
                                                 <input
                                                     className={`xs:w-[238px] xxs:w-[180px] w-[140px] transition outline-0 rounded-xl underline underline-offset-4 text-[2.60rem] pl-4 font-light decoration-1 decoration-slate-400 ${themeColors.component.text} ${themeColors.component.input_bg}`}
-                                                    type="text"
-                                                    pattern="[0-9]+([.,][0-9]{1,2})?"
+                                                    type="number"
                                                     step="0.01" min="0.00"
                                                     defaultValue={''}
                                                     placeholder="0.00"
                                                     ref={inputRef}
                                                     onChange={handleInputChange}
                                                     onBlur={formatDecimalInput}
-                                                   //onKeyDown={handleNumberOnly}
                                                 />
                                             </label>
                                             <div className="flex self-center">
