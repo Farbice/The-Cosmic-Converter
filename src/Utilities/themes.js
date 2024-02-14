@@ -21,7 +21,7 @@ const themesManager = (theme) => {
             },
             border : {
                 accent: 'border-orange-500',
-                result: 'border-[#282c5f]',
+                result: 'border-[#393C5F]',
             },
             element_highlight: 'before:bg-[#FFC47C]',
             component : {
@@ -67,7 +67,7 @@ const themesManager = (theme) => {
             },
             border : {
                 accent: 'border-amber-300',
-                result: 'border-slate-100',
+                result: 'border-slate-100/50',
             },
             element_highlight: 'before:bg-orange-500',
             component : {
