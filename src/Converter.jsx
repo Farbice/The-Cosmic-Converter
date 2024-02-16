@@ -420,6 +420,7 @@ function Converter() {
                                                     ref={inputRef}
                                                     onChange={handleInputChange}
                                                     onBlur={formatDecimalInput}
+                                                    onInvalid={(e) => e.preventDefault()}
                                                 />
                                             </label>
                                             <div className="flex self-center">
