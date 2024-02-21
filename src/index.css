@@ -206,3 +206,19 @@ input {
         transform: translateY(0);
     }
 }
+
+.transitionLeft {
+    animation: transitionLeft 600ms ease-out;
+}
+
+@keyframes transitionLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-25%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

@@ -374,7 +374,7 @@ function Converter() {
                     <ul className="flex flex-col xxs:flex-row xxs:w-full xs:space-x-8 xs:space-y-0 lg:w-4/5 md:w-full justify-between mx-auto mt-24 mb-12">
                         <li className="mb-[1rem]">
                             <a href="" className={`info-items ${themeColors.text}`}>
-                                <div className="flex flex-wrap w-full items-center xxs:justify-center justify-left">
+                                <div className="flex flex-wrap w-full items-center xxs:justify-center justify-left transitionLeft">
                                     <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mx-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>1</span>
                                     <span className="whitespace-nowrap xxs:pl-0 pl-8">Enter amount</span>
                                 </div>
