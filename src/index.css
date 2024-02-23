@@ -222,3 +222,19 @@ input {
         transform: translateX(0);
     }
 }
+
+.transitionRight {
+    animation: transitionRight 600ms ease-out;
+}
+
+@keyframes transitionRight {
+    from {
+        opacity: 0;
+        transform: translateX(25%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
