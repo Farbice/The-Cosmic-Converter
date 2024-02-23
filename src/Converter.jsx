@@ -390,7 +390,7 @@ function Converter() {
                         </li>
                         <li className="mb-[1rem] ml-0">
                             <a href="" className={`info-items ${themeColors.text}`}>
-                                <div className="flex flex-wrap w-full items-center xxs:justify-center justify-left">
+                                <div className="flex flex-wrap w-full items-center xxs:justify-center justify-left transitionRight">
                                     <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mx-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>3</span>
                                     <span className="whitespace-nowrap xxs:pl-0 pl-8">🎉 Hit convert !</span>
                                 </div>
