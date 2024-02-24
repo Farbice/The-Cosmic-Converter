@@ -382,7 +382,7 @@ function Converter() {
                         </li>
                         <li className="mb-[1rem] ml-0">
                             <a href="" className={`info-items ${themeColors.text}`}>
-                                <div className="flex flex-wrap w-full items-center xxs:justify-center justify-left">
+                                <div className="flex flex-wrap w-full items-center xxs:justify-center justify-left transitionUpStrong">
                                     <span className={`inline-block p-0 w-14 h-14 text-center align-baseline leading-loose mx-4 relative -top-0.5 border-solid border-[1px] ${themeColors.border.accent} rounded-full`}>2</span>
                                     <span className="xs:whitespace-nowrap whitespace-wrap text-wrap xxs:pl-0 pl-8">Choose <span className="hidden xxs:inline-block"><strong className="underline underline-offset-4 decoration-2 decoration-amber-500">from</strong> and <strong className="underline underline-offset-4 decoration-2 decoration-amber-500">to</strong></span> currencies</span>
                                 </div>
@@ -401,7 +401,7 @@ function Converter() {
 
                 <div className={`w-full py-20 ${themeColors.banner}`}>
                     <form
-                        className={`flex flex-wrap md:gap-8 justify-center w-4/5 xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 transitionIn ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} shadow-xl shadow-blue-500/20 border-none rounded-3xl`}
+                        className={`flex flex-wrap md:gap-8 justify-center w-4/5 xs:w-3/4 md:w-5/6 lg:w-3/5 mx-auto sm:p-16 p-8 transitionUp ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd} shadow-xl shadow-blue-500/20 border-none rounded-3xl`}
                         onSubmit={(e) => e.preventDefault()}>
                         <div className="flex flex-wrap md:gap-8 justify-center">
                             <div className={`md:ml-6 ${themeColors.component.bckgd} ${themeColors.animate_settings.bckgd}`}>

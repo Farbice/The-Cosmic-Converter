@@ -191,14 +191,30 @@ input {
     
 }
 
-.transitionIn {
-    animation: transitionIn 550ms ease-out; 
+.transitionUp {
+    animation: transitionUp 550ms ease-out; 
 }
 
-@keyframes transitionIn {
+@keyframes transitionUp {
     from {
         opacity: 0;
         transform: translateY(-10%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.transitionUpStrong {
+    animation: transitionUpStrong 600ms ease-out; 
+}
+
+@keyframes transitionUpStrong {
+    from {
+        opacity: 0;
+        transform: translateY(-50%);
     }
 
     to {
