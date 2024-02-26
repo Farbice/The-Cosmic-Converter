@@ -5,6 +5,7 @@ import LogoDark from "./Assets/Logo/logoDark";
 import LogoLight from "./Assets/Logo/logoLight";
 import splitNumber from "./Utilities/splitNumber";
 import numeral from "numeral";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 
 function Results(props) {
@@ -19,6 +20,14 @@ function Results(props) {
     });
 
     const targetComponentRef = useRef();
+
+    const [textToCopy, setTextToCopy] = useState('');
+    const [copyStatus, setCopyStatus] = useState(false);
+
+    const onCopyText = () => {
+        setCopyStatus(true);
+        setTimeout(() => setCopyStatus(false), 2000);
+    };
 
     useEffect(() => {
 
@@ -50,12 +59,12 @@ function Results(props) {
             }, 50);
         }
 
-    // eslint-disable-next-line react/prop-types
+        // eslint-disable-next-line react/prop-types
     }, [children.props.list]);
 
-    const autoFocus = (element) => element.current?.scrollIntoView({behavior: "smooth"});
+    const autoFocus = (element) => element.current?.scrollIntoView({ behavior: "smooth" });
 
-    const inputAmountInteger = numeral(splitNumber(state.inputData.amount)[0]).format(0,0);
+    const inputAmountInteger = numeral(splitNumber(state.inputData.amount)[0]).format(0, 0);
     const inputAmountDecimals = splitNumber(state.inputData.amount)[1];
 
 
