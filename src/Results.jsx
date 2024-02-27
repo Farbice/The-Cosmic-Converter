@@ -27,6 +27,7 @@ function Results(props) {
     const onCopyText = () => {
         setCopyStatus(true);
         setTimeout(() => setCopyStatus(false), 2000);
+        console.log(textToCopy);
     };
 
     useEffect(() => {
@@ -67,6 +68,18 @@ function Results(props) {
     const inputAmountInteger = numeral(splitNumber(state.inputData.amount)[0]).format(0, 0);
     const inputAmountDecimals = splitNumber(state.inputData.amount)[1];
 
+    useEffect(() => {
+        // eslint-disable-next-line react/prop-types
+        let resultToCopy = children.props.list.values.map(element => {
+            const amount = element[0];
+            const currency = element[1];
+            const amountInteger = numeral(splitNumber(amount)[0]).format();
+            const amountDecimal = splitNumber(amount)[1];
+            return `${amountInteger}.${amountDecimal} ${currency}`;
+        }).join('\n');
+        setTextToCopy(resultToCopy);
+    // eslint-disable-next-line react/prop-types
+    }, [children.props.list.values]);
 
     return (
         <>
@@ -115,7 +128,10 @@ function Results(props) {
                     <div className="flex flex-wrap w-full p-8 rounded-3xl border-[1px] border-orange-200">
                         <div className="block w-full">
                             <ul className="flex gap-4 justify-end text-[1.2rem] text-slate-300">
-                                <li className="cursor-pointer hover:text-orange-500">copy all</li>
+                                <CopyToClipboard text={textToCopy} onCopy={onCopyText}>
+                                    <li className={`cursor-pointer hover:text-orange-500 ${copyStatus && 'hidden'}`}>copy all</li>
+                                </CopyToClipboard>
+                                {copyStatus && <li>copied!</li>}
                                 <li>|</li>
                                 <li className="cursor-pointer hover:text-orange-500">export all</li>
                             </ul>
@@ -129,7 +145,7 @@ function Results(props) {
                                     const currency = element[1];
                                     const amountInteger = numeral(splitNumber(amount)[0]).format();
                                     const amountDecimal = splitNumber(amount)[1];
-
+                
                                     return (
                                         <div key={index} className="max-w-full">
                                             <div className={`flex gap-8 justify-center items-end px-8 py-4 m-4 rounded-xl border-[1px] max-w-[90%] ${themeColors.border.result}`}>
