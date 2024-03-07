@@ -27,7 +27,6 @@ function Results(props) {
     const onCopyText = () => {
         setCopyStatus(true);
         setTimeout(() => setCopyStatus(false), 2000);
-        console.log(textToCopy);
     };
 
     useEffect(() => {
@@ -68,9 +67,9 @@ function Results(props) {
     const inputAmountInteger = numeral(splitNumber(state.inputData.amount)[0]).format(0, 0);
     const inputAmountDecimals = splitNumber(state.inputData.amount)[1];
 
-    useEffect(() => {
+    const updateCopyValue = () => {
         // eslint-disable-next-line react/prop-types
-        let resultToCopy = children.props.list.values.map(element => {
+        const resultToCopy = children.props.list.values.map(element => {
             const amount = element[0];
             const currency = element[1];
             const amountInteger = numeral(splitNumber(amount)[0]).format();
@@ -78,6 +77,10 @@ function Results(props) {
             return `${amountInteger}.${amountDecimal} ${currency}`;
         }).join('\n');
         setTextToCopy(resultToCopy);
+    }
+    
+    useEffect(() => {
+        updateCopyValue();
     // eslint-disable-next-line react/prop-types
     }, [children.props.list.values]);
 
