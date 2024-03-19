@@ -35,7 +35,6 @@ const convertValue = (inputRefValue, inputValue, targetCurrencies, targetCurrenc
         }
     
     }
-   
 
 }
 

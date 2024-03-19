@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Context } from "./Utilities/Context";
+import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
 function DropdownMenu ({animate}) {
 
     const { themeColors } = useContext(Context);
@@ -14,5 +14,9 @@ function DropdownMenu ({animate}) {
         </div>
     );
 }
+
+DropdownMenu.propTypes = {
+    animate: PropTypes.string.isRequired
+};
 
 export default DropdownMenu;

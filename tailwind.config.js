@@ -1,7 +1,4 @@
-/** @type {import('tailwindcss').Config} */
-
-// eslint-disable-next-line no-undef
-const defaultTheme = require('tailwindcss/defaultTheme')
+import { screens } from 'tailwindcss/defaultTheme';
 
 export default {
   content: [
@@ -14,14 +11,12 @@ export default {
         'regal-blue': '#0D1A2B',
         'input-focus-blue': '#142741'
       }
-
     },
     screens: {
       'xxs' : '440px',
       'xs' : '540px',
-      ...defaultTheme.screens,
+      ...screens,
     }
   },
   plugins: [],
 }
-
