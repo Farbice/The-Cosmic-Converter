@@ -6,12 +6,12 @@ import LogoLight from "./Assets/Logo/logoLight";
 import splitNumber from "./Utilities/splitNumber";
 import numeral from "numeral";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import PropTypes from 'prop-types';
 
 
 function Results(props) {
 
     const { themeColors, state } = useContext(Context);
-    // eslint-disable-next-line react/prop-types
     const { children } = props;
 
     const [numberOfConversions, setNumOfConversions] = useState({
@@ -31,35 +31,29 @@ function Results(props) {
 
     useEffect(() => {
 
-        // eslint-disable-next-line react/prop-types
         if (children.props.list.values.length > 1) {
             setNumOfConversions({
-                // eslint-disable-next-line react/prop-types
                 number: children.props.list.values.length,
                 grammar: 'Conversions'
             })
 
         } else {
             setNumOfConversions({
-                // eslint-disable-next-line react/prop-types
                 number: '',
                 grammar: 'Conversion'
             })
         }
 
-        // eslint-disable-next-line react/prop-types
     }, [children.props.list.values.length]);
 
 
     useEffect(() => {
-        // eslint-disable-next-line react/prop-types
         if (children.props.list) {
             setTimeout(() => {
                 autoFocus(targetComponentRef);
             }, 50);
         }
 
-        // eslint-disable-next-line react/prop-types
     }, [children.props.list]);
 
     const autoFocus = (element) => element.current?.scrollIntoView({ behavior: "smooth" });
@@ -68,7 +62,6 @@ function Results(props) {
     const inputAmountDecimals = splitNumber(state.inputData.amount)[1];
 
     const updateCopyValue = () => {
-        // eslint-disable-next-line react/prop-types
         const resultToCopy = children.props.list.values.map(element => {
             const amount = element[0];
             const currency = element[1];
@@ -81,7 +74,6 @@ function Results(props) {
     
     useEffect(() => {
         updateCopyValue();
-    // eslint-disable-next-line react/prop-types
     }, [children.props.list.values]);
 
     return (
@@ -142,7 +134,6 @@ function Results(props) {
                         <div className="flex flex-wrap w-full">
                             <button ref={targetComponentRef} type="button"></button>
                             {
-                                // eslint-disable-next-line react/prop-types
                                 children.props.list && children.props.list.values.map((element, index) => {
                                     const amount = element[0];
                                     const currency = element[1];
@@ -178,5 +169,9 @@ function Results(props) {
         </>
     )
 }
+
+Results.propTypes = {
+    children: PropTypes.node.isRequired
+};
 
 export default Results;

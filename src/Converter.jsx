@@ -10,6 +10,7 @@ import StarPosRight from "./Assets/Images/star_pos_right";
 import StarPosLeft from "./Assets/Images/star_pos_left";
 import DropdownLight from "./Assets/Images/dropdown_light";
 import splitNumber from "./Utilities/splitNumber";
+import PropTypes from 'prop-types';
 
 function Converter() {
 
@@ -223,7 +224,6 @@ function Converter() {
 
     const DropdownIndicator = (props) => {
 
-        // eslint-disable-next-line react/prop-types
         const { getStyles } = props;
 
         return (
@@ -518,5 +518,19 @@ function Converter() {
         </>
     )
 }
+
+Results.propTypes = {
+    children: PropTypes.node.isRequired
+};
+
+Converter.propTypes = {
+    getStyles: PropTypes.string.isRequired,
+    tableResults: PropTypes.shape({
+        label: PropTypes.arrayOf(PropTypes.string).isRequired,
+        values: PropTypes.arrayOf(
+            PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
+        )
+    }).isRequired
+};
 
 export default Converter;
