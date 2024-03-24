@@ -1,21 +1,22 @@
 import { useState, useEffect, useRef, useContext } from "react";
-import { Context } from "./Utilities/Context";
-import { Table } from "./Table";
-import Results from "./Results";
+import { Context } from "../Utilities/Context";
+import { Table } from "../Table";
+import Results from "../Results";
 import Select, { components } from 'react-select';
-import formatRatesTable from "./Utilities/formatRatesTable";
-import convertValue from './Utilities/convertValue';
-import getOneCurrency from "./Utilities/getOneCurrency";
-import StarPosRight from "./Assets/Images/star_pos_right";
-import StarPosLeft from "./Assets/Images/star_pos_left";
-import DropdownLight from "./Assets/Images/dropdown_light";
-import splitNumber from "./Utilities/splitNumber";
+import formatRatesTable from "../Utilities/formatRatesTable";
+import convertValue from '../Utilities/convertValue';
+import getOneCurrency from "../Utilities/getOneCurrency";
+import StarPosRight from "../Assets/Images/star_pos_right";
+import StarPosLeft from "../Assets/Images/star_pos_left";
+import DropdownLight from "../Assets/Images/dropdown_light";
+import splitNumber from "../Utilities/splitNumber";
 import PropTypes from 'prop-types';
-import { getInputColorStyles } from './Utilities/inputColorStyles';
+import { getInputColorStyles } from './Converter.helper';
 
 function Converter() {
 
     const { themeColors, getData, state } = useContext(Context);
+    const { currentTheme } = state;
 
     const [targetCurrencyBackgroundColor, setTargetCurrencyBackgroundColor] = useState('#b0ecf6');
 
@@ -47,16 +48,16 @@ function Converter() {
 
     const selectRef = useRef();
 
-    const inputColorStyles = getInputColorStyles(state);
+    const inputColorStyles = getInputColorStyles(currentTheme);
 
     const outputColorStyles = {
         control: (styles, { isFocused }) => {
 
             let borderStyle = '';
 
-            if (state.currentTheme === 'light') {
+            if (currentTheme === 'light') {
                 borderStyle = "1px solid #FFEDD5";
-            } else if (state.currentTheme === 'dark') {
+            } else if (currentTheme === 'dark') {
                 borderStyle = "1px solid #48341c";
             }
 
@@ -90,7 +91,7 @@ function Converter() {
             let activeOptionBackgroundColor = '';
             let activeOptionColor = '';
 
-            if (state.currentTheme === 'light') {
+            if (currentTheme === 'light') {
                 if (isFocused) {
                     optionBackgroundColor = '#f7e5d7';
                     optionColor = '#FB6D3C';
@@ -98,7 +99,7 @@ function Converter() {
                     optionBackgroundColor = '#fffefd';
                     optionColor = '#5a6a7e';
                 }
-            } else if (state.currentTheme === 'dark') {
+            } else if (currentTheme === 'dark') {
                 if (isFocused) {
                     optionBackgroundColor = '#5a6a7e';
                     optionColor = '#fff5e9';
@@ -109,13 +110,13 @@ function Converter() {
             }
 
 
-            if (state.currentTheme === 'light') {
+            if (currentTheme === 'light') {
                 if (isSelected) {
                     activeOptionBackgroundColor = '#d7d7ff';
                 } else {
                     activeOptionBackgroundColor = '#dfeeff';
                 }
-            } else if (state.currentTheme === 'dark') {
+            } else if (currentTheme === 'dark') {
                 if (!isDisabled) {
                     if (isSelected) {
                         activeOptionBackgroundColor = '#ee711e';
@@ -137,10 +138,10 @@ function Converter() {
 
             let menuListBackgroundColor = '';
 
-            if (state.currentTheme === 'light') {
+            if (currentTheme === 'light') {
                 menuListBackgroundColor = '#ffff';
             }
-            else if (state.currentTheme === 'dark') {
+            else if (currentTheme === 'dark') {
                 menuListBackgroundColor = '#1E293B';
             }
 
@@ -452,13 +453,13 @@ Results.propTypes = {
 };
 
 Converter.propTypes = {
-    getStyles: PropTypes.string.isRequired,
+    getStyles: PropTypes.string,
     tableResults: PropTypes.shape({
         label: PropTypes.arrayOf(PropTypes.string).isRequired,
         values: PropTypes.arrayOf(
             PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
         )
-    }).isRequired
+    })
 };
 
 export default Converter;

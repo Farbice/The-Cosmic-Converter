@@ -1,4 +1,4 @@
-export const getInputColorStyles = (state) => {
+export const getInputColorStyles = (currentTheme) => {
     const controlStyle = (styles) => ({ ...styles, backgroundColor: '#FB6D3C', border: 'none', borderRadius: '5px', });
     const singleValueStyle = (styles) => ({ ...styles, color: '#ffff' });
     const valueContainerStyle = (styles) => ({ ...styles, fontFamily: 'Questrial', paddingRight: "4px" });
@@ -8,10 +8,10 @@ export const getInputColorStyles = (state) => {
 
         let menuListBackgroundColor = '';
 
-        if (state.currentTheme === 'light') {
+        if (currentTheme === 'light') {
             menuListBackgroundColor = '#ffff';
         }
-        else if (state.currentTheme === 'dark') {
+        else if (currentTheme === 'dark') {
             menuListBackgroundColor = '#1E293B';
         }
 
@@ -27,7 +27,7 @@ export const getInputColorStyles = (state) => {
         let activeOptionBackgroundColor = '';
         let activeOptionColor = '';
 
-        if (state.currentTheme === 'light') {
+        if (currentTheme === 'light') {
             if (isFocused) {
                 optionBackgroundColor = '#f7e5d7';
                 optionColor = '#FB6D3C';
@@ -35,7 +35,7 @@ export const getInputColorStyles = (state) => {
                 optionBackgroundColor = '#fffefd';
                 optionColor = '#5a6a7e';
             }
-        } else if (state.currentTheme === 'dark') {
+        } else if (currentTheme === 'dark') {
             if (isFocused) {
                 optionBackgroundColor = '#5a6a7e';
                 optionColor = '#fff5e9';
@@ -46,7 +46,7 @@ export const getInputColorStyles = (state) => {
         }
 
 
-        if (state.currentTheme === 'light') {
+        if (currentTheme === 'light') {
             if (!isDisabled) {
                 if (isSelected) {
                     activeOptionBackgroundColor = '#d7d7ff';
@@ -54,7 +54,7 @@ export const getInputColorStyles = (state) => {
                     activeOptionBackgroundColor = '#dfeeff';
                 }
             }
-        } else if (state.currentTheme === 'dark') {
+        } else if (currentTheme === 'dark') {
             if (!isDisabled) {
                 if (isSelected) {
                     activeOptionBackgroundColor = '#ee711e';
