@@ -12,7 +12,7 @@ import DropdownLight from "../Assets/Images/dropdown_light";
 import splitNumber from "../Utilities/splitNumber";
 import PropTypes from 'prop-types';
 import { getInputColorStyles } from './Converter.helper';
-import { getOutputColorStyles } from '../Utilities/outputColorStyles';
+import { getOutputColorStyles } from './Converter.helper';
 
 function Converter() {
 
