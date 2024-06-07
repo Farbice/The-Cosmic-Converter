@@ -12,6 +12,7 @@ import DropdownLight from "../Assets/Images/dropdown_light";
 import splitNumber from "../Utilities/splitNumber";
 import PropTypes from 'prop-types';
 import { getInputColorStyles } from './Converter.helper';
+import { getOutputColorStyles } from './Converter.helper';
 
 function Converter() {
 
@@ -49,107 +50,7 @@ function Converter() {
     const selectRef = useRef();
 
     const inputColorStyles = getInputColorStyles(currentTheme);
-
-    const outputColorStyles = {
-        control: (styles, { isFocused }) => {
-
-            let borderStyle = '';
-
-            if (currentTheme === 'light') {
-                borderStyle = "1px solid #FFEDD5";
-            } else if (currentTheme === 'dark') {
-                borderStyle = "1px solid #48341c";
-            }
-
-            if (isFocused) {
-                borderStyle = "none";
-            }
-
-            return (
-                { ...styles, minHeight: 'min-content', maxWidth: 'content', padding: '2px', backgroundColor: 'none', border: borderStyle }
-            )
-        },
-        valueContainer: (styles) => ({ ...styles, flexWrap: 'nowrap', padding: '0px', fontFamily: 'Questrial', overflow: 'scroll' }),
-        multiValue: (styles) => {
-
-            return (
-                { ...styles, margin: '0px 8px 0px 0px', padding: '4px', minWidth: 'fit-content', borderRadius: '5px', "&:hover": { color: "#ffb95d" }, backgroundColor: '#282c5f' }
-            )
-        },
-
-        multiValueLabel: (styles) => {
-
-            return (
-                { ...styles, color: '#5582dd99H' }
-            )
-        },
-
-        option: (styles, { isFocused, isSelected, isDisabled }) => {
-
-            let optionBackgroundColor = '';
-            let optionColor = '';
-            let activeOptionBackgroundColor = '';
-            let activeOptionColor = '';
-
-            if (currentTheme === 'light') {
-                if (isFocused) {
-                    optionBackgroundColor = '#f7e5d7';
-                    optionColor = '#FB6D3C';
-                } else {
-                    optionBackgroundColor = '#fffefd';
-                    optionColor = '#5a6a7e';
-                }
-            } else if (currentTheme === 'dark') {
-                if (isFocused) {
-                    optionBackgroundColor = '#5a6a7e';
-                    optionColor = '#fff5e9';
-                } else {
-                    optionBackgroundColor = '#1E293B';
-                    optionColor = '#a9b7c7';
-                }
-            }
-
-
-            if (currentTheme === 'light') {
-                if (isSelected) {
-                    activeOptionBackgroundColor = '#d7d7ff';
-                } else {
-                    activeOptionBackgroundColor = '#dfeeff';
-                }
-            } else if (currentTheme === 'dark') {
-                if (!isDisabled) {
-                    if (isSelected) {
-                        activeOptionBackgroundColor = '#ee711e';
-                    } else {
-                        activeOptionBackgroundColor = '#f1a164';
-                    }
-                }
-            }
-
-            return (
-                {
-                    ...styles, backgroundColor: optionBackgroundColor, color: optionColor,
-                    ':active': { ...styles[':active'], backgroundColor: activeOptionBackgroundColor, color: activeOptionColor },
-                }
-            )
-        },
-
-        menuList: (styles) => {
-
-            let menuListBackgroundColor = '';
-
-            if (currentTheme === 'light') {
-                menuListBackgroundColor = '#ffff';
-            }
-            else if (currentTheme === 'dark') {
-                menuListBackgroundColor = '#1E293B';
-            }
-
-            return (
-                { ...styles, borderRadius: '5px', backgroundColor: menuListBackgroundColor }
-            )
-        },
-    };
+    const outputColorStyles = getOutputColorStyles(state);
 
     const DropdownIndicator = (props) => {
 
