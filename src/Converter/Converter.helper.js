@@ -87,16 +87,16 @@ export const getInputColorStyles = (currentTheme) => {
 export const getOutputColorStyles = (state) => {
     const controlStyle= (styles, { isFocused }) => {
 
-        let borderStyle = '';
+        let borderStyle;
 
         if (state.currentTheme === 'light') {
-            borderStyle = "1px solid #FFEDD5";
+            borderStyle = '1px solid #FFEDD5';
         } else if (state.currentTheme === 'dark') {
-            borderStyle = "1px solid #48341c";
+            borderStyle = '1px solid #48341c';
         }
 
         if (isFocused) {
-            borderStyle = "none";
+            borderStyle = 'none';
         }
 
         return (
@@ -106,14 +106,12 @@ export const getOutputColorStyles = (state) => {
 
     const valueContainerStyle = (styles) => ({ ...styles, flexWrap: 'nowrap', padding: '0px', fontFamily: 'Questrial', overflow: 'scroll' });
     const multiValueStyle = (styles) => {
-
         return (
             { ...styles, margin: '0px 8px 0px 0px', padding: '4px', minWidth: 'fit-content', borderRadius: '5px', "&:hover": { color: "#ffb95d" }, backgroundColor: '#282c5f' }
         )
     };
 
     const multiValueLabelStyle= (styles) => {
-
         return (
             { ...styles, color: '#5582dd99H' }
         )
@@ -121,10 +119,10 @@ export const getOutputColorStyles = (state) => {
 
     const optionStyle = (styles, { isFocused, isSelected, isDisabled }) => {
 
-        let optionBackgroundColor = '';
-        let optionColor = '';
-        let activeOptionBackgroundColor = '';
-        let activeOptionColor = '';
+        let optionBackgroundColor;
+        let optionColor;
+        let activeOptionBackgroundColor;
+        let activeOptionColor;
 
         if (state.currentTheme === 'light') {
             if (isFocused) {
@@ -143,7 +141,6 @@ export const getOutputColorStyles = (state) => {
                 optionColor = '#a9b7c7';
             }
         }
-
 
         if (state.currentTheme === 'light') {
             if (isSelected) {
@@ -170,8 +167,7 @@ export const getOutputColorStyles = (state) => {
     };
 
     const menuListStyle = (styles) => {
-
-        let menuListBackgroundColor = '';
+        let menuListBackgroundColor;
 
         if (state.currentTheme === 'light') {
             menuListBackgroundColor = '#ffff';

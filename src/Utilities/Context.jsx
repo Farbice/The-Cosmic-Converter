@@ -5,7 +5,6 @@ import getInputData from "./getInputData";
 
 export const Context = createContext();
 
-
 const ContextProvider = (props) => {
     const [state, setState] = useState({ currentTheme: 'light', inputData: null });
 
