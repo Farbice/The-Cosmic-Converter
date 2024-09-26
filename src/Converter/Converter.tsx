@@ -1,35 +1,50 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef, useContext, type FunctionComponent, LegacyRef } from "react";
 import { Context } from "../Utilities/Context";
 import { Table } from "../Table";
 import Results from "../Results";
-import Select, { components } from 'react-select';
+import Select, { components, DropdownIndicatorProps, Options, PropsValue, SingleValue, MultiValue } from 'react-select';
 import formatRatesTable from "../Utilities/formatRatesTable";
 import convertValue from '../Utilities/convertValue';
 import getOneCurrency from "../Utilities/getOneCurrency";
 import StarPosRight from "../Assets/Images/star_pos_right";
 import StarPosLeft from "../Assets/Images/star_pos_left";
-import DropdownLight from "../Assets/Images/dropdown_light";
+import { DropdownLight } from "../Assets/Images/dropdown_light";
 import splitNumber from "../Utilities/splitNumber";
 import PropTypes from 'prop-types';
 import { getInputColorStyles } from './Converter.helper';
 import { getOutputColorStyles } from './Converter.helper';
 
-function Converter() {
+//<Option_2, IsMulti_2 extends boolean, Group_2 extends GroupBase<Option_2>>(props: DropdownIndicatorProps<Option_2, IsMulti_2, Group_2>) 
+
+interface Rate {
+    currency: string;
+    value: string;
+    label: string;
+    rate: string;
+    color: string;
+    options: Options<string>;
+    propsValue: MultiValue<string> | SingleValue<string>
+};
+
+const Converter: FunctionComponent = () => {
+
 
     const { themeColors, getData, state } = useContext(Context);
     const { currentTheme } = state;
 
     const [targetCurrencyBackgroundColor, setTargetCurrencyBackgroundColor] = useState('#b0ecf6');
 
-    const [defaultTargetCurrenciesKey, setDefaultTargetCurrenciesKey] = useState({
+    const [defaultTargetCurrenciesKey, setDefaultTargetCurrenciesKey] = useState<Rate | Rate[]>({
         currency: 'USD',
         value: 'USD',
         label: 'USD',
         rate: '',
-        color: targetCurrencyBackgroundColor
+        color: targetCurrencyBackgroundColor,
+        options: [],
+        propsValue:['']
     });
 
-    const [rateSelectOption, setRateSelectOption] = useState([]);
+    const [rateSelectOption, setRateSelectOption] = useState<Rate[]>([]);
     const [firstCurrency, setFirstCurrency] = useState('');
 
     const [targetCurrencies, setTargetCurrencies] = useState('');
@@ -37,15 +52,15 @@ function Converter() {
     const [inputValue, setInputValue] = useState('');
 
     const [dataTable, setDataTable] = useState(rateSelectOption);
-    const [inputCurrencyCustomRateTable, setInputCurrencyCustomRateTable] = useState('');
+    const [inputCurrencyCustomRateTable, setInputCurrencyCustomRateTable] = useState<Rate[] | []>([]);
 
     const [showAmountErrorMessage, setShowAmountErrorMessage] = useState(false);
     const [showCurrencyErrorMessage, setShowCurrencyErrorMessage] = useState(false);
 
     const [tableResults, setTableResults] = useState(null);
-
-    const targetCurrencyRef = useRef([]);
-    const inputRef = useRef();
+    // @ts-ignore
+    const targetCurrencyRef = useRef<Select<string, true, Rate>>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const selectRef = useRef();
 
@@ -77,16 +92,22 @@ function Converter() {
                 const data = await response.json();
                 setDataTable(data.rates);
 
-                const selectData = formatRatesTable(data.rates, 'EUR', setFirstCurrency);
+                const selectData: Rate[] = formatRatesTable(data.rates, 'EUR', setFirstCurrency);
                 setRateSelectOption(selectData);
                 setInputCurrencyCustomRateTable(selectData);
 
                 const selectOutputData = getOneCurrency(selectData, 'USD');
+                console.log(defaultTargetCurrenciesKey);
                 setTargetCurrencies(selectOutputData);
+                setTimeout(() => {
+                    console.log(defaultTargetCurrenciesKey);
+                }, 3000);
                 setDefaultTargetCurrenciesKey({
                     ...defaultTargetCurrenciesKey,
                     rate: selectOutputData[0].rate
                 });
+
+
 
             } catch (error) {
                 console.error('Erreur lors de la récupération des taux de change :', error);
@@ -123,8 +144,6 @@ function Converter() {
         setTargetCurrencies(updatedOutputCurrencies);
 
     }, [firstCurrency, inputCurrencyCustomRateTable]);
-
-
 
     function handleTargetCurrencies(data) {
         const updatedTargetCurrencies = data.map(currencyInfo => {
@@ -176,7 +195,7 @@ function Converter() {
         }
 
         data.target.value = formattedWithDecimalInputValue;
-        
+
     }
 
     return (
@@ -254,16 +273,19 @@ function Converter() {
                                                 />
                                             </label>
                                             <div className="flex self-center">
-                                                <Select
-                                                    className="block xxs:min-w-[96px] xxs:max-w-[96px] min-w-[80px] xxs:inset-x-0 -inset-x-5"
-                                                    options={rateSelectOption}
-                                                    defaultValue={firstCurrency}
-                                                    value={firstCurrency}
-                                                    onChange={handleFirstCurrency}
-                                                    styles={inputColorStyles}
-                                                    autoFocus={true}
-                                                    onKeyDown={handleTextOnly}
-                                                />
+                                                {
+                                                    rateSelectOption.length > 0 &&
+                                                    <Select
+                                                        className="block xxs:min-w-[96px] xxs:max-w-[96px] min-w-[80px] xxs:inset-x-0 -inset-x-5"
+                                                        options={rateSelectOption}
+                                                        defaultValue={firstCurrency}
+                                                        value={firstCurrency}
+                                                        onChange={handleFirstCurrency}
+                                                        styles={inputColorStyles}
+                                                        autoFocus={true}
+                                                        onKeyDown={handleTextOnly}
+                                                    />
+                                                }
                                             </div>
                                         </div>
                                         <div className="relative">
@@ -286,18 +308,20 @@ function Converter() {
                                     <div className={`flex flex-col justify-between xs:w-[378px] xxs:w-[320px] w-[250px] min-h-[79px] max-h-[79px] p-4 mb-8 border border-orange-200 hover:border-orange-400 focus-within:border-orange-400 rounded-3xl`}>
                                         <p className="text-end text-slate-300 text-[1.2rem] pr-4">add currencies</p>
                                         <div>
-                                            <Select
-                                                isMulti
-                                                options={rateSelectOption}
-                                                components={{ DropdownIndicator }}
-                                                defaultValue={defaultTargetCurrenciesKey}
-                                                value={targetCurrencies}
-                                                onChange={handleTargetCurrencies}
-                                                styles={{ ...outputColorStyles, DropdownIndicator: dropdownIndicatorStyles }}
-                                                autoFocus={true}
-                                                ref={targetCurrencyRef}
-                                                isClearable={true}
-                                            />
+                                           
+                                                {<Select
+                                                    isMulti
+                                                    options={rateSelectOption}
+                                                    components={{ DropdownIndicator }}
+                                                    defaultValue={defaultTargetCurrenciesKey}
+                                                    value={targetCurrencies}
+                                                    onChange={handleTargetCurrencies}
+                                                    styles={{ ...outputColorStyles, DropdownIndicator: dropdownIndicatorStyles }}
+                                                    autoFocus={true}
+                                                    ref={targetCurrencyRef}
+                                                    isClearable={true}
+                                                />}
+                                            
                                         </div>
                                         <div className="relative">
                                             {
