@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext, type FunctionComponent, LegacyRef } from "react";
+import React, { useState, useEffect, useRef, useContext, type FunctionComponent } from "react";
 import { Context } from "../Utilities/Context";
 import { Table } from "../Table";
 import Results from "../Results";
@@ -23,7 +23,6 @@ interface Rate {
     rate: string;
     color: string;
     options: Options<string>;
-    propsValue: MultiValue<string> | SingleValue<string>
 };
 
 const Converter: FunctionComponent = () => {
@@ -34,18 +33,18 @@ const Converter: FunctionComponent = () => {
 
     const [targetCurrencyBackgroundColor, setTargetCurrencyBackgroundColor] = useState('#b0ecf6');
 
-    const [defaultTargetCurrenciesKey, setDefaultTargetCurrenciesKey] = useState<Rate | Rate[]>({
+    const [defaultTargetCurrenciesKey, setDefaultTargetCurrenciesKey] = useState<Rate>({
         currency: 'USD',
         value: 'USD',
         label: 'USD',
         rate: '',
         color: targetCurrencyBackgroundColor,
         options: [],
-        propsValue:['']
     });
+    
 
     const [rateSelectOption, setRateSelectOption] = useState<Rate[]>([]);
-    const [firstCurrency, setFirstCurrency] = useState('');
+    const [firstCurrency, setFirstCurrency] = useState<Rate[]>([]);
 
     const [targetCurrencies, setTargetCurrencies] = useState('');
 
@@ -61,8 +60,7 @@ const Converter: FunctionComponent = () => {
     // @ts-ignore
     const targetCurrencyRef = useRef<Select<string, true, Rate>>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-
-    const selectRef = useRef();
+    const selectRef = useRef<HTMLInputElement>(null);
 
     const inputColorStyles = getInputColorStyles(currentTheme);
     const outputColorStyles = getOutputColorStyles(state);
@@ -97,11 +95,7 @@ const Converter: FunctionComponent = () => {
                 setInputCurrencyCustomRateTable(selectData);
 
                 const selectOutputData = getOneCurrency(selectData, 'USD');
-                console.log(defaultTargetCurrenciesKey);
                 setTargetCurrencies(selectOutputData);
-                setTimeout(() => {
-                    console.log(defaultTargetCurrenciesKey);
-                }, 3000);
                 setDefaultTargetCurrenciesKey({
                     ...defaultTargetCurrenciesKey,
                     rate: selectOutputData[0].rate
@@ -308,20 +302,20 @@ const Converter: FunctionComponent = () => {
                                     <div className={`flex flex-col justify-between xs:w-[378px] xxs:w-[320px] w-[250px] min-h-[79px] max-h-[79px] p-4 mb-8 border border-orange-200 hover:border-orange-400 focus-within:border-orange-400 rounded-3xl`}>
                                         <p className="text-end text-slate-300 text-[1.2rem] pr-4">add currencies</p>
                                         <div>
-                                           
-                                                {<Select
-                                                    isMulti
-                                                    options={rateSelectOption}
-                                                    components={{ DropdownIndicator }}
-                                                    defaultValue={defaultTargetCurrenciesKey}
-                                                    value={targetCurrencies}
-                                                    onChange={handleTargetCurrencies}
-                                                    styles={{ ...outputColorStyles, DropdownIndicator: dropdownIndicatorStyles }}
-                                                    autoFocus={true}
-                                                    ref={targetCurrencyRef}
-                                                    isClearable={true}
-                                                />}
-                                            
+
+                                            {<Select
+                                                isMulti
+                                                options={rateSelectOption}
+                                                components={{ DropdownIndicator }}
+                                                defaultValue={defaultTargetCurrenciesKey.label}
+                                                value={targetCurrencies}
+                                                onChange={handleTargetCurrencies}
+                                                styles={{ ...outputColorStyles, dropdownIndicator: dropdownIndicatorStyles }}
+                                                autoFocus={true}
+                                                ref={targetCurrencyRef}
+                                                isClearable={true}
+                                            />}
+
                                         </div>
                                         <div className="relative">
                                             {
@@ -344,9 +338,17 @@ const Converter: FunctionComponent = () => {
                                         onClick=
                                         {
                                             () => {
-                                                const table = convertValue(inputRef.current.value, inputValue, targetCurrencies, targetCurrencyRef.current.props.value, setShowAmountErrorMessage, setShowCurrencyErrorMessage);
-                                                getData(inputValue, firstCurrency[0].currency);
-                                                setTableResults(table);
+                                                if (inputRef.current && targetCurrencyRef.current) {
+                                                    const table= convertValue(
+                                                        inputRef.current.value,
+                                                        inputValue,
+                                                        targetCurrencies,
+                                                        targetCurrencyRef.current.props.value,
+                                                        setShowAmountErrorMessage,
+                                                        setShowCurrencyErrorMessage);
+                                                    getData(inputValue, firstCurrency[0].currency);
+                                                    setTableResults(table);
+                                                }
                                             }
                                         }>
                                         Convert
