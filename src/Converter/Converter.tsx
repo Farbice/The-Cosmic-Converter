@@ -25,6 +25,11 @@ interface Rate {
     options: Options<string>;
 };
 
+interface ResultsTable {
+    label: string[];
+    values: (string | number | null | undefined)[][];
+};
+
 const Converter: FunctionComponent = () => {
 
 
@@ -56,7 +61,8 @@ const Converter: FunctionComponent = () => {
     const [showAmountErrorMessage, setShowAmountErrorMessage] = useState(false);
     const [showCurrencyErrorMessage, setShowCurrencyErrorMessage] = useState(false);
 
-    const [tableResults, setTableResults] = useState(null);
+    const [tableResults, setTableResults] = useState<ResultsTable>({ label: [], values: [] });
+
     // @ts-ignore
     const targetCurrencyRef = useRef<Select<string, true, Rate>>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -347,7 +353,9 @@ const Converter: FunctionComponent = () => {
                                                         setShowAmountErrorMessage,
                                                         setShowCurrencyErrorMessage);
                                                     getData(inputValue, firstCurrency[0].currency);
-                                                    setTableResults(table);
+                                                    if (table) {
+                                                        setTableResults(table);
+                                                    }
                                                 }
                                             }
                                         }>
