@@ -14,8 +14,6 @@ import PropTypes from 'prop-types';
 import { getInputColorStyles } from './Converter.helper';
 import { getOutputColorStyles } from './Converter.helper';
 
-//<Option_2, IsMulti_2 extends boolean, Group_2 extends GroupBase<Option_2>>(props: DropdownIndicatorProps<Option_2, IsMulti_2, Group_2>) 
-
 interface Rate {
     currency: string;
     value: string;
@@ -27,7 +25,7 @@ interface Rate {
 
 interface ResultsTable {
     label: string[];
-    values: (string | number | null | undefined)[][];
+    values: (number )[][];
 };
 
 const Converter: FunctionComponent = () => {
@@ -61,7 +59,8 @@ const Converter: FunctionComponent = () => {
     const [showAmountErrorMessage, setShowAmountErrorMessage] = useState(false);
     const [showCurrencyErrorMessage, setShowCurrencyErrorMessage] = useState(false);
 
-    const [tableResults, setTableResults] = useState<ResultsTable>({ label: [], values: [] });
+
+    const [tableResults, setTableResults] = useState<ResultsTable>();
 
     // @ts-ignore
     const targetCurrencyRef = useRef<Select<string, true, Rate>>(null);

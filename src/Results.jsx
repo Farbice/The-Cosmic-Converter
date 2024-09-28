@@ -58,8 +58,11 @@ function Results(props) {
 
     const autoFocus = (element) => element.current?.scrollIntoView({ behavior: "smooth" });
 
-    const inputAmountInteger = numeral(splitNumber(state.inputData.amount)[0]).format(0, 0);
-    const inputAmountDecimals = splitNumber(state.inputData.amount)[1];
+
+    const inputAmount = state.inputData.amount;
+    const inputAmountInteger = numeral(splitNumber(inputAmount)[0]).format(0, 0);
+    const inputAmountDecimals = splitNumber(inputAmount)[1];
+
 
     const updateCopyValue = () => {
         const resultToCopy = children.props.list.values.map(element => {
@@ -71,7 +74,7 @@ function Results(props) {
         }).join('\n');
         setTextToCopy(resultToCopy);
     }
-    
+
     useEffect(() => {
         updateCopyValue();
     }, [children.props.list.values]);
@@ -135,11 +138,12 @@ function Results(props) {
                             <button ref={targetComponentRef} type="button"></button>
                             {
                                 children.props.list && children.props.list.values.map((element, index) => {
+
                                     const amount = element[0];
                                     const currency = element[1];
                                     const amountInteger = numeral(splitNumber(amount)[0]).format();
                                     const amountDecimal = splitNumber(amount)[1];
-                
+
                                     return (
                                         <div key={index} className="max-w-full">
                                             <div className={`flex gap-8 justify-center items-end px-8 py-4 m-4 rounded-xl border-[1px] max-w-[90%] ${themeColors.border.result}`}>
