@@ -1,4 +1,5 @@
-import { useContext, useState, useEffect, useRef } from "react";
+import React from "react";
+import { useContext, useState, useEffect, useRef, type FunctionComponent } from "react";
 import { Context } from "../Utilities/Context";
 import StarResLeft from "../Assets/Images/star_res_left";
 import LogoDark from "../Assets/Logo/logoDark";
@@ -8,18 +9,31 @@ import numeral from "numeral";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import PropTypes from 'prop-types';
 
+interface ChildrenProps {
+    list: {
+        values: Array<[string, string]>;
+    }
+};
 
-function Results(props) {
+interface ResultProps {
+    children: React.ReactElement<ChildrenProps>;
+};
+
+interface NumberOfConversionsType {
+    number: string | number;
+    grammar: string;
+}
+
+function Results({children}: ResultProps) {
 
     const { themeColors, state } = useContext(Context);
-    const { children } = props;
 
-    const [numberOfConversions, setNumOfConversions] = useState({
+    const [numberOfConversions, setNumOfConversions] = useState<NumberOfConversionsType>({
         number: '',
         grammar: 'Conversion'
     });
 
-    const targetComponentRef = useRef();
+    const targetComponentRef = useRef<HTMLButtonElement>(null);
 
     const [textToCopy, setTextToCopy] = useState('');
     const [copyStatus, setCopyStatus] = useState(false);
@@ -30,10 +44,10 @@ function Results(props) {
     };
 
     useEffect(() => {
-
-        if (children.props.list.values.length > 1) {
+        const values = children.props.list?.values;
+        if (values && values.length > 1) {
             setNumOfConversions({
-                number: children.props.list.values.length,
+                number: values.length,
                 grammar: 'Conversions'
             })
 
@@ -44,7 +58,7 @@ function Results(props) {
             })
         }
 
-    }, [children.props.list.values.length]);
+    }, [children.props.list?.values.length]);
 
 
     useEffect(() => {
@@ -65,19 +79,24 @@ function Results(props) {
 
 
     const updateCopyValue = () => {
-        const resultToCopy = children.props.list.values.map(element => {
-            const amount = element[0];
-            const currency = element[1];
-            const amountInteger = numeral(splitNumber(amount)[0]).format();
-            const amountDecimal = splitNumber(amount)[1];
-            return `${amountInteger}.${amountDecimal} ${currency}`;
-        }).join('\n');
-        setTextToCopy(resultToCopy);
+        const values = children.props.list?.values;
+        if (values) {
+            const resultToCopy = values.map(element => {
+                const amount = element[0];
+                const currency = element[1];
+                const amountInteger = numeral(splitNumber(amount)[0]).format();
+                const amountDecimal = splitNumber(amount)[1];
+                return `${amountInteger}.${amountDecimal} ${currency}`;
+            }).join('\n');
+            setTextToCopy(resultToCopy);
+        }
     }
 
     useEffect(() => {
-        updateCopyValue();
-    }, [children.props.list.values]);
+        if (children.props.list?.values) {
+            updateCopyValue();
+        }
+    }, [children.props.list?.values]);
 
     return (
         <>
@@ -147,13 +166,17 @@ function Results(props) {
                                     return (
                                         <div key={index} className="max-w-full">
                                             <div className={`flex gap-8 justify-center items-end px-8 py-4 m-4 rounded-xl border-[1px] max-w-[90%] ${themeColors.border.result}`}>
-                                                <div values={element} className={`xxs:text-4xl text-[95%] font-light pr-4 overflow-x-scroll ${themeColors.result_text}`}>
+                                                <div
+                                                    data-values={(element)}
+                                                    className={`xxs:text-4xl text-[95%] font-light pr-4 overflow-x-scroll ${themeColors.result_text}`}>
                                                     <span>{amountInteger}</span>
                                                     {
                                                         amountDecimal && (<>.<span className="text-[75%]">{amountDecimal}</span></>)
                                                     }
                                                 </div>
-                                                <div values={element} className={`xxs:text-4xl text-[95%] ${themeColors.result_text}`}>
+                                                <div
+                                                    data-values={(element)}
+                                                    className={`xxs:text-4xl text-[95%] ${themeColors.result_text}`}>
                                                     {currency}
                                                 </div>
                                             </div>
