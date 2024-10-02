@@ -23,9 +23,9 @@ interface Rate {
     options: Options<string>;
 };
 
-interface ResultsTable {
+type ResultsTable = {
     label: string[];
-    values: (number )[][];
+    values: (number)[][];
 };
 
 const Converter: FunctionComponent = () => {
