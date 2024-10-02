@@ -1,9 +1,9 @@
 import { useContext, useState, useEffect, useRef } from "react";
-import { Context } from "./Utilities/Context";
-import StarResLeft from "./Assets/Images/star_res_left";
-import LogoDark from "./Assets/Logo/logoDark";
-import LogoLight from "./Assets/Logo/logoLight";
-import splitNumber from "./Utilities/splitNumber";
+import { Context } from "../Utilities/Context";
+import StarResLeft from "../Assets/Images/star_res_left";
+import LogoDark from "../Assets/Logo/logoDark";
+import LogoLight from "../Assets/Logo/logoLight";
+import splitNumber from "../Utilities/splitNumber";
 import numeral from "numeral";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import PropTypes from 'prop-types';

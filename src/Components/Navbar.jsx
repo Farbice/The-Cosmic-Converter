@@ -1,12 +1,12 @@
 import { useState, useEffect, useContext } from "react";
-import { Context } from "./Utilities/Context";
-import DropdownMenu from "./DropdownMenu";
-import LogoDark from "./Assets/Logo/logoDark";
-import LogoLight from "./Assets/Logo/logoLight";
-import LogotypeLight from "./Assets/Logo/logotypeLight";
-import LogotypeDark from "./Assets/Logo/logotypeDark";
-import Moon from "./Assets/Images/moon";
-import Sun from "./Assets/Images/sun";
+import { Context } from "../Utilities/Context";
+import DropdownMenu from "../Components/DropdownMenu";
+import LogoDark from "../Assets/Logo/logoDark";
+import LogoLight from "../Assets/Logo/logoLight";
+import LogotypeLight from "../Assets/Logo/logotypeLight";
+import LogotypeDark from "../Assets/Logo/logotypeDark";
+import Moon from "../Assets/Images/moon";
+import Sun from "../Assets/Images/sun";
 
 
 function getCurrentDimension() {

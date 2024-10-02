@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Context } from "./Utilities/Context";
+import { Context } from "../Utilities/Context";
 import PropTypes from 'prop-types';
 
 function DropdownMenu ({animate}) {

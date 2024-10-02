@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { Context } from "./Utilities/Context";
 import Converter from './Converter/Converter';
-import Navbar from "./Navbar";
+import Navbar from "./Components/Navbar";
 
 export const UserTheme = createContext(null);
 

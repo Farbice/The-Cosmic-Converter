@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useContext, type FunctionComponent } from "react";
 import { Context } from "../Utilities/Context";
-import { Table } from "../Table";
-import Results from "../Results";
+import { Table } from "../Components/Table";
+import Results from "../Components/Results";
 import Select, { components, DropdownIndicatorProps, Options, PropsValue, SingleValue, MultiValue } from 'react-select';
 import formatRatesTable from "../Utilities/formatRatesTable";
 import convertValue from '../Utilities/convertValue';
